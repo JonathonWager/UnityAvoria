@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class characterStats : MonoBehaviour
 {
-    public int hp = 100;
+    public decimal hp = 100;
     public int speed = 5;
-    public int def = 10;
-    public int atk = 10;
+    public decimal def = 10;
+    public decimal atk = 10;
 
 
-    public void takeDamage(int damage){
-        //hp = hp - (damage*(damage * (def  / 100)));
+    public void takeDamage(decimal damage){
+        Debug.Log(hp);
+        hp = hp - (damage * (1-(def  / 100)));
+   
     }
     // Start is called before the first frame update
     void Start()
