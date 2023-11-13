@@ -62,7 +62,6 @@ public class movement : MonoBehaviour
                     elapsed =0f;
                 }
                 transform.Translate(movement * 10f  * Time.deltaTime);
-                Debug.Log("PEE IN MEES");
             }else{
                  transform.Translate(movement * moveSpeed * Time.deltaTime);
             }
