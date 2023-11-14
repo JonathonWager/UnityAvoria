@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8526288150357539849}
   - component: {fileID: -2554293206304957955}
   - component: {fileID: 471923512819897366}
-  - component: {fileID: -5851501484172403868}
+  - component: {fileID: -2642044754395977502}
   m_Layer: 0
   m_Name: bulletPrefab
   m_TagString: Untagged
@@ -129,8 +129,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &-5851501484172403868
-CapsuleCollider2D:
+--- !u!68 &-2642044754395977502
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,5 +162,11 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 0.5}
-  m_Direction: 0
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.5, y: 0}
+  - {x: 0.5, y: 0}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
