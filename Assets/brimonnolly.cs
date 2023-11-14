@@ -19,7 +19,6 @@ public class brimonnolly : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if(Vector3.Distance(transform.position,player.transform.position) < range){
             if(elapsed >= attackTime){
                 Instantiate(fire, player.transform.position, Quaternion.identity);

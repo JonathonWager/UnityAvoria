@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class capsuleEnemy : MonoBehaviour
 {
-    public int hp = 25;
     public bool isAttacking = false;
     public float spinSpeed = 5f;
 

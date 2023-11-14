@@ -39,7 +39,6 @@ public class spawner : MonoBehaviour
             }
             Instantiate(enemy, this.transform.position + new Vector3(x, y, 0), Quaternion.identity);
             elapsed = 0f;
-        }
-        
+        }     
     }
 }

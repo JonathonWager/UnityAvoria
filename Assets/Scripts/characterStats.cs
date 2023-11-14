@@ -59,13 +59,12 @@ public class characterStats : MonoBehaviour
             Ray2D ray = new Ray2D(transform.position, mouseDirection);
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, 20f);
             if(hits.Length > 1){
+                
                 if(hits[1].collider != null && hits[1].collider.gameObject.tag == "enemy")
                 {
-                    float dist = Vector3.Distance(hits[1].collider.gameObject.transform.position, transform.position);
-                    if(dist <= range){
+                    if(hits[1].distance <= range){
                         enemyStats eEnemy = hits[1].collider.gameObject.GetComponent<enemyStats>();
-                         eEnemy.takeDamage((int)(adjAtk));
-                        //Destroy(hits[1].collider.gameObject);
+                        eEnemy.takeDamage((int)(adjAtk));
                     }
                 
 
