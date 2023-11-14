@@ -36,9 +36,6 @@ public class capsuleEnemy : MonoBehaviour
         transform.rotation = new Quaternion(0, 0, rotation.z , rotation.w) *rotationAmount ;
     }
 
-    void attack(){
-
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
          if(collision.gameObject.tag == "character") {
@@ -48,13 +45,7 @@ public class capsuleEnemy : MonoBehaviour
         
 
     }
-    public void takeDamage(int damage){
-        if(hp - damage <= 0){
-            Destroy(this.gameObject);
-        }else{
-            hp = hp - damage;
-        }
-    }
+    
     // Update is called once per frame
     void Update()
     {

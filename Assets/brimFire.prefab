@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &381509131746371759
+--- !u!1 &6608607334070147648
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3292548173506328902}
-  - component: {fileID: 2415615075852280723}
-  - component: {fileID: 5192400566783570432}
-  - component: {fileID: 1196536311723081803}
-  - component: {fileID: 521965118139184873}
+  - component: {fileID: 6235760812292010902}
+  - component: {fileID: 8125506887361938932}
+  - component: {fileID: 96866143902407488}
+  - component: {fileID: 5689363944836620050}
+  - component: {fileID: 137155018134066212}
   m_Layer: 0
-  m_Name: betaEnemy
-  m_TagString: enemy
+  m_Name: brimFire
+  m_TagString: splashDmg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3292548173506328902
+--- !u!4 &6235760812292010902
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381509131746371759}
+  m_GameObject: {fileID: 6608607334070147648}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.73964506, w: 0.6729972}
-  m_LocalPosition: {x: 3.104069, y: 0.22899792, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.18, y: -0.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 95.402}
---- !u!212 &2415615075852280723
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &8125506887361938932
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381509131746371759}
+  m_GameObject: {fileID: 6608607334070147648}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 361bb495e1fa4364ea0d1e2789af216a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,46 +76,38 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 47a4a0ad579ba414a86001578715882d, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5192400566783570432
+--- !u!114 &96866143902407488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381509131746371759}
+  m_GameObject: {fileID: 6608607334070147648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19e07e5791a3c344896a6ffbc49d2f66, type: 3}
+  m_Script: {fileID: 11500000, guid: 5dd60a0fa8c646d43b8bdd90a618ca66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 25
-  isAttacking: 0
-  spinSpeed: 5
-  waitTime: 2
-  attackTime: 3
-  playerPos: {fileID: 0}
-  shootingSpeed: 60
-  damage: 10
-  gotTarget: 0
-  targetLocation: {x: 0, y: 0, z: 0}
---- !u!70 &1196536311723081803
-CapsuleCollider2D:
+  burnRadius: 10
+  burnTime: 0
+--- !u!58 &5689363944836620050
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381509131746371759}
+  m_GameObject: {fileID: 6608607334070147648}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -138,19 +130,19 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
-  m_Size: {x: 0.62, y: 0.63}
-  m_Direction: 0
---- !u!114 &521965118139184873
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &137155018134066212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381509131746371759}
+  m_GameObject: {fileID: 6608607334070147648}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b8f15a046cb41140907bc3229625e0d, type: 3}
@@ -158,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 0
   speed: 0
-  dmg2: 0
+  dmg2: 10
   def: 0
-  splashInterval: 0
+  splashInterval: 3
   attackRate: 0

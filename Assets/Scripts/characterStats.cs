@@ -10,8 +10,8 @@ public class characterStats : MonoBehaviour
     public decimal baseAtk = 10;
     public decimal adjAtk = 10;
     public float range = 2f;
+    private float elapsed =0f;
     public void takeDamage(decimal damage){
-        Debug.Log(hp);
         hp = hp - (int)(damage * (1-(def  / 100)));
    
     }
@@ -30,6 +30,23 @@ public class characterStats : MonoBehaviour
         range = curWeap.getRange();
         Debug.Log(adjAtk);
     }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        
+        if(col.gameObject.tag == "splashDmg"){
+            enemyStats eStats = col.gameObject.GetComponent<enemyStats>();
+            if(elapsed >= eStats.getSplashInt()){
+                takeDamage(eStats.getDmg());
+                elapsed = 0f;
+            }
+           
+           
+            elapsed += Time.deltaTime;
+        }
+  
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -46,8 +63,8 @@ public class characterStats : MonoBehaviour
                 {
                     float dist = Vector3.Distance(hits[1].collider.gameObject.transform.position, transform.position);
                     if(dist <= range){
-                        capsuleEnemy cEnemy = hits[1].collider.gameObject.GetComponent<capsuleEnemy>();
-                         cEnemy.takeDamage((int)(adjAtk));
+                        enemyStats eEnemy = hits[1].collider.gameObject.GetComponent<enemyStats>();
+                         eEnemy.takeDamage((int)(adjAtk));
                         //Destroy(hits[1].collider.gameObject);
                     }
                 
