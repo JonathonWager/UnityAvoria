@@ -7,14 +7,15 @@ public class enemyStats : MonoBehaviour
     public int hp;
     public float speed;
 
-    public float dmg;
+    public decimal dmg;
+    public int dmg2;
 
     public float def;
 
     public int getHp(){
         return hp;
     }
-    public float getDmg(){
+    public decimal getDmg(){
         return dmg;
     }
     public float getSpeed(){
@@ -26,7 +27,7 @@ public class enemyStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        dmg = (int)dmg2;
     }
 
     // Update is called once per frame

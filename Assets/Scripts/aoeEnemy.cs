@@ -5,7 +5,7 @@ using UnityEngine;
 public class aoeEnemy : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public GameObject player;
+    
     public float shootInterval = 1f;
 
     // Start is called before the first frame update
@@ -13,7 +13,7 @@ public class aoeEnemy : MonoBehaviour
     {
         
         InvokeRepeating("Shoot", 0f, shootInterval);
-        player = GameObject.FindGameObjectWithTag("character");
+        
     }
 
     void Shoot() {
@@ -37,12 +37,7 @@ public class aoeEnemy : MonoBehaviour
         bullet6.transform.Rotate(Vector3.forward, 360f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        characterStats cStats = player.GetComponent<characterStats>();
-        cStats.takeDamage(damage);
-
-    }
+    
 
     // Update is called once per frame
     void Update()

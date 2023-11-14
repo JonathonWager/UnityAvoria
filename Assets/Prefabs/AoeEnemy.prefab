@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7815432169778644944}
   - component: {fileID: 7514204859006609848}
   - component: {fileID: -3455467338865114}
+  - component: {fileID: -6105389464846846319}
   m_Layer: 0
   m_Name: AoeEnemy
   m_TagString: Untagged
@@ -99,3 +100,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7588482516078326319, guid: d7f552174a79c0b4ab7a1a87b467512c, type: 3}
   shootInterval: 1
+--- !u!114 &-6105389464846846319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4725839338340398719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8f15a046cb41140907bc3229625e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+  speed: 0
+  dmg2: 5
+  def: 0

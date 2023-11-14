@@ -41,8 +41,11 @@ public class capsuleEnemy : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        characterStats cStats = playerPos.GetComponent<characterStats>();
-        cStats.takeDamage(damage);
+         if(collision.gameObject.tag == "character") {
+            characterStats cStats = playerPos.GetComponent<characterStats>();
+            cStats.takeDamage(damage);
+        }
+        
 
     }
     public void takeDamage(int damage){
