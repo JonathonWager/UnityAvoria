@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class characterStats : MonoBehaviour
 {
-    public decimal hp = 100;
+    public int hp = 100;
     public int speed = 5;
     public decimal def = 10;
     public decimal baseAtk = 10;
@@ -12,7 +12,7 @@ public class characterStats : MonoBehaviour
     public float range = 2f;
     public void takeDamage(decimal damage){
         Debug.Log(hp);
-        hp = hp - (damage * (1-(def  / 100)));
+        hp = hp - (int)(damage * (1-(def  / 100)));
    
     }
 

@@ -11,6 +11,7 @@ public class spawner : MonoBehaviour
     public float spawnTime = 5f;
      float elapsed = 0f;
      float x,y;
+     int rand ;
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +25,17 @@ public class spawner : MonoBehaviour
         elapsed += Time.deltaTime;
 
         if(elapsed >= spawnTime){
-            if(Random.Range(0,1)==1){
-                float x = Random.Range(minRadius, maxRadius);
+            rand = Random.Range(0,10);
+            if(rand>5){
+                x = Random.Range(minRadius, maxRadius);
             }else{
-                float x = Random.Range(-minRadius,-maxRadius);
+                x = Random.Range(-minRadius,-maxRadius);
             }
-            if(Random.Range(0,1)==1){
-                float y = Random.Range(minRadius, maxRadius);
+            rand = Random.Range(0,10);
+            if(rand>5){
+                y = Random.Range(minRadius, maxRadius);
             }else{
-                float y = Random.Range(-minRadius,-maxRadius);
+                y = Random.Range(-minRadius,-maxRadius);
             }
             Instantiate(enemy, this.transform.position + new Vector3(x, y, 0), Quaternion.identity);
             elapsed = 0f;
