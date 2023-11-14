@@ -26,12 +26,12 @@ public class Bullet : MonoBehaviour
     {
         if(collision.gameObject.tag == "character") {
             characterStats cStats = player.GetComponent<characterStats>();
-        // enemyStats eStats = this.gameObject.GetComponent<enemyStats>();
+             // enemyStats eStats = this.gameObject.GetComponent<enemyStats>();
 
-        decimal d = dmg;
-        cStats.takeDamage(d);
+            decimal d = dmg;
+            cStats.takeDamage(d);
 
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
 
         }
         
@@ -40,6 +40,6 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
 }
