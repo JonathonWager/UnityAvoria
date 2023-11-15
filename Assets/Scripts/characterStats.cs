@@ -19,6 +19,12 @@ public class characterStats : MonoBehaviour
     public int getHp(){
         return (int)hp;
     }
+     public int getSpeed(){
+        return speed;
+    }
+    public void setSpeed(int newSpeed){
+        speed = newSpeed;
+    }
     // Start is called before the first frame update
     void Start()
     {
