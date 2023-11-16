@@ -56,6 +56,7 @@ public class inventory : MonoBehaviour
         };
         makeWeapons(weapons);
         addWeapon(1);
+        Debug.Log("Weapon Start");
         currentWeapon = findWeaponFromInv(1);
         currentWeaponChange();
     }

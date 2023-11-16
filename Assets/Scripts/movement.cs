@@ -5,11 +5,14 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float sprintDuration = 5f;
+    public float sprintDuration = 0.5f;
+     public float sprintRechargeTime= 5f;
     float elapsed = 0f;
 
     public bool isSprinting = false;
     public bool canSprint = true;
+
+    public float sprintBoost = 30f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +21,15 @@ public class movement : MonoBehaviour
     void sprintRecharge()
     {
         if(!canSprint){
-            if(sprintDuration == 5f){
+            if(sprintRechargeTime == 5f){
                 canSprint = true;
             }
         }
         if(!isSprinting){
-            if(sprintDuration < 5f){
-                sprintDuration = sprintDuration + 0.5f;
-            }else if( sprintDuration > 5f){
-                sprintDuration = 5f;
+            if(sprintRechargeTime < 5f){
+                sprintRechargeTime = sprintRechargeTime + 0.5f;
+            }else if( sprintRechargeTime > 5f){
+                sprintRechargeTime = 5f;
         }
         }
         
@@ -55,17 +58,17 @@ public class movement : MonoBehaviour
            
 
             elapsed += Time.deltaTime;
-            if(elapsed >= sprintDuration){
+            if(elapsed >= sprintRechargeTime){
                 transform.Translate(movement * moveSpeed * Time.deltaTime);
                 canSprint = false;
                 elapsed = 0f;
             }else if(canSprint){
                 isSprinting = true;
                 if(elapsed >= 1f){
-                    sprintDuration = sprintDuration - 1f;
+                    sprintRechargeTime = sprintRechargeTime - 1f;
                     elapsed =0f;
                 }
-                transform.Translate(movement * 10f  * Time.deltaTime);
+                transform.Translate(movement * sprintBoost  * Time.deltaTime);
             }else{
                  transform.Translate(movement * moveSpeed * Time.deltaTime);
             }

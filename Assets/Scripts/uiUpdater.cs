@@ -40,7 +40,7 @@ public class uiUpdater : MonoBehaviour
         movement mStats = player.GetComponent<movement>();
         sprint = mStats.getSprint();
 
-        inventory iStats = player.transform.GetChild(0).gameObject.GetComponent<inventory>();
+        inventory iStats = player.transform.GetChild(1).gameObject.GetComponent<inventory>();
         curWeapon = iStats.getWeapon();
 
 

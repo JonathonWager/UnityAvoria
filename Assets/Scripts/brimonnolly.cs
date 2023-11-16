@@ -13,6 +13,7 @@ public class brimonnolly : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        elapsed = attackTime;
          player = GameObject.FindGameObjectWithTag("character");
     }
 
