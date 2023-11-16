@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  fire: {fileID: 6608607334070147648, guid: d47720b6718d250438149765060b0437, type: 3}
+  fire: {fileID: 265070207420603401, guid: 3c33b2fade18ac54ebb0df88b9aec660, type: 3}
   speed: 5
   range: 10
   attackTime: 5

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd60a0fa8c646d43b8bdd90a618ca66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  burnRadius: 10
+  burnRadius: 5
   burnTime: 0
 --- !u!58 &5689363944836620050
 CircleCollider2D:
