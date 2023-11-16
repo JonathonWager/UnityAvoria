@@ -6,7 +6,7 @@ public class movement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float sprintDuration = 0.5f;
-     public float sprintRechargeTime= 5f;
+     public float sprintRechargeTime= 1f;
     float elapsed = 0f;
 
     public bool isSprinting = false;

@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class uiUpdater : MonoBehaviour
 {
     public GameObject player;
+    public Image panel;
     int hp;
-    int sprint;
+    bool dash;
 
     weapon curWeapon;
-
+     public float newAlpha;
     public TMP_Text hpUI,sprUI,invUI;
     // Start is called before the first frame update
     void Start()
@@ -37,15 +39,21 @@ public class uiUpdater : MonoBehaviour
         hp = cStats.getHp();
 
 
-        movement mStats = player.GetComponent<movement>();
-        sprint = mStats.getSprint();
-
+        playerMovement mStats = player.GetComponent<playerMovement>();
+        dash = mStats.getDashStatus();
+        Image img = panel.GetComponent<Image>();
+        if(dash){
+            img.color = UnityEngine.Color.white;
+        }else{
+            img.color =   new Color32( 233 , 67 , 67 , 100);
+        }
+        
         inventory iStats = player.transform.GetChild(1).gameObject.GetComponent<inventory>();
         curWeapon = iStats.getWeapon();
 
 
         hpUI.text = "HP: " + hp;
-        sprUI.text = "Sprint: " + sprint;
+        //sprUI.text = "Sprint: ";
         invUI.text = curWeapon.getName(); 
     }
 }
