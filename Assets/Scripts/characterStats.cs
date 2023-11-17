@@ -25,7 +25,12 @@ public class characterStats : MonoBehaviour
         Debug.Log("Setting Range to " + Range);
         range = Range;
     }
- 
+    public void setDamage(int dmgBuff){
+        adjAtk = (decimal)dmgBuff;
+    }
+    public decimal getadjAtk(){
+        return adjAtk;
+    }
     // Start is called before the first frame update
     void Start()
     {

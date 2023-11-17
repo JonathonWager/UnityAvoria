@@ -13,9 +13,13 @@ public class abilityDirector : MonoBehaviour
     public float rangeAbilityTime = 5f;
     public float rangeAbilityResetTime = 5f;
 
-    public bool canQ = true;
+    public float fireringAbilityResetTime = 5f;
+
+
+    public bool canQ,canE = true;
 
     private Ability currentQ,currentE;
+
 
 
 
@@ -56,11 +60,18 @@ public class abilityDirector : MonoBehaviour
         cStats.setRange(rangeAbilityModifer);
         Invoke("deactivateRangerator", rangeAbilityTime);
     }
+    void deactivateFireRing(){
+        canE = true;
+    }
+    void activateFireRing(){
+        //spawn fire ring
+        canE = false;
+        Invoke("deactivateFireRing", fireringAbilityResetTime);
+    }
     void useAbility(char Code)
     {
         if(Code == 'E'){
             
-
         }else if(Code == 'Q'){
             if(currentQ.getName() == "Rangerator"){
                 activateRangerator();
@@ -78,10 +89,12 @@ public class abilityDirector : MonoBehaviour
     void Start()
     {
          string[] abiltys = {
-            "1,Rangerator,Q"
+            "1,Rangerator,Q",
+            "2,Fire Ring,E"
         };
         makeAbilitys(abiltys);
         currentQ = findAbilitysFromAll(1);
+        currentE = findAbilitysFromAll(2);
 
     }
 
@@ -90,7 +103,10 @@ public class abilityDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            useAbility('E');
+            if(canE){
+                useAbility('E');
+            }
+            
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
