@@ -6,6 +6,7 @@ using UnityEngine;
 public class abilityDirector : MonoBehaviour
 {
     public GameObject player;
+    public GameObject fireRing;
     List<Ability> allAbility = new List<Ability>();
 
 
@@ -64,14 +65,16 @@ public class abilityDirector : MonoBehaviour
         canE = true;
     }
     void activateFireRing(){
-        //spawn fire ring
+        Instantiate(fireRing, this.transform.position, Quaternion.identity);
         canE = false;
         Invoke("deactivateFireRing", fireringAbilityResetTime);
     }
     void useAbility(char Code)
     {
         if(Code == 'E'){
-            
+          if(currentE.getName() == "Fire Ring"){
+            activateFireRing();
+          }  
         }else if(Code == 'Q'){
             if(currentQ.getName() == "Rangerator"){
                 activateRangerator();
