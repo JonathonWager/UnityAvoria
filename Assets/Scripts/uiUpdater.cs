@@ -8,12 +8,13 @@ public class uiUpdater : MonoBehaviour
 {
     public GameObject player;
     public Image panel;
+    public Image qAbilityPanel;
     int hp;
     bool dash;
-
+    bool qAbility;
     Weapon curWeapon;
      public float newAlpha;
-    public TMP_Text hpUI,sprUI,invUI;
+    public TMP_Text hpUI,sprUI,invUI, qUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +52,15 @@ public class uiUpdater : MonoBehaviour
         InventoryV12 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV12>();
         curWeapon = iStats.getCurrentWeapon();
 
+        abilityDirector aStats = player.transform.GetChild(2).gameObject.GetComponent<abilityDirector>();
+        qAbility = aStats.getQ();
+        Image img2 = qAbilityPanel.GetComponent<Image>();
+         if(qAbility){
+            img2.color = UnityEngine.Color.white;
+        }else{
+            img2.color =   new Color32( 233 , 67 , 67 , 100);
+        }
+        qUI.text = aStats.getCurrentQ().getName();
 
         hpUI.text = "HP: " + hp;
         //sprUI.text = "Sprint: ";

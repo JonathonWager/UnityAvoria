@@ -10,10 +10,16 @@ public class Ability : MonoBehaviour
 
     public char type;
     // Start is called before the first frame update
-    Ability(int ID, string Name, char Type){
+    public Ability(int ID, string Name, char Type){
         id = ID;
         name = Name;
         type = Type;
+    }
+    public int getId(){
+        return id;
+    }
+    public string getName(){
+        return name;
     }
     void Start()
     {

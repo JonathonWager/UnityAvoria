@@ -5,7 +5,6 @@ using UnityEngine;
 public class characterStats : MonoBehaviour
 {
     public int hp = 100;
-    public int speed = 5;
     public decimal def = 10;
     public decimal baseAtk = 10;
     public decimal adjAtk = 10;
@@ -19,17 +18,20 @@ public class characterStats : MonoBehaviour
     public int getHp(){
         return (int)hp;
     }
-     public int getSpeed(){
-        return speed;
+    public float getRange(){
+        return range;
     }
-    public void setSpeed(int newSpeed){
-        speed = newSpeed;
+    public void setRange(float Range){
+        Debug.Log("Setting Range to " + Range);
+        range = Range;
     }
+ 
     // Start is called before the first frame update
     void Start()
     {
         
     }
+    
     public void weaponStats(Weapon curWeap){
         
         adjAtk = baseAtk + (decimal)curWeap.getDamage();
@@ -68,7 +70,8 @@ public class characterStats : MonoBehaviour
                 
                 if(hits[1].collider != null && hits[1].collider.gameObject.tag == "enemy")
                 {
-                    if(hits[1].distance <= range){
+                    Debug.Log("Range Calc " + hits[1].distance + " <= " + range);
+                    if(hits[1].distance <= range){ 
                         enemyStats eEnemy = hits[1].collider.gameObject.GetComponent<enemyStats>();
                         eEnemy.takeDamage((int)(adjAtk));
                     }
