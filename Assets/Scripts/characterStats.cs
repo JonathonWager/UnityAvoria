@@ -30,9 +30,9 @@ public class characterStats : MonoBehaviour
     {
         
     }
-    public void weaponStats(weapon curWeap){
+    public void weaponStats(Weapon curWeap){
         
-        adjAtk = baseAtk + curWeap.getDamage();
+        adjAtk = baseAtk + (decimal)curWeap.getDamage();
         range = curWeap.getRange();
         Debug.Log(adjAtk);
     }

@@ -2,57 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class inventory : MonoBehaviour
+public class InventoryV12 : MonoBehaviour
 {
     public GameObject player;
-    public weapon currentWeapon;
-    public List<weapon> InvWeapons = new List<weapon>();
+     public Weapon currentWeapon;
 
-    List<weapon> allWeapons = new List<weapon>();
+    public List<Weapon> InvWeapons = new List<Weapon>();
 
+    List<Weapon> allWeapons = new List<Weapon>();
+
+    List<Potion> allPotions = new List<Potion>();
+
+    List<Potion> invPotions = new List<Potion>();
+
+
+    // Start is called before the first frame update
     void makeWeapons(string[] weapons)
     {
         foreach(string w in weapons){
             string[] atts = w.Split(',');
-            allWeapons.Add(new weapon(int.Parse(atts[0]),atts[1],atts[2],int.Parse(atts[3]),int.Parse(atts[4])));
+            allWeapons.Add(new Weapon(int.Parse(atts[0]),atts[1],int.Parse(atts[2]),int.Parse(atts[3])));
         }
     }
-    weapon findWeaponFromAll(int ID){
-        foreach(weapon w in allWeapons){
+    Weapon findWeaponFromAll(int ID){
+        foreach(Weapon w in allWeapons){
             if(w.getId() == ID){
                 return w;
             }
         }
         return null;
     }
-    weapon findWeaponFromInv(int ID){
-        foreach(weapon w in allWeapons){
+    Weapon findWeaponFromInv(int ID){
+        foreach(Weapon w in allWeapons){
             if(w.getId() == ID){
                 return w;
             }
         }
         return null;
     }
-    public weapon getCurrentWeapon(){
+    public Weapon getCurrentWeapon(){
         return currentWeapon;
     }
     public void addWeapon(int id){
          InvWeapons.Add(findWeaponFromAll(id));
     }
-    // Start is called before the first frame update
+
     public void currentWeaponChange(){
         characterStats cStats = player.GetComponent<characterStats>();
         cStats.weaponStats(currentWeapon);
     }
-
-    public weapon getWeapon(){
-        return currentWeapon;
-    }
     void Start()
     {
         string[] weapons = {
-            "1,Melee,Great Sword,10,2"
+            "1,Great Sword,10,2"
         };
         makeWeapons(weapons);
         addWeapon(1);
@@ -62,8 +64,4 @@ public class inventory : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -11,7 +11,7 @@ public class uiUpdater : MonoBehaviour
     int hp;
     bool dash;
 
-    weapon curWeapon;
+    Weapon curWeapon;
      public float newAlpha;
     public TMP_Text hpUI,sprUI,invUI;
     // Start is called before the first frame update
@@ -48,8 +48,8 @@ public class uiUpdater : MonoBehaviour
             img.color =   new Color32( 233 , 67 , 67 , 100);
         }
         
-        inventory iStats = player.transform.GetChild(1).gameObject.GetComponent<inventory>();
-        curWeapon = iStats.getWeapon();
+        InventoryV12 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV12>();
+        curWeapon = iStats.getCurrentWeapon();
 
 
         hpUI.text = "HP: " + hp;
