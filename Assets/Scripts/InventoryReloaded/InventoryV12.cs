@@ -54,12 +54,13 @@ public class InventoryV12 : MonoBehaviour
     void Start()
     {
         string[] weapons = {
-            "1,Great Sword,10,2"
+            "1,Great Sword,10,2",
+            "2,Long Sword,10,5"
         };
         makeWeapons(weapons);
         addWeapon(1);
         Debug.Log("Weapon Start");
-        currentWeapon = findWeaponFromInv(1);
+        currentWeapon = findWeaponFromInv(2);
         currentWeaponChange();
     }
 

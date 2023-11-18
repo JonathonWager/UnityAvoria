@@ -6,17 +6,17 @@ using UnityEngine;
 public class abilityDirector : MonoBehaviour
 {
     public GameObject player;
-    public GameObject fireRing;
+    public GameObject fireRing, meteor;
     List<Ability> allAbility = new List<Ability>();
 
 
-    public float rangeAbilityModifer = 5f;
+    public float rangeAbilityModifer = 1.5f;
     public float rangeAbilityTime = 5f;
     public float rangeAbilityResetTime = 5f;
 
     public float fireringAbilityResetTime = 5f;
 
-
+    public float meteorResetTime = 5f;
     public bool canQ,canE = true;
 
     private Ability currentQ,currentE;
@@ -44,7 +44,25 @@ public class abilityDirector : MonoBehaviour
 
     public Ability getCurrentQ(){
         return currentQ;
-    } 
+    }
+    public Ability getCurrentE(){
+        return currentE;
+    }
+    void MeteorSmash(){
+        Vector3 mousePosition = Input.mousePosition;
+
+        // Set the z-coordinate to the distance from the camera
+        mousePosition.z = Camera.main.nearClipPlane;
+
+        // Convert the mouse position to world coordinates
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Instantiate(meteor, worldPosition, Quaternion.identity);
+        canE = false;
+        Invoke("meteorReset", meteorResetTime);
+    }
+    void meteorReset(){
+        canE = true;
+    }
     void deactivateRangerator(){
         GameObject.Find("QLight").GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = false;
         Debug.Log("Rangerator DEActivate!1");
@@ -58,7 +76,7 @@ public class abilityDirector : MonoBehaviour
         Debug.Log("Rangerator Activate!1");
         characterStats cStats = player.GetComponent<characterStats>();
         tempRange = cStats.getRange();
-        cStats.setRange(rangeAbilityModifer);
+        cStats.setRange(tempRange * rangeAbilityModifer);
         Invoke("deactivateRangerator", rangeAbilityTime);
     }
     void deactivateFireRing(){
@@ -75,6 +93,9 @@ public class abilityDirector : MonoBehaviour
           if(currentE.getName() == "Fire Ring"){
             activateFireRing();
           }  
+          if(currentE.getName() == "Meteor Smash"){
+            MeteorSmash();
+          } 
         }else if(Code == 'Q'){
             if(currentQ.getName() == "Rangerator"){
                 activateRangerator();
@@ -88,16 +109,20 @@ public class abilityDirector : MonoBehaviour
     public bool getQ(){
         return canQ;
     }
+    public bool getE(){
+        return canE;
+    }
     // Start is called before the first frame update
     void Start()
     {
          string[] abiltys = {
             "1,Rangerator,Q",
-            "2,Fire Ring,E"
+            "2,Fire Ring,E",
+            "3,Meteor Smash,E"
         };
         makeAbilitys(abiltys);
         currentQ = findAbilitysFromAll(1);
-        currentE = findAbilitysFromAll(2);
+        currentE = findAbilitysFromAll(3);
 
     }
 
