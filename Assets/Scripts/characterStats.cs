@@ -22,7 +22,6 @@ public class characterStats : MonoBehaviour
         return range;
     }
     public void setRange(float Range){
-        Debug.Log("Setting Range to " + Range);
         range = Range;
     }
     public void setDamage(int dmgBuff){
@@ -37,29 +36,12 @@ public class characterStats : MonoBehaviour
         
     }
     
-    public void weaponStats(Weapon curWeap){
-        
+    public void weaponStats(Weapon curWeap){  
         adjAtk = baseAtk + (decimal)curWeap.getDamage();
         range = curWeap.getRange();
-        Debug.Log(adjAtk);
     }
 
-    void OnTriggerStay2D(Collider2D col)
-    {
-        
-        if(col.gameObject.tag == "splashDmg"){
-            enemyStats eStats = col.gameObject.GetComponent<enemyStats>();
-            if(elapsed >= eStats.getSplashInt()){
-                takeDamage(eStats.getDmg());
-                elapsed = 0f;
-            }
-           
-           
-            elapsed += Time.deltaTime;
-        }
   
-
-    }
     // Update is called once per frame
     void Update()
     {
@@ -75,7 +57,6 @@ public class characterStats : MonoBehaviour
                 
                 if(hits[1].collider != null && hits[1].collider.gameObject.tag == "enemy")
                 {
-                    Debug.Log("Range Calc " + hits[1].distance + " <= " + range);
                     if(hits[1].distance <= range){ 
                         enemyStats eEnemy = hits[1].collider.gameObject.GetComponent<enemyStats>();
                         eEnemy.takeDamage((int)(adjAtk));
