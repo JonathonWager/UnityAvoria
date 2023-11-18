@@ -6,6 +6,7 @@ public class BrimFireV2 : MonoBehaviour
 {
 
     public float burnInterval = 3f;
+    public float destroyTime = 5f;
     public int burnDmg = 10;
 
     private GameObject playerTarget;
@@ -29,7 +30,7 @@ public class BrimFireV2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+       Destroy(this.gameObject, destroyTime);
     }
 
     // Update is called once per frame

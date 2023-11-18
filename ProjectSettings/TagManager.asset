@@ -7,6 +7,7 @@ TagManager:
   - enemy
   - character
   - splashDmg
+  - wall
   layers:
   - Default
   - TransparentFX
