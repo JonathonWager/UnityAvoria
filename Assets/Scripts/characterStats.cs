@@ -5,9 +5,9 @@ using UnityEngine;
 public class characterStats : MonoBehaviour
 {
     public int hp = 100;
-    public decimal def = 10;
-    public decimal baseAtk = 10;
-    public decimal adjAtk = 10;
+    public int def = 10;
+    public int baseAtk = 10;
+    public int adjAtk = 10;
     public float range = 2f;
     private float elapsed =0f;
     public void takeDamage(decimal damage){
@@ -16,7 +16,7 @@ public class characterStats : MonoBehaviour
     }
 
     public int getHp(){
-        return (int)hp;
+        return hp;
     }
     public float getRange(){
         return range;
@@ -25,7 +25,7 @@ public class characterStats : MonoBehaviour
         range = Range;
     }
     public void setDamage(int dmgBuff){
-        adjAtk = (decimal)dmgBuff;
+        adjAtk = dmgBuff;
     }
     public decimal getadjAtk(){
         return adjAtk;
@@ -37,7 +37,7 @@ public class characterStats : MonoBehaviour
     }
     
     public void weaponStats(Weapon curWeap){  
-        adjAtk = baseAtk + (decimal)curWeap.getDamage();
+        adjAtk = (int)((decimal)baseAtk + (decimal)curWeap.getDamage());
         range = curWeap.getRange();
     }
 
@@ -45,24 +45,27 @@ public class characterStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
         if(hp <= 0){
             Destroy(this.gameObject);
         }
           if (Input.GetMouseButtonDown(0)) // 0 corresponds to the left mouse button
         {
+              Debug.Log("test");
             Vector2 mouseDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
             Ray2D ray = new Ray2D(transform.position, mouseDirection);
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, 20f);
             if(hits.Length > 1){
-                
-                if(hits[1].collider != null && hits[1].collider.gameObject.tag == "enemy")
-                {
-                    if(hits[1].distance <= range){ 
-                        enemyStats eEnemy = hits[1].collider.gameObject.GetComponent<enemyStats>();
-                        eEnemy.takeDamage((int)(adjAtk));
+                foreach(RaycastHit2D hit in hits){
+                  
+                   
+                     if(hit.collider != null && hit.collider.gameObject.tag == "enemy")
+                    {
+                        if(hit.distance <= range){ 
+                            enemyStats eEnemy = hit.collider.gameObject.GetComponent<enemyStats>();
+                             eEnemy.takeDamage((int)(adjAtk));
+                        }
                     }
-                
-
                 }
             }
         }

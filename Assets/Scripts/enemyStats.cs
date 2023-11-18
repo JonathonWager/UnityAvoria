@@ -45,7 +45,7 @@ public class enemyStats : MonoBehaviour
         }
     }
     public void takeDamage(int damage){
-        Debug.Log("HITY");
+        //Debug.Log("Taking Damage  "+ damage );
         if(hp - damage <= 0){
             Destroy(this.gameObject);
         }else{

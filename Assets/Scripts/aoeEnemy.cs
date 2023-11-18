@@ -17,7 +17,7 @@ public class aoeEnemy : MonoBehaviour
     }
 
     void Shoot() {
-        GameObject bullet1 = Instantiate(bulletPrefab, transform.position + new Vector3(0,2,0), Quaternion.identity);
+        GameObject bullet1 = Instantiate(bulletPrefab, transform.position , Quaternion.identity);
         // float randomAngle = Random.Range(0f, 360f);
         bullet1.transform.Rotate(Vector3.forward, 60f);
 

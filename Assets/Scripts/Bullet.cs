@@ -8,16 +8,17 @@ public class Bullet : MonoBehaviour
     public float speed = 7f;
     public GameObject player;
     public int dmg;
+    public float destroyTime = 2f;
     // int dmg = enemyStats eStats;
 
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody2D>().velocity = transform.up * speed;
+       
 
         player = GameObject.FindGameObjectWithTag("character");
 
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, destroyTime);
 
         
     }
@@ -40,6 +41,6 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+         transform.Translate(Vector3.up * speed * Time.deltaTime);
     }
 }
