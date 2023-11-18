@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
 {
 
     public int id;
-    public string name;
+    public string waeponName;
 
     public int damage;
 
@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
 
     public Weapon(int ID, string Name, int Damage, float Range){
         id = ID;
-        name = Name;
+        waeponName = Name;
         damage = Damage;
         range = Range;
     }
@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
         return id;
     }
     public string getName(){
-        return name;
+        return waeponName;
     }
     public float getRange(){
         return range;

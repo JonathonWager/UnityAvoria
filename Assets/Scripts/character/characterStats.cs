@@ -9,7 +9,6 @@ public class characterStats : MonoBehaviour
     public int baseAtk = 10;
     public int adjAtk = 10;
     public float range = 2f;
-    private float elapsed =0f;
     public void takeDamage(decimal damage){
         hp = hp - (int)(damage * (1-(def  / 100)));
    

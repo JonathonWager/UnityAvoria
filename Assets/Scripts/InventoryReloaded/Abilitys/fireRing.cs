@@ -8,7 +8,6 @@ public class fireRing : MonoBehaviour
     public float dmgBuff = 2f;
     public float enemyDamageTimeInterval = 2f;
     public int dmgToEnemys = 5;
-    float elapsed = 0f;
 
     public float destoryTime = 5f;
     private bool isDmging = false;

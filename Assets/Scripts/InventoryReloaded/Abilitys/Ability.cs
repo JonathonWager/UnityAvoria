@@ -6,20 +6,20 @@ public class Ability : MonoBehaviour
 {
     public int id;
 
-    public string name;
+    public string abilityName;
 
     public char type;
     // Start is called before the first frame update
     public Ability(int ID, string Name, char Type){
         id = ID;
-        name = Name;
+        abilityName = Name;
         type = Type;
     }
     public int getId(){
         return id;
     }
     public string getName(){
-        return name;
+        return abilityName;
     }
     void Start()
     {

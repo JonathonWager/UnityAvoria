@@ -5,7 +5,7 @@ using UnityEngine;
 public class Potion : MonoBehaviour
 {
     public int id;
-    public string name;
+    public string potionName;
 
     public string statusType;
 
@@ -13,7 +13,7 @@ public class Potion : MonoBehaviour
 
     Potion(int ID, string Name, string statType, float Mod){
         id = ID;
-        name = Name;
+        potionName = Name;
         statusType = statType;
         modifier = Mod;
     
@@ -23,7 +23,7 @@ public class Potion : MonoBehaviour
         return id;
     }
     public string getName(){
-        return name;
+        return potionName;
     }
     // Start is called before the first frame update
     void Start()
