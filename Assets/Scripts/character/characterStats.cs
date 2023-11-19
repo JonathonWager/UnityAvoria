@@ -7,11 +7,13 @@ public class characterStats : MonoBehaviour
     public int hp = 100;
     public int def = 10;
     public int baseAtk = 10;
-    public int adjAtk = 10;
-    public float range = 2f;
+    public int adjAtk{get; set;} = 10;
+    public float range{get; set;} = 2f;
 
     public GameObject rangeObject{get; set;}
     public Weapon currentSelectedWeapon{get; set;}
+
+    private bool canFire = true;
     public void takeDamage(decimal damage){
         hp = hp - (int)(damage * (1-(def  / 100)));
    
@@ -20,18 +22,11 @@ public class characterStats : MonoBehaviour
     public int getHp(){
         return hp;
     }
-    public float getRange(){
-        return range;
-    }
-    public void setRange(float Range){
-        range = Range;
-    }
+   
     public void setDamage(int dmgBuff){
         adjAtk = dmgBuff;
     }
-    public decimal getadjAtk(){
-        return adjAtk;
-    }
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +36,7 @@ public class characterStats : MonoBehaviour
     public void weaponStats(Weapon curWeap){  
         adjAtk = (int)((decimal)baseAtk + (decimal)curWeap.damage);
         range = curWeap.range;
+
     }
     
     void melleAttack(){
@@ -61,7 +57,15 @@ public class characterStats : MonoBehaviour
     }
 
     void rangeAttack(){
-         Instantiate(rangeObject, this.transform.position, Quaternion.identity);
+        if(canFire){
+            Instantiate(rangeObject, this.transform.position, Quaternion.identity);
+            canFire = false;
+            Invoke("fireReset", currentSelectedWeapon.shootInterval);
+        }
+         
+    }
+    void fireReset(){
+        canFire = true;
     }
     // Update is called once per frame
     void Update()

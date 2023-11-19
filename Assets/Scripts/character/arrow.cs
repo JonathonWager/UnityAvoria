@@ -6,13 +6,20 @@ public class arrow : MonoBehaviour
 {
     public float deleteTime = 10f;
     public float speed = 7f;
-    public int dmg = 15;
+    private int dmg = 15;
     private Vector3 direction;
+    private Vector3 targetPosition;
+    private Vector3 startLocation;
+    private float range;
+   
     // Start is called before the first frame update
     void Start()
     {
-         Destroy(gameObject,deleteTime);
-        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        startLocation = transform.position;
+        dmg = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().adjAtk;
+        range = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().range;
+        Destroy(gameObject,deleteTime);
+        targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Ignore the Z-axis to ensure the object stays in the 2D plane
         targetPosition.z = transform.position.z;
@@ -46,10 +53,16 @@ public class arrow : MonoBehaviour
             enemyStats eEnemy = other.gameObject.GetComponent<enemyStats>();
             eEnemy.takeDamage(dmg);
          }
-         if(other.gameObject.tag != "character"){
+         if(other.gameObject.tag != "character" && other.gameObject.tag != "Untagged"){
             Destroy(gameObject);
          }
         
     }
+    void Update(){
+      float distance = Vector3.Distance(startLocation, transform.position);
+      if(distance > range){
+         Destroy(gameObject);
+      }
 
+    }
 }

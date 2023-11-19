@@ -14,6 +14,7 @@ public class abilityDirector : MonoBehaviour
     public float rangeAbilityTime = 5f;
     public float rangeAbilityResetTime = 5f;
 
+    public float fireringAbilityDuration = 5f;
     public float fireringAbilityResetTime = 5f;
 
     public float meteorResetTime = 5f;
@@ -67,7 +68,7 @@ public class abilityDirector : MonoBehaviour
         GameObject.Find("QLight").GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = false;
         Debug.Log("Rangerator DEActivate!1");
         characterStats cStats = player.GetComponent<characterStats>();  
-        cStats.setRange(tempRange);
+        cStats.range = tempRange;
         Invoke("qReset", rangeAbilityResetTime);
     }
     void activateRangerator(){
@@ -75,17 +76,17 @@ public class abilityDirector : MonoBehaviour
         canQ = false;
         Debug.Log("Rangerator Activate!1");
         characterStats cStats = player.GetComponent<characterStats>();
-        tempRange = cStats.getRange();
-        cStats.setRange(tempRange * rangeAbilityModifer);
+        tempRange = cStats.range;
+        cStats.range = tempRange * rangeAbilityModifer;
         Invoke("deactivateRangerator", rangeAbilityTime);
     }
     void deactivateFireRing(){
-        canE = true;
+        Invoke("eReset", fireringAbilityResetTime);
     }
     void activateFireRing(){
         Instantiate(fireRing, this.transform.position, Quaternion.identity);
         canE = false;
-        Invoke("deactivateFireRing", fireringAbilityResetTime);
+        Invoke("deactivateFireRing", fireringAbilityDuration);
     }
     void useAbility(char Code)
     {
@@ -105,6 +106,9 @@ public class abilityDirector : MonoBehaviour
     void qReset(){
          canQ = true;
     }
+    void eReset(){
+         canE = true;
+    }
 
     public bool getQ(){
         return canQ;
@@ -122,7 +126,7 @@ public class abilityDirector : MonoBehaviour
         };
         makeAbilitys(abiltys);
         currentQ = findAbilitysFromAll(1);
-        currentE = findAbilitysFromAll(3);
+        currentE = findAbilitysFromAll(2);
 
     }
 

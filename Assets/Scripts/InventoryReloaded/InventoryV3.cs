@@ -23,7 +23,7 @@ public class InventoryV3 : MonoBehaviour
         foreach(string w in weapons){
             string[] atts = w.Split(',');
            
-            allWeapons.Add(new Weapon(int.Parse(atts[0]),atts[1],int.Parse(atts[2]),int.Parse(atts[3]),atts[4],atts[5]));
+            allWeapons.Add(new Weapon(int.Parse(atts[0]),atts[1],int.Parse(atts[2]),int.Parse(atts[3]),atts[4],atts[5],float.Parse(atts[6])));
         }
     }
     Weapon findWeaponFromAll(int ID){
@@ -54,13 +54,14 @@ public class InventoryV3 : MonoBehaviour
         cStats.currentSelectedWeapon = currentWeapon;
         Debug.Log(InvWeapons[1].projectilePrefabName);
         cStats.rangeObject = Resources.Load(InvWeapons[1].projectilePrefabName) as GameObject;
+        
     }
     void Start()
     {
         string[] weapons = {
-            "1,Great Sword,10,2,M,NA",
-            "2,Long Sword,10,5,M,NA",
-            "3,Basic Bow,10,5,R,Arrow"
+            "1,Great Sword,10,2,M,NA,0",
+            "2,Long Sword,10,5,M,NA,0",
+            "3,Basic Bow,30,5,R,Arrow,1"
         };
         makeWeapons(weapons);
         addWeapon(2);

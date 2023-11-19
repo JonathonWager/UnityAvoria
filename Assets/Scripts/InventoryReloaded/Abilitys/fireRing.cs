@@ -24,7 +24,7 @@ public class fireRing : MonoBehaviour
          Debug.Log("Entered GameObject Tag: " + other.gameObject.tag);
         if(other.gameObject.tag == "character"){
             characterStats cStats = other.gameObject.GetComponent<characterStats>();
-            tempDmg = (int)cStats.getadjAtk();
+            tempDmg = cStats.adjAtk;
             cStats.setDamage((int)(dmgBuff * tempDmg));
         }
         if(other.gameObject.tag == "enemy"){
