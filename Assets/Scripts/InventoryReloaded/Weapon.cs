@@ -5,32 +5,27 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
 
-    public int id;
-    public string waeponName;
+    public int id{ get; set; } 
+    public string weaponName{ get; set; } 
 
-    public int damage;
+    public int damage{ get; set; } 
 
-    public float range;
+    public float range{ get; set; } 
+    public string isRanged{ get; set; } 
 
-    public Weapon(int ID, string Name, int Damage, float Range){
+    public string projectilePrefabName{ get; set; } 
+    public Weapon(int ID, string Name, int Damage, float Range, string ranged,string projectileName){
         id = ID;
-        waeponName = Name;
+        weaponName = Name;
         damage = Damage;
         range = Range;
+        isRanged = ranged;
+        projectilePrefabName = projectileName;
     }
 
-    public int getId(){
-        return id;
-    }
-    public string getName(){
-        return waeponName;
-    }
-    public float getRange(){
-        return range;
-    }
-    public float getDamage(){
-        return damage;
-    }
+    
+
+    
     // Start is called before the first frame update
     void Start()
     {

@@ -49,7 +49,7 @@ public class uiUpdater : MonoBehaviour
             img.color =   new Color32( 233 , 67 , 67 , 100);
         }
         
-        InventoryV12 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV12>();
+        InventoryV3 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV3>();
         curWeapon = iStats.getCurrentWeapon();
 
         abilityDirector aStats = player.transform.GetChild(2).gameObject.GetComponent<abilityDirector>();
@@ -73,6 +73,6 @@ public class uiUpdater : MonoBehaviour
 
         hpUI.text = "HP: " + hp;
         //sprUI.text = "Sprint: ";
-        invUI.text = curWeapon.getName(); 
+        invUI.text = curWeapon.weaponName; 
     }
 }
