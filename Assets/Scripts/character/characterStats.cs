@@ -10,6 +10,7 @@ public class characterStats : MonoBehaviour
     public int adjAtk = 10;
     public float range = 2f;
 
+    public GameObject rangeObject{get; set;}
     public Weapon currentSelectedWeapon{get; set;}
     public void takeDamage(decimal damage){
         hp = hp - (int)(damage * (1-(def  / 100)));
@@ -60,7 +61,7 @@ public class characterStats : MonoBehaviour
     }
 
     void rangeAttack(){
-
+         Instantiate(rangeObject, this.transform.position, Quaternion.identity);
     }
     // Update is called once per frame
     void Update()
