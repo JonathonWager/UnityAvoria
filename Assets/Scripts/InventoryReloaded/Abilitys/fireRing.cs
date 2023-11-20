@@ -4,64 +4,105 @@ using UnityEngine;
 
 public class fireRing : MonoBehaviour
 {
+    // Temporary variable to store the character's adjusted attack for later restoration
     int tempDmg;
+
+    // Damage multiplier applied to the character's attack during the fire ring effect
     public float dmgBuff = 2f;
+
+    // Time interval at which enemies within the fire ring take damage
     public float enemyDamageTimeInterval = 2f;
+
+    // Damage inflicted to enemies within the fire ring
     public int dmgToEnemys = 5;
 
+    // Time duration before the fire ring is automatically destroyed
     public float destoryTime = 5f;
+
+    // Flag indicating whether the fire ring is currently damaging enemies
     private bool isDmging = false;
+
+    // List to store references to current enemies within the fire ring
     public List<GameObject> currentEnemys = new List<GameObject>();
 
-    public void dmgEnemys(){
-        foreach(GameObject enemy in currentEnemys){
+    // Method to apply damage to enemies within the fire ring
+    public void dmgEnemys()
+    {
+        foreach (GameObject enemy in currentEnemys)
+        {
+            // Inflict damage to each enemy
             enemyStats eEnemy = enemy.gameObject.GetComponent<enemyStats>();
             eEnemy.takeDamage(dmgToEnemys);
         }
     }
-     private void OnTriggerEnter2D(Collider2D other)
+
+    // Called when another collider enters the trigger collider attached to this object
+    private void OnTriggerEnter2D(Collider2D other)
     {
-         Debug.Log("Entered GameObject Tag: " + other.gameObject.tag);
-        if(other.gameObject.tag == "character"){
+        Debug.Log("Entered GameObject Tag: " + other.gameObject.tag);
+
+        // Check if the entering object is the character
+        if (other.gameObject.tag == "character")
+        {
+            // Adjust the character's attack based on the damage buff
             characterStats cStats = other.gameObject.GetComponent<characterStats>();
             tempDmg = cStats.adjAtk;
             cStats.setDamage((int)(dmgBuff * tempDmg));
         }
-        if(other.gameObject.tag == "enemy"){
-            Debug.Log("enemy entered");
+
+        // Check if the entering object is an enemy
+        if (other.gameObject.tag == "enemy")
+        {
+            Debug.Log("Enemy entered");
+            // Add the enemy to the list of current enemies
             currentEnemys.Add(other.gameObject);
-            if(!isDmging){
+
+            // If not currently damaging, start the damage loop
+            if (!isDmging)
+            {
                 isDmging = true;
                 InvokeRepeating("dmgEnemys", 0f, enemyDamageTimeInterval);
             }
-             
         }
-       
     }
-    
-     private void OnTriggerExit2D(Collider2D other)
+
+    // Called when another collider exits the trigger collider attached to this object
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.gameObject.tag == "character"){
+        // Check if the exiting object is the character
+        if (other.gameObject.tag == "character")
+        {
+            // Restore the character's original attack
             characterStats cStats = other.gameObject.GetComponent<characterStats>();
             cStats.setDamage(tempDmg);
         }
-        if(other.gameObject.tag == "enemy"){
-            Debug.Log("enemy exit");
+
+        // Check if the exiting object is an enemy
+        if (other.gameObject.tag == "enemy")
+        {
+            Debug.Log("Enemy exit");
+            
+            // Remove the enemy from the list of current enemies
             currentEnemys.Remove(other.gameObject);
-            if(currentEnemys.Count == 0){
+
+            // If there are no more enemies within the fire ring, stop the damage loop
+            if (currentEnemys.Count == 0)
+            {
                 isDmging = false;
             }
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
+        // Destroy the fire ring after a specified time
         Destroy(this.gameObject, destoryTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Additional update logic can be added here if needed
     }
 }

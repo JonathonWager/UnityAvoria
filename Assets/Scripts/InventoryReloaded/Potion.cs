@@ -5,17 +5,19 @@ using UnityEngine;
 public class Potion : MonoBehaviour
 {
     public int id;
-    public string potionName;
+    public string potionName{get; set;}
 
     public string statusType;
 
     public float modifier;
+    public bool isSpecial;
 
-    Potion(int ID, string Name, string statType, float Mod){
+    public Potion(int ID, string Name, string statType, float Mod, bool special){
         id = ID;
         potionName = Name;
         statusType = statType;
         modifier = Mod;
+        isSpecial = special;
     
     }
 

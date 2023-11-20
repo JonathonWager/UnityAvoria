@@ -14,7 +14,7 @@ public class uiUpdater : MonoBehaviour
     bool qAbility,eAbility;
     Weapon curWeapon;
 
-    public TMP_Text hpUI,sprUI,invUI, qUI, eUI;
+    public TMP_Text hpUI,sprUI,invUI, qUI, eUI, potionUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,18 +28,25 @@ public class uiUpdater : MonoBehaviour
             if(child.name == "invUI"){
                 invUI = child.GetComponent<TextMeshProUGUI>();
             }
+            if(child.name == "qUI"){
+                qUI = child.GetComponent<TextMeshProUGUI>();
+            }
+            if(child.name == "eUI"){
+                eUI = child.GetComponent<TextMeshProUGUI>();
+            }
+            if(child.name == "potionUI"){
+                potionUI = child.GetComponent<TextMeshProUGUI>();
+            }
+            
         }
     }
             
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void updatehpUI(){
         characterStats cStats = player.GetComponent<characterStats>();
         hp = cStats.getHp();
-
-
+        hpUI.text = "HP: " + hp;
+    }
+    void updatesprintUI(){
         playerMovement mStats = player.GetComponent<playerMovement>();
         dash = mStats.getDashStatus();
         Image img = panel.GetComponent<Image>();
@@ -48,10 +55,13 @@ public class uiUpdater : MonoBehaviour
         }else{
             img.color =   new Color32( 233 , 67 , 67 , 100);
         }
-        
+    }
+    void updateinvUI(){
         InventoryV3 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV3>();
         curWeapon = iStats.getCurrentWeapon();
-
+        invUI.text = curWeapon.weaponName; 
+    }
+    void updateqeUI(){
         abilityDirector aStats = player.transform.GetChild(2).gameObject.GetComponent<abilityDirector>();
         qAbility = aStats.getQ();
         Image img2 = qAbilityPanel.GetComponent<Image>();
@@ -70,9 +80,30 @@ public class uiUpdater : MonoBehaviour
             img3.color =   new Color32( 233 , 67 , 67 , 100);
         }
         eUI.text = aStats.getCurrentE().getName();
+    }
+    void updatepotionUI(){
+        potionUI.text = "Potions";
+        InventoryV3 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV3>();
+        Dictionary<Potion, int> potionDictionary = iStats.getpotionDictionary();
+        foreach (var kvp in potionDictionary)
+        {
+            if(potionDictionary[kvp.Key] > 0){
+                potionUI.text += "\n" + kvp.Key.potionName + ": " + potionDictionary[kvp.Key];
+            }
+        }
+    }
+    // Update is called once per frame
+    void Update()
+    {      
+        updatehpUI();
+        updatesprintUI();
+        updateinvUI();
+        updateqeUI();
+        updatepotionUI();
+        
 
-        hpUI.text = "HP: " + hp;
+       
         //sprUI.text = "Sprint: ";
-        invUI.text = curWeapon.weaponName; 
+      
     }
 }
