@@ -27,12 +27,13 @@ public class playerMovement : MonoBehaviour
         return moveSpeed;
     }
     public void setSpeed(float speed){
+        Debug.Log("SPeed geting set " + speed);
         moveSpeed = speed;
     }
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.rotation = Quaternion.Euler(Vector3.zero);
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(horizontalInput, verticalInput);

@@ -4963,9 +4963,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deleteTime: 10
-  speed: 7
+  speed: 15
   stunDivisor: 2
   stunDuration: 5
+  parent: {fileID: 0}
 --- !u!50 &3294809704951733560
 Rigidbody2D:
   serializedVersion: 4

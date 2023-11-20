@@ -52,7 +52,6 @@ public class InventoryV3 : MonoBehaviour
         characterStats cStats = player.GetComponent<characterStats>();
         cStats.weaponStats(currentWeapon);
         cStats.currentSelectedWeapon = currentWeapon;
-        Debug.Log(InvWeapons[1].projectilePrefabName);
         cStats.rangeObject = Resources.Load(InvWeapons[1].projectilePrefabName) as GameObject;
         
     }

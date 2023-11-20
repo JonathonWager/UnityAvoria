@@ -6,7 +6,7 @@ using UnityEngine;
 public class stun : MonoBehaviour
 {
     //public GameObject explo;
-    public float deleteTime = 10f;
+    public float deleteTime = 5f;
     public float speed = 7f;
     public float stunDivisor;
     private Vector3 direction;
@@ -25,7 +25,6 @@ public class stun : MonoBehaviour
    public GameObject parent;
    public void SetCreator(GameObject creatorObject)
     {
-         Debug.Log("Reveived parent " + creatorObject.name);
         parent = creatorObject;
     }
     // Start is called before the first frame update
@@ -71,6 +70,7 @@ public class stun : MonoBehaviour
     private void stunResetDelete()
     {
         playerMovement mStats = player.GetComponent<playerMovement>();
+         Debug.Log("I am Setting with temp speed " + tempMoveSpeed);
         mStats.setSpeed(tempMoveSpeed);
         mStats.isStunned = false;
         Destroy(gameObject);
@@ -84,8 +84,11 @@ public class stun : MonoBehaviour
             hasHitPlayer = true;
             playerMovement mStats = player.GetComponent<playerMovement>();
             if(!mStats.isStunned){
+              
                 tempMoveSpeed = mStats.getSpeed();
+                Debug.Log("I am getting speed " + tempMoveSpeed);
                 mStats.isStunned = true;
+                Debug.Log("I am setting speed " + (tempMoveSpeed / stunDivisor));
                 mStats.setSpeed(tempMoveSpeed / stunDivisor);
                 stunMan sStats = parent.GetComponent<stunMan>();
                 sStats.hitTarget = true;

@@ -47,7 +47,6 @@ public class stunMan : MonoBehaviour
 
             // Attach a script or modify properties on the instantiated object if needed
             stun stunScript = instantiatedStun.GetComponent<stun>();
-            Debug.Log("set parent");
             stunScript.SetCreator(gameObject); // Assuming you have a method to set the creator in StunScript
             
         }
