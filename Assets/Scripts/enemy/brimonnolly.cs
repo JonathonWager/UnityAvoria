@@ -14,7 +14,7 @@ public class brimonnolly : MonoBehaviour
     void Start()
     {
         elapsed = attackTime;
-         player = GameObject.FindGameObjectWithTag("character");
+        player = GameObject.FindGameObjectWithTag("character");
     }
 
     // Update is called once per frame

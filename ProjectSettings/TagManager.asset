@@ -8,6 +8,7 @@ TagManager:
   - character
   - splashDmg
   - wall
+  - projectile
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class playerMovement : MonoBehaviour
     private float elapsed = 0f;
     private bool isDashing = false;
     public bool canDash = true;
+    public bool isStunned{get; set;} = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,12 @@ public class playerMovement : MonoBehaviour
     }
     public bool getDashStatus(){
         return canDash;
+    }
+    public float getSpeed(){
+        return moveSpeed;
+    }
+    public void setSpeed(float speed){
+        moveSpeed = speed;
     }
     // Update is called once per frame
     void Update()

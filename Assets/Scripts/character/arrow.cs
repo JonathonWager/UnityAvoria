@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class arrow : MonoBehaviour
 {
+  public GameObject explo;
     public float deleteTime = 10f;
     public float speed = 7f;
     private int dmg = 15;
@@ -11,6 +12,8 @@ public class arrow : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 startLocation;
     private float range;
+
+    private float angle;
    
     // Start is called before the first frame update
     void Start()
@@ -30,12 +33,12 @@ public class arrow : MonoBehaviour
         // Shoot the object towards the mouse position
         ShootObject(direction);
 
-         RotateObject(direction);
+        RotateObject(direction);
     }
       void RotateObject(Vector3 direction)
     {
         // Calculate the angle in degrees
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Set the rotation of the object
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -52,9 +55,14 @@ public class arrow : MonoBehaviour
          if(other.gameObject.tag == "enemy"){
             enemyStats eEnemy = other.gameObject.GetComponent<enemyStats>();
             eEnemy.takeDamage(dmg);
+              Quaternion finalRotation =transform.rotation * Quaternion.Euler(0f, 90f, 0f);
+             Instantiate(explo, this.transform.position,  finalRotation);
          }
          if(other.gameObject.tag != "character" && other.gameObject.tag != "Untagged"){
             Destroy(gameObject);
+
+             Quaternion finalRotation =transform.rotation * Quaternion.Euler(0f, 90f, 0f);
+             Instantiate(explo, this.transform.position,  finalRotation);
          }
         
     }
