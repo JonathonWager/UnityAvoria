@@ -40,6 +40,10 @@ public class characterStats : MonoBehaviour
     {
         return hp;
     }
+     public void setHp(int newHp)
+    {
+        hp = newHp;
+    }
 
     // Setter method to modify the adjusted attack stat
     public void setDamage(int dmgBuff)

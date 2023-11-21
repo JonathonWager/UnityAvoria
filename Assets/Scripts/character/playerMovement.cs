@@ -46,7 +46,6 @@ public class playerMovement : MonoBehaviour
     // Setter method to set the player's speed
     public void setSpeed(float speed)
     {
-        Debug.Log("Speed being set: " + speed);
         moveSpeed = speed;
     }
 

@@ -94,7 +94,6 @@ public class abilityDirector : MonoBehaviour
     void deactivateRangerator()
     {
         GameObject.Find("QLight").GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = false;
-        Debug.Log("Rangerator Deactivated!");
         characterStats cStats = player.GetComponent<characterStats>();
         cStats.range = tempRange;
         Invoke("qReset", rangeAbilityResetTime);
@@ -105,7 +104,6 @@ public class abilityDirector : MonoBehaviour
     {
         GameObject.Find("QLight").GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = true;
         canQ = false;
-        Debug.Log("Rangerator Activated!");
         characterStats cStats = player.GetComponent<characterStats>();
         tempRange = cStats.range;
         cStats.range = tempRange * rangeAbilityModifer;

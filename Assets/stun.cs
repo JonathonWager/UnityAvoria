@@ -70,8 +70,10 @@ public class stun : MonoBehaviour
     private void stunResetDelete()
     {
         playerMovement mStats = player.GetComponent<playerMovement>();
-         Debug.Log("I am Setting with temp speed " + tempMoveSpeed);
-        mStats.setSpeed(tempMoveSpeed);
+        if(tempMoveSpeed > 0){
+            mStats.setSpeed(tempMoveSpeed);
+        }
+        
         mStats.isStunned = false;
         Destroy(gameObject);
     }
@@ -86,9 +88,7 @@ public class stun : MonoBehaviour
             if(!mStats.isStunned){
               
                 tempMoveSpeed = mStats.getSpeed();
-                Debug.Log("I am getting speed " + tempMoveSpeed);
                 mStats.isStunned = true;
-                Debug.Log("I am setting speed " + (tempMoveSpeed / stunDivisor));
                 mStats.setSpeed(tempMoveSpeed / stunDivisor);
                 stunMan sStats = parent.GetComponent<stunMan>();
                 sStats.hitTarget = true;

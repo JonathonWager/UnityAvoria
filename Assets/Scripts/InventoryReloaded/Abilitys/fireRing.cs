@@ -39,8 +39,6 @@ public class fireRing : MonoBehaviour
     // Called when another collider enters the trigger collider attached to this object
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Entered GameObject Tag: " + other.gameObject.tag);
-
         // Check if the entering object is the character
         if (other.gameObject.tag == "character")
         {
@@ -53,7 +51,6 @@ public class fireRing : MonoBehaviour
         // Check if the entering object is an enemy
         if (other.gameObject.tag == "enemy")
         {
-            Debug.Log("Enemy entered");
             // Add the enemy to the list of current enemies
             currentEnemys.Add(other.gameObject);
 

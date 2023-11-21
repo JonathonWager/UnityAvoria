@@ -7,9 +7,9 @@ public class Potion : MonoBehaviour
     public int id;
     public string potionName{get; set;}
 
-    public string statusType;
+    public string statusType{get; set;}
 
-    public float modifier;
+    public float modifier{get; set;}
     public bool isSpecial;
 
     public Potion(int ID, string Name, string statType, float Mod, bool special){

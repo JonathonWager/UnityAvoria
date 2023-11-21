@@ -18,6 +18,8 @@ public class InventoryV3 : MonoBehaviour
     // Dictionary to store potions and their counts
     private Dictionary<Potion, int> potionDictionary = new Dictionary<Potion, int>();
 
+    public Potion selectedPotion;
+
     // Method to initialize weapons based on a string array
     void makeWeapons(string[] weapons)
     {
@@ -113,8 +115,18 @@ public class InventoryV3 : MonoBehaviour
         {
             if (kvp.Key.id == id)
             {
-                // Decrease the count of the potion in the dictionary
-                potionDictionary[kvp.Key]--;
+                if(potionDictionary[kvp.Key] > 0){
+                    if(kvp.Key.statusType == "Hp"){
+                        characterStats cStats = player.GetComponent<characterStats>();
+                        cStats.setHp((int)(cStats.getHp() + (int)kvp.Key.modifier));
+                        potionDictionary[kvp.Key]--;
+                    }
+                    
+                    
+                    // Decrease the count of the potion in the dictionary
+                   
+                }
+                
                 return; // Optional: If you want to stop searching after finding the matching ID
             }
         }
@@ -124,6 +136,8 @@ public class InventoryV3 : MonoBehaviour
     public Dictionary<Potion, int> getpotionDictionary(){
         return potionDictionary;
     }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -166,6 +180,10 @@ public class InventoryV3 : MonoBehaviour
         {
             currentWeapon = InvWeapons[1];
             currentWeaponChange();
+        }
+         if (Input.GetKeyDown(KeyCode.V))
+        {
+            usePotion(1);
         }
     }
 }
