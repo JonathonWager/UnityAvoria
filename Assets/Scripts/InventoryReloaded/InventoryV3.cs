@@ -16,7 +16,7 @@ public class InventoryV3 : MonoBehaviour
     List<Potion> allPotions = new List<Potion>();
 
     // Dictionary to store potions and their counts
-    private Dictionary<Potion, int> potionDictionary = new Dictionary<Potion, int>();
+    public Dictionary<string, int> potionDictionary = new Dictionary<string, int>();
 
     public Potion selectedPotion;
 
@@ -90,16 +90,24 @@ public class InventoryV3 : MonoBehaviour
     {
         foreach (Potion p in allPotions)
         {   
-            potionDictionary.Add(p, 0);
+            potionDictionary.Add(p.potionName, 0);
         }
     }
 
+    Potion getPotion(string name){
+        foreach(Potion p in allPotions){
+            if(p.potionName == name){
+                return p;
+            }
+        }
+        return null;
+    }
     // Method to add a potion to the potion dictionary and increase its count
     public void addPotion(int id)
     {
         foreach (var kvp in potionDictionary)
         {
-            if (kvp.Key.id == id)
+            if (getPotion(kvp.Key).id == id)
             {
                 // Increase the count of the potion in the dictionary
                 potionDictionary[kvp.Key]++;
@@ -113,14 +121,16 @@ public class InventoryV3 : MonoBehaviour
     {
         foreach (var kvp in potionDictionary)
         {
-            if (kvp.Key.id == id)
+            if (getPotion(kvp.Key).id == id)
             {
-                if(potionDictionary[kvp.Key] > 0){
-                    if(kvp.Key.statusType == "Hp"){
+                if(kvp.Value > 0){
+
+                    if(getPotion(kvp.Key).statusType == "Hp"){
                         characterStats cStats = player.GetComponent<characterStats>();
-                        cStats.setHp((int)(cStats.getHp() + (int)kvp.Key.modifier));
+                        cStats.setHp((int)(cStats.getHp() + (int)getPotion(kvp.Key).modifier));
                         potionDictionary[kvp.Key]--;
                     }
+                    
                     
                     
                     // Decrease the count of the potion in the dictionary
@@ -133,7 +143,7 @@ public class InventoryV3 : MonoBehaviour
 
         Debug.LogWarning("Potion with ID " + id + " not found in the dictionary.");
     }
-    public Dictionary<Potion, int> getpotionDictionary(){
+    public Dictionary<string, int> getpotionDictionary(){
         return potionDictionary;
     }
 
@@ -157,13 +167,15 @@ public class InventoryV3 : MonoBehaviour
 
         // Sample data for potions
         string[] potions = {
-            "1,Health Potion,Hp,25,false"
+            "1,Health Potion,Hp,25,false",
+            "2,Stamina,Spd,5,false"
         };
 
         // Initialize potions and the potion dictionary
         makePotions(potions);
         initPotionDictonary();
         addPotion(1);
+        addPotion(2);
     }
 
     // Update is called once per frame

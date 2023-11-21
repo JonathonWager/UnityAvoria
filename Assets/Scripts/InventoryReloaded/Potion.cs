@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potion : MonoBehaviour
 {
-    public int id;
+    public int id{get; set;}
     public string potionName{get; set;}
 
     public string statusType{get; set;}
@@ -24,6 +24,7 @@ public class Potion : MonoBehaviour
     public int getId(){
         return id;
     }
+
     public string getName(){
         return potionName;
     }

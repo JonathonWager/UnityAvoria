@@ -84,11 +84,11 @@ public class uiUpdater : MonoBehaviour
     void updatepotionUI(){
         potionUI.text = "Potions";
         InventoryV3 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV3>();
-        Dictionary<Potion, int> potionDictionary = iStats.getpotionDictionary();
+        Dictionary<string, int> potionDictionary = iStats.getpotionDictionary();
         foreach (var kvp in potionDictionary)
         {
-            if(potionDictionary[kvp.Key] > 0){
-                potionUI.text += "\n" + kvp.Key.potionName + ": " + potionDictionary[kvp.Key];
+            if(kvp.Value > 0){
+                potionUI.text += "\n" + kvp.Key + ": " + kvp.Value;
             }
         }
     }
