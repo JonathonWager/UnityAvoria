@@ -11,13 +11,15 @@ public class Potion : MonoBehaviour
 
     public float modifier{get; set;}
     public bool isSpecial;
+    public float duration{get;set;}
 
-    public Potion(int ID, string Name, string statType, float Mod, bool special){
+    public Potion(int ID, string Name, string statType, float Mod, bool special, float dur){
         id = ID;
         potionName = Name;
         statusType = statType;
         modifier = Mod;
         isSpecial = special;
+        duration = dur;
     
     }
 

@@ -19,6 +19,9 @@ public class InventoryV3 : MonoBehaviour
     public Dictionary<string, int> potionDictionary = new Dictionary<string, int>();
 
     public Potion selectedPotion;
+    private float storageFloat;
+
+    private bool canB = true;
 
     // Method to initialize weapons based on a string array
     void makeWeapons(string[] weapons)
@@ -81,7 +84,7 @@ public class InventoryV3 : MonoBehaviour
             string[] atts = p.Split(',');
 
             // Create a new Potion object and add it to the allPotions list
-            allPotions.Add(new Potion(int.Parse(atts[0]), atts[1], atts[2], float.Parse(atts[3]), bool.Parse(atts[4])));
+            allPotions.Add(new Potion(int.Parse(atts[0]), atts[1], atts[2], float.Parse(atts[3]), bool.Parse(atts[4]), float.Parse(atts[5])));
         }
     }
 
@@ -130,7 +133,14 @@ public class InventoryV3 : MonoBehaviour
                         cStats.setHp((int)(cStats.getHp() + (int)getPotion(kvp.Key).modifier));
                         potionDictionary[kvp.Key]--;
                     }
-                    
+                    if(getPotion(kvp.Key).statusType == "Spd"){
+                        canB = false;
+                        playerMovement mStats = player.GetComponent<playerMovement>();
+                        storageFloat = mStats.getSpeed();
+                        mStats.setSpeed(storageFloat * getPotion(kvp.Key).modifier);
+                        potionDictionary[kvp.Key]--;
+                        Invoke("cancelSpeed",getPotion(kvp.Key).duration);
+                    }
                     
                     
                     // Decrease the count of the potion in the dictionary
@@ -142,6 +152,11 @@ public class InventoryV3 : MonoBehaviour
         }
 
         Debug.LogWarning("Potion with ID " + id + " not found in the dictionary.");
+    }
+    public void cancelSpeed(){
+        playerMovement mStats = player.GetComponent<playerMovement>();
+        mStats.setSpeed(storageFloat);
+        canB = true;
     }
     public Dictionary<string, int> getpotionDictionary(){
         return potionDictionary;
@@ -167,8 +182,8 @@ public class InventoryV3 : MonoBehaviour
 
         // Sample data for potions
         string[] potions = {
-            "1,Health Potion,Hp,25,false",
-            "2,Stamina,Spd,5,false"
+            "1,Health Potion,Hp,25,false,0",
+            "2,Stamina,Spd,1.5,false,5"
         };
 
         // Initialize potions and the potion dictionary
@@ -196,6 +211,13 @@ public class InventoryV3 : MonoBehaviour
          if (Input.GetKeyDown(KeyCode.V))
         {
             usePotion(1);
+        }
+         if (Input.GetKeyDown(KeyCode.B))
+        {
+            if(canB){
+                usePotion(2);
+            }
+            
         }
     }
 }

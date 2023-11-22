@@ -9,6 +9,7 @@ TagManager:
   - splashDmg
   - wall
   - projectile
+  - towerArray
   layers:
   - Default
   - TransparentFX
