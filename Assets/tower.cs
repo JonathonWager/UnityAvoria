@@ -10,7 +10,7 @@ public class tower : MonoBehaviour
     void Start()
     {
         beegBoss = GameObject.Find("beegBoss");
-       lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2; 
          
     }
