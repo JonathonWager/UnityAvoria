@@ -610,11 +610,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 6980455409987722352, guid: 0ce5919add977584597c327c05937173, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6613908496241944466, guid: 0ce5919add977584597c327c05937173, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 820854498}
   m_SourcePrefab: {fileID: 100100000, guid: 0ce5919add977584597c327c05937173, type: 3}
+--- !u!1 &820854492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6613908496241944466, guid: 0ce5919add977584597c327c05937173, type: 3}
+  m_PrefabInstance: {fileID: 782633799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &820854498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820854492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 4551534b345d6e94eaa2affa9a36b218, type: 2}
 --- !u!1 &844780462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2664401539571298677, guid: 6214ee4c3bac0d64caee732531fca139, type: 3}
@@ -1402,11 +1431,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3102836167139452235, guid: 6214ee4c3bac0d64caee732531fca139, type: 3}
       propertyPath: hp
-      value: 10000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6309228543091994644, guid: 6214ee4c3bac0d64caee732531fca139, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.14
+      value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 6309228543091994644, guid: 6214ee4c3bac0d64caee732531fca139, type: 3}
       propertyPath: m_LocalPosition.y
@@ -103692,6 +103721,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 21f563d47bde6f34a81b66b2ee21e3c3, type: 2}
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.80433834
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.16043091
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659925937176472350, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].value
+      value: 0.513368
+      objectReference: {fileID: 0}
     - target: {fileID: 6955941097470774644, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
       propertyPath: m_Name
       value: beegBossV2

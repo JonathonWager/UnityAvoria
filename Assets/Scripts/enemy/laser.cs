@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class laser : MonoBehaviour
 {
-    [SerializeField] private float defDistanceRay=100;
     public Transform laserFirePoint;
     public LineRenderer m_lineRenderer;
     Transform m_transform;
@@ -12,11 +11,16 @@ public class laser : MonoBehaviour
 
     private Vector3 storageLocation;
     public bool isShooting{get;set;} =false;
+    float elapsed = 0f;
+    public float dmgSpeed = 1f;
     
     // Start is called before the first frame update
     void Update(){
+        elapsed += Time.deltaTime;
         if(isShooting){
             ShootLaser();
+        }else{
+            Ray2D ray = new Ray2D();
         }
         
     }
@@ -27,41 +31,55 @@ public class laser : MonoBehaviour
         m_lineRenderer = GetComponent<LineRenderer>();
         m_lineRenderer.positionCount = 2; 
     }
-     public Vector3 GetPointInFront(float distance)
+    Vector3 CalculateLocationInDirection(Vector3 targetLocation, float xDistance)
     {
-        // Get the current position and rotation of the GameObject
+        // Get the current position of the GameObject
         Vector3 currentPosition = transform.position;
-        Quaternion currentRotation = transform.rotation;
 
-        // Calculate the offset in the forward direction based on the distance
-        Vector3 offset = distance * transform.forward;
+        // Calculate the direction from the current position to the target location
+        Vector3 directionToTarget = (targetLocation - currentPosition).normalized;
 
-        // Calculate the final position by adding the offset to the current position
-        Vector3 targetPosition = currentPosition + offset;
+        // Calculate the new location by adding the direction multiplied by the distance
+        Vector3 newLocation = targetLocation + directionToTarget * xDistance;
 
-        return targetPosition;
+        return newLocation;
     }
     // Update is called once per frame
     void ShootLaser()
     {
-        Debug.Log(storageLocation);
-        Ray2D ray = new Ray2D(transform.position, storageLocation);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, 20f);
-        if (hits.Length > 1)
-        {
 
-        }       
+        Ray2D ray = new Ray2D(transform.position, (storageLocation - laserFirePoint.position).normalized );
+        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, 50f);
+      
+        if(elapsed >= dmgSpeed){
+            elapsed = 0f;
+            foreach (RaycastHit2D hit in hits)
+            {
+                    Debug.Log("Hit  " + hit.collider.gameObject.name);
+                if (hit.collider != null && hit.collider.gameObject.tag == "character")
+                {
+                    Debug.Log("HIT PLAYER");
+                    characterStats cStats = hit.collider.gameObject.GetComponent<characterStats>();
+                    cStats.takeDamage(20);
+                }
+            }
+        }
+        
         Draw2DRay(laserFirePoint.position, storageLocation);
     }
     public void initLaser(){
         getTarget();
         isShooting = true;
+        m_lineRenderer.positionCount = 2; 
+    }
+     public void deinitLaser(){
+        isShooting = false;
+        m_lineRenderer.positionCount = 0;
     }
     public void getTarget(){
-        storageLocation = player.transform.position;
+        storageLocation = CalculateLocationInDirection(player.transform.position, 20f);
     }
     void Draw2DRay(Vector3 startPos, Vector3 endPos){
-          
         m_lineRenderer.SetPosition(0, startPos);
         m_lineRenderer.SetPosition(1,endPos);
     }

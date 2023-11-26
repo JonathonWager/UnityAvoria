@@ -5,98 +5,160 @@ using UnityEngine.AI;
 
 public class beegBoss : MonoBehaviour
 {
+    // Tower-related variables
     private GameObject towerArray;
     private GameObject[] towers = new GameObject[4];
+    private int towerCount = 4;  // Initial tower count
 
+    // Target and navigation variables
     [SerializeField] Transform target;
-    UnityEngine.AI.NavMeshAgent agent;
-    public float skellySpawnTimer = 8f; 
+    NavMeshAgent agent;
 
+    // Skelly Nest spawn variables
+    public float skellySpawnTimer = 8f;
+    public float skellyNestAccuracy = 3f;
     public float fazeOneRange = 8f;
     public GameObject skellyNest;
 
-    //0 = best accuracy 
-    public float skellyNestAccuracy =3f; 
+    // Faze Two variables
+    private bool fazeOne, fazeTwo = false;
+    private bool setLaser = false;
+    private float fazeTwoTimer = 10f;
+    public float FazeTwoShootSpeed = 3f;
+    public float FazeTwoVulnerableTime = 2f;
 
+    // Timer and Rigidbody variables
     float elapsed = 0f;
     private Rigidbody2D rb;
 
-    private bool fazeOne,fazeTwo = false;
+    // Faze Two initialization
+    void startFazeTwo()
+    {
+        fazeOne = false;
+        fazeTwo = true;
+        Invoke("stopFazeTwo", fazeTwoTimer);
+        setLaser = false;
+    }
 
-    bool setLaser = false;
-    // Start is called before the first frame update
+    // Faze Two termination
+    void stopFazeTwo()
+    {
+        fazeOne = true;
+        fazeTwo = false;
+        elapsed = 0f;
+         laser lStats = gameObject.GetComponent<laser>();
+            lStats.deinitLaser();
+    }
+
+    // Check the number of towers and trigger Faze Two if different
+    void towerCheck()
+    {
+        int x = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (towers[i] != null)
+            {
+                x++;
+            }
+        }
+        if (x != towerCount)
+        {
+            towerCount = x;
+            startFazeTwo();
+        }
+    }
+
+    // Initialization
     void Start()
     {
+        // Initialize variables
         target = GameObject.FindGameObjectWithTag("character").transform;
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         towerArray = GameObject.FindGameObjectWithTag("towerArray");
         elapsed = skellySpawnTimer;
         rb = GetComponent<Rigidbody2D>();
         fazeOne = true;
+        initTowers();
     }
 
-    void initTowers(){
+    // Initialize tower array
+    void initTowers()
+    {
         int count = 0;
-        
         foreach (Transform child in towerArray.transform)
         {
             towers[count] = child.gameObject;
             count++;
         }
     }
-    void spawnSkellyNest(){
+
+    // Spawn Skelly Nest based on distance and timer
+    void spawnSkellyNest()
+    {
         float x = Random.Range(target.position.x - skellyNestAccuracy, transform.position.x + skellyNestAccuracy);
         float y = Random.Range(target.position.y - skellyNestAccuracy, transform.position.y + skellyNestAccuracy);
-         Instantiate(skellyNest,new Vector3(x,y,-1f), Quaternion.identity);
+        Instantiate(skellyNest, new Vector3(x, y, -1f), Quaternion.identity);
     }
-    // Update is called once per frame
-    void FazeOne(){
-        if(Vector3.Distance(transform.position, target.position) <= fazeOneRange){
-            if(elapsed >= skellySpawnTimer){
+
+    // Faze One behavior
+    void FazeOne()
+    {
+        if (Vector3.Distance(transform.position, target.position) <= fazeOneRange)
+        {
+            if (elapsed >= skellySpawnTimer)
+            {
                 elapsed = 0f;
                 spawnSkellyNest();
             }
-             Vector3 awayDirection = transform.position - target.position;
-            // Set the destination based on the away direction
+            Vector3 awayDirection = transform.position - target.position;
             agent.SetDestination(transform.position + awayDirection);
-        }else{
+        }
+        else
+        {
             agent.SetDestination(target.position);
-
         }
     }
-    void rotateObject(){
+
+    // Rotate object based on velocity
+    void rotateObject()
+    {
         Vector2 velocity = rb.velocity;
-        // Check if the object is moving (velocity magnitude is greater than a small value)
         if (velocity.magnitude > 0.1f)
         {
-            // Calculate the rotation angle in degrees using Mathf.Atan2
             float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-
-            // Set the object's rotation to the calculated angle
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
-    void FazeTwo(){
-        if(!setLaser){
+
+    // Faze Two behavior
+    void FazeTwo()
+    {
+        if (elapsed >= FazeTwoShootSpeed)
+        {
+            elapsed = 0f;
             laser lStats = gameObject.GetComponent<laser>();
             lStats.initLaser();
             setLaser = true;
         }
-        
+        // Add Faze Two behavior here
     }
+
+    // Update is called once per frame
     void Update()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+        towerCheck();
         elapsed += Time.deltaTime;
 
-       
-        if(fazeOne){
+        if (fazeOne)
+        {
             FazeOne();
-        }else if(fazeTwo){
+        }
+        else if (fazeTwo)
+        {
             FazeTwo();
         }
-        
-       
     }
 }
