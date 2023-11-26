@@ -97,3 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0471ccc877f92f945acd85d1985fba24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  skellySpawnTimer: 8
+  fazeOneRange: 8
+  skellyNest: {fileID: 5984102774595574777, guid: 7a36a990c65ef374c94a3a0b922f7cb0, type: 3}
+  skellyNestAccuracy: 3

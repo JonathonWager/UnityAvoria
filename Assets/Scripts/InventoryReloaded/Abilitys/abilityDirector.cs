@@ -184,7 +184,7 @@ public class abilityDirector : MonoBehaviour
         // Initialize abilities and set the current Q and E abilities
         makeAbilitys(abiltys);
         currentQ = findAbilitysFromAll(1);
-        currentE = findAbilitysFromAll(2);
+        currentE = findAbilitysFromAll(3);
     }
 
     // Update is called once per frame
