@@ -10,6 +10,7 @@ TagManager:
   - wall
   - projectile
   - towerArray
+  - boss
   layers:
   - Default
   - TransparentFX

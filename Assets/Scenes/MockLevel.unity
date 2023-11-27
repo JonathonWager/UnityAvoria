@@ -369,6 +369,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 610289944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!120 &228485778 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 8739127678664889764, guid: 98fc3e7f96d61a248bf219be38ae3c08, type: 3}
+  m_PrefabInstance: {fileID: 6837907872386979246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &235323287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,6 +1340,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 610289944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1583476631 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6955941097470774644, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+  m_PrefabInstance: {fileID: 2991669313960370384}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1583476639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583476631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187c159fbd5f393488030ff9836dcac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 1000
+  bossType: beegBoss
+--- !u!58 &1583476640
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583476631}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.47
 --- !u!1 &1634829850
 GameObject:
   m_ObjectHideFlags: 0
@@ -103757,6 +103816,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: beegBossV2
       objectReference: {fileID: 0}
+    - target: {fileID: 6955941097470774644, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: m_TagString
+      value: boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167897366879809745, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      propertyPath: skellyNestAccuracy
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8942776316717301022, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.007996
@@ -103800,7 +103867,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6955941097470774644, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1583476639}
+    - targetCorrespondingSourceObject: {fileID: 6955941097470774644, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1583476640}
   m_SourcePrefab: {fileID: 100100000, guid: fa1d349b6fed5e84db712d34584a8385, type: 3}
 --- !u!1001 &6837907872386979246
 PrefabInstance:
@@ -103854,6 +103927,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6905920928976416342, guid: 98fc3e7f96d61a248bf219be38ae3c08, type: 3}
+      propertyPath: lineRenderer
+      value: 
+      objectReference: {fileID: 228485778}
     - target: {fileID: 8739127678664889764, guid: 98fc3e7f96d61a248bf219be38ae3c08, type: 3}
       propertyPath: m_Materials.Array.size
       value: 2

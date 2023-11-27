@@ -88,6 +88,16 @@ public class characterStats : MonoBehaviour
                         eEnemy.takeDamage((int)(adjAtk));
                     }
                 }
+                if (hit.collider != null && hit.collider.gameObject.tag == "boss")
+                {
+                    // Check if the enemy is within attack range
+                    if (hit.distance <= range)
+                    {
+                        // Damage the enemy
+                        bossStats bStats = hit.collider.gameObject.GetComponent<bossStats>();
+                        bStats.takeDamage((int)(adjAtk));
+                    }
+                }
             }
         }
     }
