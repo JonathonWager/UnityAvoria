@@ -14,12 +14,13 @@ public class laser : MonoBehaviour
     private Vector3 storageLocation;
     public bool isShooting { get; set; } = false;
     float elapsed = 0f;
+     float elapsed2 = 0f;
     public float dmgSpeed = 1f;
     public float targetingTime = 0.5f;
     public bool PARTYTIME { get; set; } = false;
-    public float partyUpdateDegree = 1000f;
+    public float targetRotation = 1000f;
     public float partyDegreeUpdateTime = 1f;
-    
+    public float angleInc = 0.5f;
     public float laserLength = 50f;
     private Vector3 storageRotation;
     List<Vector2> storageDirections;
@@ -35,7 +36,7 @@ public class laser : MonoBehaviour
         Debug.Log("Starting Party Time");
         GetTarget(); // Assuming you have a method called GetTarget()
         PARTYTIME = true;
-        storageDirections = CalculateDirections(laserFirePoint.position,0.5f, 275);
+        storageDirections = CalculateDirections(laserFirePoint.position,angleInc, targetRotation);
         foreach(Vector2 direct in storageDirections){
             Debug.Log(direct);
         }
@@ -43,24 +44,18 @@ public class laser : MonoBehaviour
        // storageRotation = directionToTarget;
     }
     void PARTY(){
-        if (elapsed >= partyDegreeUpdateTime)
+        if (elapsed >= partyDegreeUpdateTime && storageDirections[0] != null)
         {
             elapsed = 0f;
-
+           // Ray2D ray = new Ray2D(transform.position, storageDirections[0]);
+           storageDirections[0].Normalize();
+            
             Draw2DRay(laserFirePoint.position, storageDirections[0]);
             storageDirections.RemoveAt(0);
             //updateRotation();
         }
     }
-    void updateRotation(){
-        Vector3 relativePosition = laserFirePoint.position - transform.position;
 
-        // Apply rotation around the boss (transform.position)
-        storageRotation = Quaternion.AngleAxis(partyUpdateDegree, Vector3.forward) * relativePosition;
-
-        // Update laserFirePoint position based on the rotated direction
-        laserFirePoint.position = transform.position + storageRotation;
-    }
     public List<Vector2> CalculateDirections(Vector2 gameObjectPosition, float angleIncrement, float targetRotation)
     {
         List<Vector2> directions = new List<Vector2>();
@@ -164,12 +159,34 @@ public class laser : MonoBehaviour
         m_lineRenderer.positionCount = 2;
         m_lineRenderer.SetPosition(0, startPos);
         m_lineRenderer.SetPosition(1, endPos);
+       
+        if(PARTYTIME){
+             Debug.DrawRay(startPos, endPos - startPos, Color.green);
+             Ray2D ray = new Ray2D(startPos, (endPos - startPos).normalized);
+             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, laserLength);
+             if(elapsed2 >= dmgSpeed){
+                Debug.Log("hellos");
+                elapsed2 = 0f;
+                foreach (RaycastHit2D hit in hits)
+                {
+                    if (hit.collider != null && hit.collider.gameObject.tag == "character")
+                    {
+                        characterStats cStats = hit.collider.gameObject.GetComponent<characterStats>();
+                        cStats.takeDamage(20); // I assumed a method name change to follow conventions
+                    }
+                }
+            }
+          
+        }
+        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         elapsed += Time.deltaTime;
+        elapsed2 += Time.deltaTime;
 
         // Check if it's party time
         if (!PARTYTIME)
