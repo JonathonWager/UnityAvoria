@@ -87,7 +87,7 @@ public class beegBoss : MonoBehaviour
         towerArray = GameObject.FindGameObjectWithTag("towerArray");
         elapsed = skellySpawnTimer;
         rb = GetComponent<Rigidbody2D>();
-        fazeFour = true;
+        fazeOne = true;
         initTowers();
     }
 
