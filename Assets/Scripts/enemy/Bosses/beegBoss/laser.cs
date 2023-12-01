@@ -33,13 +33,9 @@ public class laser : MonoBehaviour
         m_lineRenderer.positionCount = 2;
     }
     public void startPartyTime(){
-        Debug.Log("Starting Party Time");
         GetTarget(); // Assuming you have a method called GetTarget()
         PARTYTIME = true;
         storageDirections = CalculateDirections(laserFirePoint.position,angleInc, targetRotation);
-        foreach(Vector2 direct in storageDirections){
-            Debug.Log(direct);
-        }
         //Vector3 directionToTarget = (storageLocation - laserFirePoint.position).normalized;
        // storageRotation = directionToTarget;
     }
@@ -51,6 +47,7 @@ public class laser : MonoBehaviour
            storageDirections[0].Normalize();
             
             Draw2DRay(laserFirePoint.position, storageDirections[0]);
+            
             storageDirections.RemoveAt(0);
             //updateRotation();
         }
@@ -64,7 +61,6 @@ public class laser : MonoBehaviour
         Vector3 storage = player.transform.position;
         storage.Normalize();
         float startAngle = Vector2.SignedAngle(gameObjectPosition, new Vector2(player.transform.position.x, player.transform.position.y));
-        Debug.Log("Vector2.Angle("+gameObjectPosition + ","  + new Vector2(player.transform.position.x,player.transform.position.y) + ") = " +startAngle);
         for (int i = 0; i < numDirections; i++)
         {
             float angle = i * angleIncrement + startAngle;
@@ -161,11 +157,9 @@ public class laser : MonoBehaviour
         m_lineRenderer.SetPosition(1, endPos);
        
         if(PARTYTIME){
-             Debug.DrawRay(startPos, endPos - startPos, Color.green);
              Ray2D ray = new Ray2D(startPos, (endPos - startPos).normalized);
              RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, laserLength);
              if(elapsed2 >= dmgSpeed){
-                Debug.Log("hellos");
                 elapsed2 = 0f;
                 foreach (RaycastHit2D hit in hits)
                 {

@@ -14,16 +14,13 @@ public class uiUpdater : MonoBehaviour
     bool qAbility,eAbility;
     Weapon curWeapon;
 
-    public TMP_Text hpUI,sprUI,invUI, qUI, eUI, potionUI;
+    public TMP_Text hpUI,invUI, qUI, eUI, potionUI;
     // Start is called before the first frame update
     void Start()
     {
         foreach (Transform child in transform){
             if(child.name == "hpUI"){
                 hpUI = child.GetComponent<TextMeshProUGUI>();
-            }
-            if(child.name == "sprintUI"){
-                sprUI = child.GetComponent<TextMeshProUGUI>();
             }
             if(child.name == "invUI"){
                 invUI = child.GetComponent<TextMeshProUGUI>();
@@ -80,6 +77,13 @@ public class uiUpdater : MonoBehaviour
             img3.color =   new Color32( 233 , 67 , 67 , 100);
         }
         eUI.text = aStats.getCurrentE().getName();
+        eIcon( aStats.getCurrentE().getName());
+    }
+    void eIcon(string name){
+        Debug.Log(name);
+        if(name == "Fire Ring"){
+          transform.Find("eAbilityFrame").transform.Find(name).gameObject.SetActive(true);
+        }
     }
     void updatepotionUI(){
         potionUI.text = "Potions";
@@ -102,8 +106,6 @@ public class uiUpdater : MonoBehaviour
         updatepotionUI();
         
 
-       
-        //sprUI.text = "Sprint: ";
       
     }
 }
