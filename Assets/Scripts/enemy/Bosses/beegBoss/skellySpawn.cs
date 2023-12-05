@@ -25,7 +25,6 @@ public class skellySpawn : MonoBehaviour
     }
 
     void spawnSkellys(){
-        Debug.Log(spawnCounter + " == " + spawnCount);
         if(spawnCounter == spawnCount -1){
             Destroy(gameObject);
         }

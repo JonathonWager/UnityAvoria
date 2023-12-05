@@ -6,7 +6,7 @@ public class bossStats : MonoBehaviour
 {
     public int hp = 1000;
     private int halfhp;
-    private int fithhp;
+    private int quarterhp;
     public string bossType;
     private bool canBeDamaged = true;
     public void takeDamage(int damage)
@@ -22,10 +22,10 @@ public class bossStats : MonoBehaviour
         if(hp <= halfhp){
             bStats.pastHalf = true;
         }
-        if(hp <= fithhp){
+        if(hp <= quarterhp){
             //bStats.pastHalf = true;
         }
-        if(bStats.isVulnerble){
+        if(bStats.isVulnerable){
             canBeDamaged = true;
         }else{
             canBeDamaged = false;
@@ -41,6 +41,6 @@ public class bossStats : MonoBehaviour
     }
     void Start(){
         halfhp = hp /2;
-        fithhp = hp /5;
+        quarterhp = hp /4;
     }
 }

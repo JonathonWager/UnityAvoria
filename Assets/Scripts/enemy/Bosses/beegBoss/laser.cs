@@ -33,34 +33,56 @@ public class laser : MonoBehaviour
         m_lineRenderer.positionCount = 2;
     }
     public void startPartyTime(){
+        elapsed2 = dmgSpeed;
         GetTarget(); // Assuming you have a method called GetTarget()
         PARTYTIME = true;
         storageDirections = CalculateDirections(laserFirePoint.position,angleInc, targetRotation);
-        //Vector3 directionToTarget = (storageLocation - laserFirePoint.position).normalized;
-       // storageRotation = directionToTarget;
     }
     void PARTY(){
         if (elapsed >= partyDegreeUpdateTime && storageDirections[0] != null)
         {
             elapsed = 0f;
-           // Ray2D ray = new Ray2D(transform.position, storageDirections[0]);
-           storageDirections[0].Normalize();
+            storageDirections[0].Normalize();
             
             Draw2DRay(laserFirePoint.position, storageDirections[0]);
             
             storageDirections.RemoveAt(0);
-            //updateRotation();
         }
     }
 
     public List<Vector2> CalculateDirections(Vector2 gameObjectPosition, float angleIncrement, float targetRotation)
     {
         List<Vector2> directions = new List<Vector2>();
+
         int numDirections = (int)(targetRotation/angleIncrement);
+
         gameObjectPosition.Normalize();
-        Vector3 storage = player.transform.position;
-        storage.Normalize();
-        float startAngle = Vector2.SignedAngle(gameObjectPosition, new Vector2(player.transform.position.x, player.transform.position.y));
+     
+        Vector3 targetDir =player.transform.position - transform.position;
+        targetDir = targetDir.normalized;
+        //BAD CODE VERY BAD
+        bool xPos = false;
+        bool yPos = false;
+
+        if(targetDir.x > 0){
+            xPos = true;
+        }
+        if(targetDir.y > 0){
+            yPos = true;
+        }
+        float startAngle = 0f;
+        if(xPos && yPos){
+            startAngle = 0f;
+        }
+        if(!xPos && yPos){
+            startAngle = 90f;
+        }
+        if(!xPos && !yPos){
+            startAngle = 180f;
+        }
+        if(xPos && !yPos){
+            startAngle = 270f;
+        }
         for (int i = 0; i < numDirections; i++)
         {
             float angle = i * angleIncrement + startAngle;
@@ -157,23 +179,22 @@ public class laser : MonoBehaviour
         m_lineRenderer.SetPosition(1, endPos);
        
         if(PARTYTIME){
-             Ray2D ray = new Ray2D(startPos, (endPos - startPos).normalized);
+            //Debug.Log("Debug Ray");
+             Debug.DrawRay(startPos, new Vector3((endPos - startPos).normalized.x,(endPos - startPos).normalized.y,0f) * laserLength, Color.green);
+             Ray2D ray = new Ray2D(startPos, new Vector3((endPos - startPos).normalized.x,(endPos - startPos).normalized.y,0f));
              RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, laserLength);
              if(elapsed2 >= dmgSpeed){
-                elapsed2 = 0f;
                 foreach (RaycastHit2D hit in hits)
                 {
                     if (hit.collider != null && hit.collider.gameObject.tag == "character")
                     {
+                        elapsed2 = 0f;
                         characterStats cStats = hit.collider.gameObject.GetComponent<characterStats>();
                         cStats.takeDamage(20); // I assumed a method name change to follow conventions
                     }
                 }
             }
-          
-        }
-        
-       
+        }         
     }
 
     // Update is called once per frame
@@ -189,11 +210,6 @@ public class laser : MonoBehaviour
             if (isShooting)
             {
                 ShootLaser();
-            }
-            else
-            {
-                // Create an empty ray if not shooting
-                Ray2D ray = new Ray2D();
             }
         }
         else

@@ -80,7 +80,6 @@ public class uiUpdater : MonoBehaviour
         eIcon( aStats.getCurrentE().getName());
     }
     void eIcon(string name){
-        Debug.Log(name);
         if(name == "Fire Ring"){
           transform.Find("eAbilityFrame").transform.Find(name).gameObject.SetActive(true);
         }
