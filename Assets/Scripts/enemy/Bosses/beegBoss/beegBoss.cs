@@ -234,6 +234,7 @@ public class beegBoss : MonoBehaviour
         {  
             if (pastQuart)
             {
+                Debug.Log("starting 4");
                 fazeOne = false;
                 fazeTwo = false;
                 fazeThree = false;

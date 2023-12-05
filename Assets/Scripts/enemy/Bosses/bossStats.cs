@@ -23,7 +23,7 @@ public class bossStats : MonoBehaviour
             bStats.pastHalf = true;
         }
         if(hp <= quarterhp){
-            //bStats.pastHalf = true;
+            bStats.pastQuart = true;
         }
         if(bStats.isVulnerable){
             canBeDamaged = true;
