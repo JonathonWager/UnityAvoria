@@ -27,6 +27,8 @@ public class characterStats : MonoBehaviour
 
     // Flag to control firing cooldown
     private bool canFire = true;
+    private bool canAttack = true;
+    public float attackResetTime = 0.5f;
 
     // Method to deduct health points based on received damage
     public void takeDamage(decimal damage)
@@ -81,27 +83,33 @@ public class characterStats : MonoBehaviour
                 if (hit.collider != null && hit.collider.gameObject.tag == "enemy")
                 {
                     // Check if the enemy is within attack range
-                    if (hit.distance <= range)
+                    if (hit.distance <= range && canAttack)
                     {
                         // Damage the enemy
                         enemyStats eEnemy = hit.collider.gameObject.GetComponent<enemyStats>();
                         eEnemy.takeDamage((int)(adjAtk));
+                        canAttack = false;
+                        Invoke("attackReset", attackResetTime);
                     }
                 }
                 if (hit.collider != null && hit.collider.gameObject.tag == "boss")
                 {
                     // Check if the enemy is within attack range
-                    if (hit.distance <= range)
+                    if (hit.distance <= range && canAttack)
                     {
                         // Damage the enemy
                         bossStats bStats = hit.collider.gameObject.GetComponent<bossStats>();
                         bStats.takeDamage((int)(adjAtk));
+                        canAttack = false;
+                        Invoke("attackReset", attackResetTime);
                     }
                 }
             }
         }
     }
-
+    void attackReset(){
+        canAttack = true;
+    }
     // Method for ranged attack
     void rangeAttack()
     {

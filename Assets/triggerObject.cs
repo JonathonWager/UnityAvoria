@@ -9,8 +9,9 @@ public class triggerObject : MonoBehaviour
 
     List<string> greasy = new List<string>();
 
-  private string[] list1;
+    private string[] list1;
 
+    public List<Vector3> vector3List;   
     // Start is called before the first frame update
     void Start()
     {
@@ -29,21 +30,23 @@ public class triggerObject : MonoBehaviour
                     delayCount += float.Parse(atts2[1]);
                     Invoke("spawnEnemy", delayCount);    
             }
-            
         }
-        
     }
 
 
     void spawnEnemy(){
         Debug.Log("Spawning Enemy " + greasy[0]);
         if(Resources.Load(greasy[0]) as GameObject != null){
-            Instantiate(Resources.Load(greasy[0]) as GameObject, transform.position, Quaternion.identity);
+            int rand = Random.Range(0, vector3List.Count - 1);
+            Instantiate(Resources.Load(greasy[0]) as GameObject, vector3List[rand], Quaternion.identity);
         }    
         greasy.RemoveAt(0);
     }
     public void  OnTriggerEnter2D(Collider2D other){
-        entered = true;
+        if(other.GetComponent<Collider>().gameObject.tag == "character"){
+            entered = true;
+        }
+        
     }
     // Update is called once per frame
     void Update()

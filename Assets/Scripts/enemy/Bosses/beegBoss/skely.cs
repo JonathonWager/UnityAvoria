@@ -10,7 +10,7 @@ public class skely : MonoBehaviour
     GameObject player;
 
     public int dmg = 5;
-    public float range = 1f;
+    public float range = 0.4f;
 
     public float attackSpeed = 0.5f;
     float elapsed = 0f;

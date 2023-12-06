@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   dmg: 5
-  range: 2
+  range: 1
   attackSpeed: 0.5
 --- !u!195 &9195430138589348598
 NavMeshAgent:

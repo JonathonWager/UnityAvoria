@@ -53,7 +53,10 @@ public class beegBoss : MonoBehaviour
     // Faze Two termination
     private void StopFazeTwo()
     {
-        fazeOne = true;
+        fazeOne = false;
+        if(!fazeThree){
+            fazeOne = true;
+        }
         fazeTwo = false;
         elapsed = 0f;
         laser lStats = gameObject.GetComponent<laser>();
@@ -196,7 +199,7 @@ public class beegBoss : MonoBehaviour
         fazeOne = false;
         fazeTwo = false;
         fazeThree = false;
-        startedFour = true;
+        startedFour = false;
         fazeFour = true;
     }
 
@@ -206,7 +209,7 @@ public class beegBoss : MonoBehaviour
         fazeOne = false;
         fazeTwo = false;
         fazeThree = true;
-        startedFour = false;
+        startedFour = true;
         fazeFour = false;
         Invoke("StartFazeFour", FazeFourResetTime);
     }

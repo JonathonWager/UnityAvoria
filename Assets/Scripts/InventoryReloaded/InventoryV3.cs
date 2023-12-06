@@ -31,7 +31,7 @@ public class InventoryV3 : MonoBehaviour
             string[] atts = w.Split(',');
 
             // Create a new Weapon object and add it to the allWeapons list
-            allWeapons.Add(new Weapon(int.Parse(atts[0]), atts[1], int.Parse(atts[2]), int.Parse(atts[3]), atts[4], atts[5], float.Parse(atts[6])));
+            allWeapons.Add(new Weapon(int.Parse(atts[0]), atts[1], int.Parse(atts[2]), float.Parse(atts[3]), atts[4], atts[5], float.Parse(atts[6])));
         }
     }
 
@@ -168,8 +168,8 @@ public class InventoryV3 : MonoBehaviour
     {
         // Sample data for weapons
         string[] weapons = {
-            "1,Great Sword,10,2,M,NA,0",
-            "2,Long Sword,10,5,M,NA,0",
+            "1,Great Sword,10,1.5,M,NA,0",
+            "2,Long Sword,10,2.2,M,NA,0",
             "3,Basic Bow,30,5,R,Arrow,1"
         };
 
