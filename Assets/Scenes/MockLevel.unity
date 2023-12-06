@@ -4534,51 +4534,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
       propertyPath: vector3List.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[0].x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
       propertyPath: vector3List.Array.data[0].y
-      value: 67.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[0].z
-      value: 0
+      value: 68.49
       objectReference: {fileID: 0}
     - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
       propertyPath: vector3List.Array.data[1].x
-      value: 32.4
+      value: 26.1
       objectReference: {fileID: 0}
     - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
       propertyPath: vector3List.Array.data[1].y
-      value: 67.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[1].z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[2].x
-      value: 32.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[2].y
-      value: 91.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[2].z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[3].x
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6774717320655970092, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
-      propertyPath: vector3List.Array.data[3].y
-      value: 91.7
+      value: 68.49
       objectReference: {fileID: 0}
     - target: {fileID: 8913136074556011636, guid: c2651a8ebac24d74d95cefb2e482feae, type: 3}
       propertyPath: m_Name
