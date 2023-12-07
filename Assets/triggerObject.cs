@@ -9,13 +9,13 @@ public class triggerObject : MonoBehaviour
 
     List<string> greasy = new List<string>();
 
-    private string[] list1;
+    public string[] list1;
 
     public List<Vector3> vector3List;   
     // Start is called before the first frame update
     void Start()
     {
-        list1 = new string[] {"spinAttacker-0", "charger-5", "charger-3"};
+        list1 = new string[] {"spinAttacker-0", "charger-5", "charger-3,spinAttacker-0,spinAttacker-0,spinAttacker-0,spinAttacker-0"};
           
         // Now list1 is initialized with the specified string values.
     }
@@ -38,12 +38,13 @@ public class triggerObject : MonoBehaviour
         Debug.Log("Spawning Enemy " + greasy[0]);
         if(Resources.Load(greasy[0]) as GameObject != null){
             int rand = Random.Range(0, vector3List.Count - 1);
-            Instantiate(Resources.Load(greasy[0]) as GameObject, vector3List[rand], Quaternion.identity);
+            Instantiate(Resources.Load(greasy[0]) as GameObject, new Vector3(vector3List[rand].x,vector3List[rand].y,-1f), Quaternion.identity);
         }    
         greasy.RemoveAt(0);
     }
     public void  OnTriggerEnter2D(Collider2D other){
-        if(other.GetComponent<Collider>().gameObject.tag == "character"){
+        Debug.Log("entered");
+        if(other.gameObject.tag == "character"){
             entered = true;
         }
         
