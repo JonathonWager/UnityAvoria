@@ -18,6 +18,7 @@ public class uiUpdater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("character");
         foreach (Transform child in transform){
             if(child.name == "hpUI"){
                 hpUI = child.GetComponent<TextMeshProUGUI>();
