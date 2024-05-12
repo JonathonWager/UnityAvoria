@@ -14,15 +14,31 @@ public class abilityDirector : MonoBehaviour
     List<Ability> allAbility = new List<Ability>();
 
     // Parameters for the Rangerator ability
+    private int rangeUseCount = 0;
+    private int rangeLevelCount = 5;
+    public int rangeAbiltyLevel = 1;
     public float rangeAbilityModifer = 1.5f;
     public float rangeAbilityTime = 5f;
     public float rangeAbilityResetTime = 5f;
 
+    public int speedAbilityLevel = 1;
+    public float speedAbilityResetTime = 5f;
+    public float speedAbilityTime = 5f;
+    public float speedAbilityModifier = 1.5f;
+    private int speedUseCount = 0;
+    private int speedLevelCount = 5;
+
     // Parameters for the Fire Ring ability
+    private int fireUseCount = 0;
+    private int fireLevelCount = 5;
+    public int fireRingLevel = 1;
     public float fireringAbilityDuration = 5f;
     public float fireringAbilityResetTime = 5f;
 
     // Parameter for the Meteor Smash ability
+    public int meteorLevel = 1;
+    private int meteorLevelCount = 5;
+    private int meteorUseCount = 0;
     public float meteorResetTime = 5f;
 
     // Flags indicating whether abilities Q and E are available
@@ -33,6 +49,7 @@ public class abilityDirector : MonoBehaviour
 
     // Temporary variable to store the original range for Rangerator
     private float tempRange;
+    private float tempSpeed;
 
     // Method to create abilities based on a string array
     void makeAbilitys(string[] abilitys)
@@ -68,10 +85,17 @@ public class abilityDirector : MonoBehaviour
     {
         return currentE;
     }
-
+    void meteorLeveling(){
+                meteorUseCount += 1;
+                if(meteorUseCount == meteorLevelCount){
+                    meteorLevel += 1;
+                    meteorLevelCount = meteorLevelCount * 2;
+                }
+            }
     // Method for the Meteor Smash ability
     void MeteorSmash()
     {
+        meteorLeveling();
         Vector3 mousePosition = Input.mousePosition;
 
         // Set the z-coordinate to the distance from the camera
@@ -90,6 +114,15 @@ public class abilityDirector : MonoBehaviour
         canE = true;
     }
 
+    void rangeAbilityLeveling(){
+            rangeUseCount += 1;
+            if(rangeUseCount == rangeLevelCount){
+                rangeAbiltyLevel += 1;
+                rangeLevelCount = rangeLevelCount * 2;
+                rangeAbilityModifer = rangeAbilityModifer + 0.1f;
+                rangeAbilityTime = rangeAbilityTime + 0.1f;
+            }
+        }
     // Method to deactivate the Rangerator ability
     void deactivateRangerator()
     {
@@ -98,10 +131,11 @@ public class abilityDirector : MonoBehaviour
         cStats.range = tempRange;
         Invoke("qReset", rangeAbilityResetTime);
     }
-
+    
     // Method to activate the Rangerator ability
     void activateRangerator()
     {
+        rangeAbilityLeveling();
         GameObject.Find("QLight").GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = true;
         canQ = false;
         characterStats cStats = player.GetComponent<characterStats>();
@@ -109,7 +143,13 @@ public class abilityDirector : MonoBehaviour
         cStats.range = tempRange * rangeAbilityModifer;
         Invoke("deactivateRangerator", rangeAbilityTime);
     }
-
+    void fireRingLeveling(){
+                fireUseCount += 1;
+                if(fireUseCount == fireLevelCount){
+                    fireRingLevel += 1;
+                    fireLevelCount = fireLevelCount * 2;
+                }
+            }
     // Method to deactivate the Fire Ring ability
     void deactivateFireRing()
     {
@@ -119,9 +159,34 @@ public class abilityDirector : MonoBehaviour
     // Method to activate the Fire Ring ability
     void activateFireRing()
     {
+        fireRingLeveling();
         Instantiate(fireRing, this.transform.position, Quaternion.identity);
         canE = false;
         Invoke("deactivateFireRing", fireringAbilityDuration);
+    }
+    void speederatorLeveling(){
+        speedUseCount += 1;
+        if(speedUseCount == speedLevelCount){
+            speedAbilityLevel += 1;
+            speedLevelCount = speedLevelCount * 2;
+            speedAbilityModifier = speedAbilityModifier + 0.1f;
+            speedAbilityTime = speedAbilityTime + 0.1f;
+        }
+    }
+    void deactivateSpeederator(){
+        GameObject.Find("QLight").GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = false;
+        playerMovement mStats = player.GetComponent<playerMovement>();
+        mStats.moveSpeed = tempSpeed;
+        Invoke("qReset", speedAbilityResetTime);
+    }
+    void activateSpeederator(){
+        GameObject.Find("QLight").GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = true;
+        speederatorLeveling();
+        canQ = false;
+        playerMovement mStats = player.GetComponent<playerMovement>();
+        tempSpeed = mStats.moveSpeed;
+        mStats.moveSpeed = tempSpeed + speedAbilityModifier;
+         Invoke("deactivateSpeederator", rangeAbilityTime);
     }
 
     // Method to use an ability based on its code
@@ -143,6 +208,10 @@ public class abilityDirector : MonoBehaviour
             if (currentQ.getName() == "Rangerator")
             {
                 activateRangerator();
+            }
+             if (currentQ.getName() == "Speederator")
+            {
+                activateSpeederator();
             }
         }
     }
@@ -178,12 +247,13 @@ public class abilityDirector : MonoBehaviour
         string[] abiltys = {
             "1,Rangerator,Q",
             "2,Fire Ring,E",
-            "3,Meteor Smash,E"
+            "3,Meteor Smash,E",
+            "4,Speederator,Q"
         };
 
         // Initialize abilities and set the current Q and E abilities
         makeAbilitys(abiltys);
-        currentQ = findAbilitysFromAll(1);
+        currentQ = findAbilitysFromAll(4);
         currentE = findAbilitysFromAll(3);
     }
 

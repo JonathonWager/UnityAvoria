@@ -60,7 +60,7 @@ public class playerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
        
         Vector2 movement = new Vector2(horizontalInput, verticalInput);
-        Debug.Log(movement);   
+        //Debug.Log(movement);   
         // Track elapsed time for dash cooldown
         elapsed += Time.deltaTime;
 

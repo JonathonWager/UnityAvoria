@@ -15,7 +15,7 @@ public class triggerObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        list1 = new string[] {"spinAttacker-0", "charger-5", "charger-3,spinAttacker-0,spinAttacker-0,spinAttacker-0,spinAttacker-0"};
+        //list1 = new string[] {"spinAttacker-0", "charger-5", "charger-3,spinAttacker-0,spinAttacker-0,spinAttacker-0,spinAttacker-0"};
           
         // Now list1 is initialized with the specified string values.
     }

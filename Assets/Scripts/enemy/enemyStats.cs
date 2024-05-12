@@ -44,12 +44,12 @@ public class enemyStats : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public void takeDamage(int damage){
+    public void takeDamage(float damage){
         //Debug.Log("Taking Damage  "+ damage );
         if(hp - damage <= 0){
             Destroy(this.gameObject);
         }else{
-            hp = hp - damage;
+            hp = (int)(hp - damage);
         }
     }
     // Update is called once per frame

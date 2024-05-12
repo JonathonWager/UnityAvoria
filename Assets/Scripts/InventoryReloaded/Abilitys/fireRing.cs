@@ -14,14 +14,16 @@ public class fireRing : MonoBehaviour
     public float enemyDamageTimeInterval = 2f;
 
     // Damage inflicted to enemies within the fire ring
-    public int dmgToEnemys = 5;
+    public float dmgToEnemys = 5;
 
     // Time duration before the fire ring is automatically destroyed
     public float destoryTime = 5f;
 
     // Flag indicating whether the fire ring is currently damaging enemies
     private bool isDmging = false;
+    private int level = 1;
 
+private bool setLevel = false;
     // List to store references to current enemies within the fire ring
     public List<GameObject> currentEnemys = new List<GameObject>();
 
@@ -35,7 +37,10 @@ public class fireRing : MonoBehaviour
             eEnemy.takeDamage(dmgToEnemys);
         }
     }
-
+    public void updateLevelModifer(){
+        dmgToEnemys = dmgToEnemys + (level/10f);
+        dmgBuff = dmgBuff + (level/10f);
+    }
     // Called when another collider enters the trigger collider attached to this object
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -43,7 +48,15 @@ public class fireRing : MonoBehaviour
         if (other.gameObject.tag == "character")
         {
             // Adjust the character's attack based on the damage buff
+
             characterStats cStats = other.gameObject.GetComponent<characterStats>();
+            if(!setLevel){
+                abilityDirector aStats = other.gameObject.GetComponentInChildren<abilityDirector>();
+                level = aStats.fireRingLevel;
+                updateLevelModifer();
+                setLevel = true;
+            }
+            
             tempDmg = cStats.adjAtk;
             cStats.setDamage((int)(dmgBuff * tempDmg));
         }
