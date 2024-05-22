@@ -9,17 +9,17 @@ public class tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        beegBoss = GameObject.Find("beegBoss");
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = 2; 
+        //beegBoss = GameObject.Find("beegBoss");
+        //lineRenderer = GetComponent<LineRenderer>();
+        //lineRenderer.positionCount = 2; 
          
     }
 
     // Update is called once per frame
     void Update()
     {
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, beegBoss.transform.position);
+       // LineRenderer lineRenderer = GetComponent<LineRenderer>();
+       // lineRenderer.SetPosition(0, transform.position);
+       // lineRenderer.SetPosition(1, beegBoss.transform.position);
     }
 }

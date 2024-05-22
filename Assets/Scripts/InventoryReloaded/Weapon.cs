@@ -13,9 +13,8 @@ public class Weapon : MonoBehaviour
     public float range{ get; set; } 
     public string isRanged{ get; set; } 
 
-    public float shootInterval{get; set;}
-
     public string projectilePrefabName{ get; set; } 
+    public float shootInterval{get; set;}
     public Weapon(int ID, string Name, int Damage, float Range, string ranged,string projectileName, float fireRate){
         id = ID;
         weaponName = Name;

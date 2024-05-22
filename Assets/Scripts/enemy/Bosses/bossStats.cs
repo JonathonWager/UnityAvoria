@@ -11,9 +11,11 @@ public class bossStats : MonoBehaviour
     private bool canBeDamaged = true;
     public void takeDamage(int damage)
     {
+        Debug.Log("nO famge");
         // Apply damage after considering defense
         if(canBeDamaged){
             hp = hp - damage;
+             Debug.Log("big hit");
         }
 
     }

@@ -63,8 +63,10 @@ public class characterStats : MonoBehaviour
     public void weaponStats(Weapon curWeap)
     {
         // Calculate adjusted attack and set range based on the current weapon
+        Debug.Log((decimal)curWeap.range);
         adjAtk = (int)((decimal)baseAtk + (decimal)curWeap.damage);
         range = curWeap.range;
+        attackResetTime = curWeap.shootInterval;
     }
 
     // Method for melee attack
@@ -94,6 +96,7 @@ public class characterStats : MonoBehaviour
                 }
                 if (hit.collider != null && hit.collider.gameObject.tag == "boss")
                 {
+                    Debug.Log("hit boss");
                     // Check if the enemy is within attack range
                     if (hit.distance <= range && canAttack)
                     {

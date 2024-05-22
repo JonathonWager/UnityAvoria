@@ -168,15 +168,31 @@ public class InventoryV3 : MonoBehaviour
     {
         // Sample data for weapons
         string[] weapons = {
-            "1,Great Sword,10,1.5,M,NA,0",
-            "2,Long Sword,10,2.2,M,NA,0",
-            "3,Basic Bow,30,5,R,Arrow,1"
+            "1,Fists,2,10,M,NA,0",
+            "2,Basic Sword,10,1.5,M,NA,0",
+            "3,Great Sword,10,1.5,M,NA,2",
+            "4,Long Sword,10,2.2,M,NA,0",
+            "5,Basic Axe,10,2.2,M,NA,0",
+            "6,Great Axe,10,2.2,M,NA,0",
+            "7,Long Axe,10,2.2,M,NA,0",
+            "8,BaseBall Bat,10,2.2,M,NA,0",
+            "9,Chainsaw,10,2.2,M,NA,0",
+            "10,Basic Bow,30,5,R,Arrow,1",
+            "11,Long Bow,30,5,R,Arrow,1",
+            "12,Great Bow,30,5,R,Arrow,1",
+            "13,Compound Bow,30,5,R,Arrow,1",
+            "14,Glock,30,5,R,Arrow,1",
+            "15,ShotGun,5,5,R,ShotgunShell,1",
+            "16,Ak-47,30,5,R,Bullet,1",
+            "17,RPG,30,5,R,Arrow,1",
+            "18,Boomerang,30,10,R,Boomerang,1",
+            "19,Throwing Knives,10,7,R,ThrowingKnife,1"
         };
 
         // Initialize weapons and add them to the inventory
         makeWeapons(weapons);
-        addWeapon(2);
-        addWeapon(3);
+        addWeapon(1);
+        addWeapon(16);
         currentWeapon = InvWeapons[0];
         currentWeaponChange();
 
