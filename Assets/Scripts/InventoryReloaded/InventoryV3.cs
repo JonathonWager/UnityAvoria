@@ -11,8 +11,7 @@ public class InventoryV3 : MonoBehaviour
     // Array to store inventory weapons
     public Weapon[] InvWeapons = new Weapon[2];
 
-    // Lists to store all weapons and potions
-    List<Weapon> allWeapons = new List<Weapon>();
+    // List to store all potions
     List<Potion> allPotions = new List<Potion>();
 
     // Dictionary to store potions and their counts
@@ -23,31 +22,15 @@ public class InventoryV3 : MonoBehaviour
 
     private bool canB = true;
 
-    // Method to initialize weapons based on a string array
-    void makeWeapons(string[] weapons)
-    {
-        foreach (string w in weapons)
-        {
-            string[] atts = w.Split(',');
-
-            // Create a new Weapon object and add it to the allWeapons list
-            allWeapons.Add(new Weapon(int.Parse(atts[0]), atts[1], int.Parse(atts[2]), float.Parse(atts[3]), atts[4], atts[5], float.Parse(atts[6])));
+    public void swapOutWeapon(Weapon w){
+        if(w.isRanged == "R"){
+            InvWeapons[1] = w;
+        }else{
+            InvWeapons[0] = w;
         }
+        currentWeapon = w;
+        currentWeaponChange();
     }
-
-    // Method to find a weapon by ID from the allWeapons list
-    Weapon findWeaponFromAll(int ID)
-    {
-        foreach (Weapon w in allWeapons)
-        {
-            if (w.id == ID)
-            {
-                return w;
-            }
-        }
-        return null;
-    }
-
     // Getter method to retrieve the current weapon
     public Weapon getCurrentWeapon()
     {
@@ -57,23 +40,39 @@ public class InventoryV3 : MonoBehaviour
     // Method to add a weapon to the inventory
     public void addWeapon(int id)
     {
-        if (findWeaponFromAll(id).isRanged == "M")
+        Weapon weapon = WeaponDatabase.GetWeaponById(id);
+
+        if (weapon != null)
         {
-            InvWeapons[0] = findWeaponFromAll(id);
+            if (weapon.isRanged == "M")
+            {
+                InvWeapons[0] = weapon;
+            }
+            else if (weapon.isRanged == "R")
+            {
+                InvWeapons[1] = weapon;
+            }
         }
-        else if (findWeaponFromAll(id).isRanged == "R")
+        else
         {
-            InvWeapons[1] = findWeaponFromAll(id);
+            Debug.LogWarning("Weapon with ID " + id + " not found in the database.");
         }
     }
 
     // Method to update character stats when the current weapon changes
     public void currentWeaponChange()
     {
-        characterStats cStats = player.GetComponent<characterStats>();
-        cStats.weaponStats(currentWeapon);
-        cStats.currentSelectedWeapon = currentWeapon;
-        cStats.rangeObject = Resources.Load(InvWeapons[1].projectilePrefabName) as GameObject;
+        if (currentWeapon != null)
+        {
+            characterStats cStats = player.GetComponent<characterStats>();
+            cStats.weaponStats(currentWeapon);
+            cStats.currentSelectedWeapon = currentWeapon;
+
+            if (InvWeapons[1] != null)
+            {
+                cStats.rangeObject = Resources.Load(InvWeapons[1].projectilePrefabName) as GameObject;
+            }
+        }
     }
 
     // Method to initialize potions based on a string array
@@ -97,14 +96,18 @@ public class InventoryV3 : MonoBehaviour
         }
     }
 
-    Potion getPotion(string name){
-        foreach(Potion p in allPotions){
-            if(p.potionName == name){
+    Potion getPotion(string name)
+    {
+        foreach (Potion p in allPotions)
+        {
+            if (p.potionName == name)
+            {
                 return p;
             }
         }
         return null;
     }
+
     // Method to add a potion to the potion dictionary and increase its count
     public void addPotion(int id)
     {
@@ -126,71 +129,50 @@ public class InventoryV3 : MonoBehaviour
         {
             if (getPotion(kvp.Key).id == id)
             {
-                if(kvp.Value > 0){
-
-                    if(getPotion(kvp.Key).statusType == "Hp"){
+                if (kvp.Value > 0)
+                {
+                    if (getPotion(kvp.Key).statusType == "Hp")
+                    {
                         characterStats cStats = player.GetComponent<characterStats>();
                         cStats.setHp((int)(cStats.getHp() + (int)getPotion(kvp.Key).modifier));
                         potionDictionary[kvp.Key]--;
                     }
-                    if(getPotion(kvp.Key).statusType == "Spd"){
+                    if (getPotion(kvp.Key).statusType == "Spd")
+                    {
                         canB = false;
                         playerMovement mStats = player.GetComponent<playerMovement>();
                         storageFloat = mStats.getSpeed();
                         mStats.setSpeed(storageFloat * getPotion(kvp.Key).modifier);
                         potionDictionary[kvp.Key]--;
-                        Invoke("cancelSpeed",getPotion(kvp.Key).duration);
+                        Invoke("cancelSpeed", getPotion(kvp.Key).duration);
                     }
-                    
-                    
+
                     // Decrease the count of the potion in the dictionary
-                   
                 }
-                
+
                 return; // Optional: If you want to stop searching after finding the matching ID
             }
         }
 
         Debug.LogWarning("Potion with ID " + id + " not found in the dictionary.");
     }
-    public void cancelSpeed(){
+
+    public void cancelSpeed()
+    {
         playerMovement mStats = player.GetComponent<playerMovement>();
         mStats.setSpeed(storageFloat);
         canB = true;
     }
-    public Dictionary<string, int> getpotionDictionary(){
+
+    public Dictionary<string, int> getpotionDictionary()
+    {
         return potionDictionary;
     }
-
 
     // Start is called before the first frame update
     void Start()
     {
-        // Sample data for weapons
-        string[] weapons = {
-            "1,Fists,2,10,M,NA,0",
-            "2,Basic Sword,10,1.5,M,NA,0",
-            "3,Great Sword,10,1.5,M,NA,2",
-            "4,Long Sword,10,2.2,M,NA,0",
-            "5,Basic Axe,10,2.2,M,NA,0",
-            "6,Great Axe,10,2.2,M,NA,0",
-            "7,Long Axe,10,2.2,M,NA,0",
-            "8,BaseBall Bat,10,2.2,M,NA,0",
-            "9,Chainsaw,10,2.2,M,NA,0",
-            "10,Basic Bow,30,5,R,Arrow,1",
-            "11,Long Bow,30,5,R,Arrow,1",
-            "12,Great Bow,30,5,R,Arrow,1",
-            "13,Compound Bow,30,5,R,Arrow,1",
-            "14,Glock,30,5,R,Arrow,1",
-            "15,ShotGun,5,5,R,ShotgunShell,1",
-            "16,Ak-47,30,5,R,Bullet,1",
-            "17,RPG,30,5,R,Arrow,1",
-            "18,Boomerang,30,10,R,Boomerang,1",
-            "19,Throwing Knives,10,7,R,ThrowingKnife,1"
-        };
-
         // Initialize weapons and add them to the inventory
-        makeWeapons(weapons);
         addWeapon(1);
         addWeapon(16);
         currentWeapon = InvWeapons[0];
@@ -224,16 +206,16 @@ public class InventoryV3 : MonoBehaviour
             currentWeapon = InvWeapons[1];
             currentWeaponChange();
         }
-         if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             usePotion(1);
         }
-         if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            if(canB){
+            if (canB)
+            {
                 usePotion(2);
             }
-            
         }
     }
 }

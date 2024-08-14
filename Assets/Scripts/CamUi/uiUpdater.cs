@@ -14,7 +14,7 @@ public class uiUpdater : MonoBehaviour
     bool qAbility,eAbility;
     Weapon curWeapon;
 
-    public TMP_Text hpUI,invUI, qUI, eUI, potionUI;
+    public TMP_Text hpUI,invUI, qUI, eUI, potionUI , shopUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,10 +35,23 @@ public class uiUpdater : MonoBehaviour
             if(child.name == "potionUI"){
                 potionUI = child.GetComponent<TextMeshProUGUI>();
             }
+             if(child.name == "shopUI"){
+                shopUI = child.GetComponent<TextMeshProUGUI>();
+            }
             
         }
     }
-            
+    public void showShop(List<string> shopItems){
+        shopUI.enabled = true;
+        shopUI.text = "Big Shop";
+        for(int i = 0; i< shopItems.Count; i++){
+            shopUI.text = shopUI.text +  "\n" + shopItems[i] + " Press " + (i + 1);
+        }
+    }    
+    public void disableShop(){
+        shopUI.enabled = false;
+        shopUI.text = "";
+    } 
     void updatehpUI(){
         characterStats cStats = player.GetComponent<characterStats>();
         hp = cStats.getHp();
