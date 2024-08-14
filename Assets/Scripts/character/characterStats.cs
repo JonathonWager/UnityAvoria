@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class characterStats : MonoBehaviour
 {
+    public int gold = 100;
     // Player's health points
     public int hp = 100;
 

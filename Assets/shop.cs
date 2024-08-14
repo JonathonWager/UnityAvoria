@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class shop : MonoBehaviour
 {
+    public int shopTier = 1;
     public int weaponAmount = 2;
     List<Weapon> shopWeapons = new List<Weapon>();
 
@@ -11,18 +12,9 @@ public class shop : MonoBehaviour
 
     uiUpdater script;
     GameObject player;
-     public void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("entered trigger");
 
-        if (other.gameObject.tag == "character")
-        {
-            player = other.gameObject;
-            shopActive = true;
-            Debug.Log("Character detected");
-
-            // Get the main camera and find the UiReloadedV1 GameObject
-            Camera mainCamera = Camera.main;
+    public void showShop(){
+          Camera mainCamera = Camera.main;
             if (mainCamera != null)
             {
                 GameObject uiObject = mainCamera.transform.Find("UiReloadedV1")?.gameObject;
@@ -34,7 +26,7 @@ public class shop : MonoBehaviour
                         List<string> shopItems = new List<string>();
                         foreach (Weapon wep in shopWeapons)
                         {
-                            shopItems.Add(wep.weaponName);
+                            shopItems.Add(wep.weaponName + " " + wep.price + " Gold");
                         }
                         script.showShop(shopItems);
                     }
@@ -52,6 +44,19 @@ public class shop : MonoBehaviour
             {
                 Debug.LogWarning("Main camera not found.");
             }
+    }
+     public void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("entered trigger");
+
+        if (other.gameObject.tag == "character")
+        {
+            player = other.gameObject;
+            shopActive = true;
+            Debug.Log("Character detected");
+            showShop();
+            // Get the main camera and find the UiReloadedV1 GameObject
+          
         }
     }
      public void OnTriggerExit2D(Collider2D other)
@@ -66,10 +71,18 @@ public class shop : MonoBehaviour
     void Start()
     {
          // No need to get the WeaponDatabase component since GetWeaponById is static
+        List<Weapon> allWeapons = WeaponDatabase.getAllWeapons();
         for (int i = 0; i < weaponAmount; i++)
         {
             // Use the class name to access the static method
-            shopWeapons.Add(WeaponDatabase.GetWeaponById(Random.Range(1, 10)));
+            Weapon w = allWeapons[Random.Range(0, allWeapons.Count)];
+            if(w.tier == shopTier){
+                shopWeapons.Add(w);
+                allWeapons.Remove(w);
+            }else{
+                i--;
+            }
+            
         }
 
         // Loop through the weapons in the shop and print their names
@@ -88,15 +101,21 @@ public class shop : MonoBehaviour
                 if (Input.GetKeyDown(i.ToString()))
                 {
                     Debug.Log("Player pressed key: " + i);
-
-                    // Access the InventoryV3 script directly by child index
-                    InventoryV3 inventory = player.GetComponentInChildren<InventoryV3>();
-
-                    if (inventory != null)
-                    {
-                        // Now you can call methods on the InventoryV3 script
-                        inventory.swapOutWeapon(shopWeapons[i-1]);
+                    characterStats cStats = player.GetComponent<characterStats>();
+                    if(cStats.gold > shopWeapons[i-1].price){
+                        cStats.gold = cStats.gold - shopWeapons[i-1].price;
+                        
+                        InventoryV3 inventory = player.GetComponentInChildren<InventoryV3>();
+                        if (inventory != null)
+                        {
+                            // Now you can call methods on the InventoryV3 script
+                            inventory.swapOutWeapon(shopWeapons[i-1]);
+                            shopWeapons.RemoveAt(i-1);
+                            showShop();
+                        }
                     }
+                    // Access the InventoryV3 script directly by child index
+                    
                 }
             }
         }

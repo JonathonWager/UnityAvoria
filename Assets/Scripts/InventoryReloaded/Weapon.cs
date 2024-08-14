@@ -15,8 +15,11 @@ public class Weapon
 
     public string projectilePrefabName{ get; set; } 
     public float shootInterval{get; set;}
-     List<Weapon> allWeapons = new List<Weapon>();
-    public Weapon(int ID, string Name, int Damage, float Range, string ranged,string projectileName, float fireRate){
+    List<Weapon> allWeapons = new List<Weapon>();
+
+    public int price{get; set;}
+    public int tier{get; set;}
+    public Weapon(int ID, string Name, int Damage, float Range, string ranged,string projectileName, float fireRate, int Price,int Tier){
         id = ID;
         weaponName = Name;
         damage = Damage;
@@ -24,17 +27,10 @@ public class Weapon
         isRanged = ranged;
         projectilePrefabName = projectileName;
         shootInterval = fireRate;
+        price = Price;
+        tier = Tier;
     }
-     void makeWeapons(string[] weapons)
-    {
-        foreach (string w in weapons)
-        {
-            string[] atts = w.Split(',');
 
-            // Create a new Weapon object and add it to the allWeapons list
-            allWeapons.Add(new Weapon(int.Parse(atts[0]), atts[1], int.Parse(atts[2]), float.Parse(atts[3]), atts[4], atts[5], float.Parse(atts[6])));
-        }
-    }
     public Weapon findWeaponFromAll(int ID)
     {
         foreach (Weapon w in allWeapons)
