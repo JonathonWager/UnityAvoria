@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e542ba8384093cc47bc3108e96fb9fb0, type: 3}
+  m_Name: New Fire Ring Ability
+  m_EditorClassIdentifier: 
+  abilityName: Fire Ring
+  description: 
+  icon: {fileID: 21300000, guid: 33cc6c12af95a7a4e8b147fac057990d, type: 3}
+  cooldown: 5
+  fireRingPrefab: {fileID: 1286197361288833161, guid: dce04a606551d484981a571992220135, type: 3}
+  duration: 5
+  level: 7
+  useCount: 13
+  levelCount: 20
