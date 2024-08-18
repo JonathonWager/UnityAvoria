@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
+    private bool facingRight = true;
+
     // Movement speed of the player
     public float moveSpeed = 5f;
 
@@ -24,13 +26,23 @@ public class playerMovement : MonoBehaviour
 
     // Property indicating whether the player is stunned
     public bool isStunned { get; set; } = false;
+    private Animator animator;
+    private Vector3 lastPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         // Initialization code can be added here if needed
+        animator = GetComponent<Animator>();
+        lastPosition = transform.position;
     }
-
+      public void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1; // Invert the X scale to flip the sprite
+        transform.localScale = theScale;
+    }
     // Getter method to retrieve the dash status
     public bool getDashStatus()
     {
@@ -52,6 +64,27 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+           // Example usage: flip when pressing the left or right arrow keys
+        if (Input.GetKeyDown(KeyCode.A) && facingRight)
+        {
+            Flip();
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && !facingRight)
+        {
+            Flip();
+        }
+        if (transform.position != lastPosition)
+        {
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            
+            animator.SetBool("isMoving", false);
+        }
+
+        // Update lastPosition to the current position for the next frame
+        lastPosition = transform.position;
         // Ensure the player doesn't rotate
         transform.rotation = Quaternion.Euler(Vector3.zero);
 

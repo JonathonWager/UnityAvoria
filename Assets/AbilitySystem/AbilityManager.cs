@@ -9,8 +9,9 @@ namespace AbilitySystem
         public AbilityBase currentQ;
         public AbilityBase currentE;
 
-        private bool isQOnCooldown = false;
-        private bool isEOnCooldown = false;
+        // Change fields to properties
+        public bool IsQOnCooldown { get; private set; } = false;
+        public bool IsEOnCooldown { get; private set; } = false;
 
         void Start()
         {
@@ -22,17 +23,17 @@ namespace AbilitySystem
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Q) && currentQ != null && !isQOnCooldown)
+            if (Input.GetKeyDown(KeyCode.Q) && currentQ != null && !IsQOnCooldown)
             {
                 currentQ.Activate(player);
-                isQOnCooldown = true;
+                IsQOnCooldown = true;
                 StartCoroutine(StartCooldown("Q", currentQ.cooldown));
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && currentE != null && !isEOnCooldown)
+            if (Input.GetKeyDown(KeyCode.E) && currentE != null && !IsEOnCooldown)
             {
                 currentE.Activate(player);
-                isEOnCooldown = true;
+                IsEOnCooldown = true;
                 StartCoroutine(StartCooldown("E", currentE.cooldown));
             }
 
@@ -45,11 +46,11 @@ namespace AbilitySystem
 
             if (abilityKey == "Q")
             {
-                isQOnCooldown = false;
+                IsQOnCooldown = false;
             }
             else if (abilityKey == "E")
             {
-                isEOnCooldown = false;
+                IsEOnCooldown = false;
             }
 
             Debug.Log($"{abilityKey} ability is ready to use again.");
@@ -60,7 +61,7 @@ namespace AbilitySystem
             uiUpdater ui = player.GetComponentInChildren<uiUpdater>();
             if (ui != null)
             {
-                ui.UpdateAbilityUI(isQOnCooldown, isEOnCooldown);
+                ui.UpdateAbilityUI(IsQOnCooldown, IsEOnCooldown);
             }
         }
     }

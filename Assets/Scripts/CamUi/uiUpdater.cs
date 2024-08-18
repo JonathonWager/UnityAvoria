@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using AbilitySystem;
 public class uiUpdater : MonoBehaviour
 {
     public GameObject player;
     public Image panel;
     public Image qAbilityPanel, eAbilityPanel;
-    int hp;
-    Weapon curWeapon;
 
     public TMP_Text hpUI, invUI, qUI, eUI, potionUI, shopUI, goldUI;
 
@@ -51,47 +49,66 @@ public class uiUpdater : MonoBehaviour
         }
     }
 
-    public void showShop(List<string> shopItems)
+    void Update()
     {
-        shopUI.enabled = true;
-        shopUI.text = "Big Shop";
-        for (int i = 0; i < shopItems.Count; i++)
-        {
-            shopUI.text = shopUI.text + "\n" + shopItems[i] + " Press " + (i + 1);
-        }
-    }
-
-    public void disableShop()
-    {
-        shopUI.enabled = false;
-        shopUI.text = "";
+        updatehpUI();
+        updatesprintUI();
+        updateinvUI();
+        updateqeUI();
+        updatepotionUI();
+        updateGoldUI();
     }
 
     public void UpdateAbilityUI(bool isQOnCooldown, bool isEOnCooldown)
     {
-        if (qAbilityPanel != null)
-        {
-            qAbilityPanel.color = isQOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
-        }
-
-        if (eAbilityPanel != null)
-        {
-            eAbilityPanel.color = isEOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
-        }
+        qAbilityPanel.color = isQOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
+        eAbilityPanel.color = isEOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
     }
 
     void updatehpUI()
     {
         characterStats cStats = player.GetComponent<characterStats>();
-        hp = cStats.getHp();
-        hpUI.text = "HP: " + hp;
+        hpUI.text = "HP: " + cStats.getHp();
+    }
+
+    void updatesprintUI()
+    {
+        playerMovement mStats = player.GetComponent<playerMovement>();
+        bool dash = mStats.getDashStatus();
+        panel.color = dash ? Color.white : new Color32(233, 67, 67, 100);
     }
 
     void updateinvUI()
     {
-        InventoryV3 iStats = player.transform.GetChild(1).gameObject.GetComponent<InventoryV3>();
-        curWeapon = iStats.getCurrentWeapon();
+        InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
+        Weapon curWeapon = iStats.getCurrentWeapon();
         invUI.text = curWeapon.weaponName;
+    }
+
+    void updateqeUI()
+    {
+        AbilityManager abilityManager = player.GetComponentInChildren<AbilityManager>();
+
+        if (abilityManager != null)
+        {
+            qUI.text = abilityManager.currentQ != null ? abilityManager.currentQ.abilityName : "None";
+            eUI.text = abilityManager.currentE != null ? abilityManager.currentE.abilityName : "None";
+            UpdateAbilityUI(abilityManager.IsQOnCooldown, abilityManager.IsEOnCooldown);
+        }
+    }
+
+    void updatepotionUI()
+    {
+        potionUI.text = "Potions:";
+        InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
+        Dictionary<string, int> potionDictionary = iStats.getpotionDictionary();
+        foreach (var kvp in potionDictionary)
+        {
+            if (kvp.Value > 0)
+            {
+                potionUI.text += "\n" + kvp.Key + ": " + kvp.Value;
+            }
+        }
     }
 
     void updateGoldUI()
@@ -100,10 +117,19 @@ public class uiUpdater : MonoBehaviour
         goldUI.text = "Gold: " + cStats.gold;
     }
 
-    void Update()
+    public void showShop(List<string> shopItems)
     {
-        updatehpUI();
-        updateinvUI();
-        updateGoldUI();
+        shopUI.enabled = true;
+        shopUI.text = "Big Shop";
+        for (int i = 0; i < shopItems.Count; i++)
+        {
+            shopUI.text += "\n" + shopItems[i] + " Press " + (i + 1);
+        }
+    }
+
+    public void disableShop()
+    {
+        shopUI.enabled = false;
+        shopUI.text = "";
     }
 }

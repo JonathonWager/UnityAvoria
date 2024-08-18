@@ -30,7 +30,8 @@ public class characterStats : MonoBehaviour
     private bool canFire = true;
     private bool canAttack = true;
     public float attackResetTime = 0.5f;
-
+    
+    private Animator animator;
     // Method to deduct health points based on received damage
     public void takeDamage(decimal damage)
     {
@@ -58,8 +59,12 @@ public class characterStats : MonoBehaviour
     void Start()
     {
         // Initialization code can be added here if needed
+                animator = GetComponent<Animator>();
     }
-
+    void stopAttack(){
+        Debug.Log("Stop ATtacl");
+              animator.SetBool("isAttacking", false);
+    }
     // Method to update weapon-related stats
     public void weaponStats(Weapon curWeap)
     {
@@ -73,6 +78,8 @@ public class characterStats : MonoBehaviour
     // Method for melee attack
     void melleAttack()
     {
+        Debug.Log("attacking");
+        animator.SetBool("isAttacking", true);
         // Calculate mouse direction and create a ray
         Vector2 mouseDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         Ray2D ray = new Ray2D(transform.position, mouseDirection);
