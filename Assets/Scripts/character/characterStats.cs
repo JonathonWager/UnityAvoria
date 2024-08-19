@@ -59,17 +59,16 @@ public class characterStats : MonoBehaviour
     void Start()
     {
         // Initialization code can be added here if needed
-                animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
     void stopAttack(){
-        Debug.Log("Stop ATtacl");
-              animator.SetBool("isAttacking", false);
+
+            animator.SetBool("isAttacking", false);
     }
     // Method to update weapon-related stats
     public void weaponStats(Weapon curWeap)
     {
         // Calculate adjusted attack and set range based on the current weapon
-        Debug.Log((decimal)curWeap.range);
         adjAtk = (int)((decimal)baseAtk + (decimal)curWeap.damage);
         range = curWeap.range;
         attackResetTime = curWeap.shootInterval;
@@ -144,6 +143,7 @@ public class characterStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(range);
         // Check if the player's health is zero or below
         if (hp <= 0)
         {

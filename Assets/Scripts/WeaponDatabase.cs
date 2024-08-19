@@ -10,7 +10,7 @@ public class WeaponDatabase : MonoBehaviour
     {
         // Initialize the database with all weapons
         string[] weapons = {
-            "1,Fists,2,10,M,NA,0,0,0",
+            "1,Fists,2,1,M,NA,0,0,0",
             "2,Basic Sword,10,1.5,M,NA,0,10,1",
             "3,Great Sword,10,1.5,M,NA,2,20,2",
             "4,Long Sword,10,2.2,M,NA,0,30,3",

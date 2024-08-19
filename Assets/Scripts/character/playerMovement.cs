@@ -108,6 +108,7 @@ public class playerMovement : MonoBehaviour
         {
             if (!isDashing && elapsed >= dashResetDuration)
             {
+                animator.SetBool("isDashing", true);
                 elapsed = 0f;
                 isDashing = true;
                 canDash = false;
@@ -119,6 +120,7 @@ public class playerMovement : MonoBehaviour
         {
             if (elapsed >= dashDuration)
             {
+                animator.SetBool("isDashing", false);
                 // End the dash after the specified duration
                 isDashing = false;
                 elapsed = 0f;

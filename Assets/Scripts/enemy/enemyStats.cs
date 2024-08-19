@@ -15,29 +15,21 @@ public class enemyStats : MonoBehaviour
     public float splashInterval;
 
     public float attackRate;
-
-    public int getHp(){
-        return hp;
+    private Animator animator;
+    public float AgroRange;
+    public bool isAgro;
+    private GameObject player;
+    
+    void stopDamageAnimation(){
+        animator.SetBool("isHurt", false);
     }
-    public decimal getDmg(){
-        return dmg;
-    }
-    public float getSpeed(){
-        return speed;
-    }
-    public float getDef(){
-        return def;
-    }
-    public float getSplashInt(){
-        return splashInterval;
-    }
-    public float getAttackRate(){
-        return attackRate;
-    }
+   
     // Start is called before the first frame update
     void Start()
     {
         dmg = (int)dmg2;
+        animator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("character");
     }
     void checkHp(){
         if(hp <= 0 ){
@@ -45,16 +37,24 @@ public class enemyStats : MonoBehaviour
         }
     }
     public void takeDamage(float damage){
-        //Debug.Log("Taking Damage  "+ damage );
+        Debug.Log("Taking Damage  "+ damage );
         if(hp - damage <= 0){
-            Destroy(this.gameObject);
+            animator.SetBool("isDead", true);
+            
+           
         }else{
             hp = (int)(hp - damage);
+            animator.SetBool("isHurt", true);
         }
+    }
+    void killEnemey(){
+        Destroy(this.gameObject);
     }
     // Update is called once per frame
     void Update()
     {
-        
+        if(Vector3.Distance(transform.position, player.transform.position) < AgroRange){
+            isAgro = true;
+        }
     }
 }
