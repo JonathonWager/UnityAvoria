@@ -35,10 +35,15 @@ public class characterStats : MonoBehaviour
     // Method to deduct health points based on received damage
     public void takeDamage(decimal damage)
     {
+        Debug.Log("Taking Damage");
+        animator.SetBool("isDamaged", true);
         // Apply damage after considering defense
         hp = hp - (int)(damage * (1 - (def / 100)));
     }
-
+    void stopDamage(){
+        Debug.Log("Stoping Damage");
+        animator.SetBool("isDamaged", false);
+    }
     // Getter method to retrieve current health points
     public int getHp()
     {
@@ -143,7 +148,6 @@ public class characterStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(range);
         // Check if the player's health is zero or below
         if (hp <= 0)
         {
