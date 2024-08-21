@@ -9,6 +9,7 @@ public class brimonnolly : MonoBehaviour
     public float speed;
     public float range;       // The optimal range for attacking
     public float minDistance; // The minimum distance before moving away from the player
+    public float accuracy = 0.5f; // The inaccuracy level (higher values mean more inaccuracy)
     private float elapsed = 0f;
     public float attackTime = 5f;
 
@@ -66,7 +67,13 @@ public class brimonnolly : MonoBehaviour
         if (distanceToPlayer <= range && elapsed >= attackTime)
         {
             animator.SetBool("isAttacking", true);
-            Instantiate(fire, player.transform.position, Quaternion.identity);
+
+            // Calculate an inaccurate position around the player's position
+            Vector3 inaccuratePosition = player.transform.position + new Vector3(Random.Range(-accuracy, accuracy), Random.Range(-accuracy, accuracy), 0);
+
+            // Instantiate the fire at the inaccurate position
+            Instantiate(fire, inaccuratePosition, Quaternion.identity);
+
             elapsed = 0f;
         }
 

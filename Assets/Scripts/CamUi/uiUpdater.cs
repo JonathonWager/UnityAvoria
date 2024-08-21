@@ -73,7 +73,7 @@ public class uiUpdater : MonoBehaviour
 
     void updatesprintUI()
     {
-        playerMovement mStats = player.GetComponent<playerMovement>();
+        playerMovement mStats = player.GetComponentInChildren<playerMovement>();
         bool dash = mStats.getDashStatus();
         panel.color = dash ? Color.white : new Color32(233, 67, 67, 100);
     }

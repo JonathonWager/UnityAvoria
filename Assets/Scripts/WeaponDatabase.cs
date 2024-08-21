@@ -19,7 +19,7 @@ public class WeaponDatabase : MonoBehaviour
             "7,Long Axe,10,2.2,M,NA,0,45,4",
             "8,BaseBall Bat,10,2.2,M,NA,0,5,1",
             "9,Chainsaw,10,2.2,M,NA,0,55,4",
-            "10,Basic Bow,30,5,R,Arrow,1,0,0",
+            "10,Basic Bow,10,5,R,Arrow,1,0,0",
             "11,Long Bow,30,5,R,Arrow,1,25,2",
             "12,Great Bow,30,5,R,Arrow,1,35,3",
             "13,Compound Bow,30,5,R,Arrow,1,50,4",

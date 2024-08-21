@@ -35,7 +35,6 @@ public class triggerObject : MonoBehaviour
 
 
     void spawnEnemy(){
-        Debug.Log("Spawning Enemy " + greasy[0]);
         if(Resources.Load(greasy[0]) as GameObject != null){
             int rand = Random.Range(0, vector3List.Count - 1);
             Instantiate(Resources.Load(greasy[0]) as GameObject, new Vector3(vector3List[rand].x,vector3List[rand].y,-1f), Quaternion.identity);
@@ -43,7 +42,6 @@ public class triggerObject : MonoBehaviour
         greasy.RemoveAt(0);
     }
     public void  OnTriggerEnter2D(Collider2D other){
-        Debug.Log("entered");
         if(other.gameObject.tag == "character"){
             entered = true;
         }

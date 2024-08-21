@@ -4963,7 +4963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deleteTime: 10
-  speed: 15
+  speed: 10
   stunDivisor: 2
   stunDuration: 5
   parent: {fileID: 0}

@@ -103,7 +103,6 @@ public class arrow : MonoBehaviour
 
             // Instantiate the explosion effect at the arrow's position
             Quaternion finalRotation = transform.rotation * Quaternion.Euler(0f, 90f, 0f);
-            Instantiate(explo, transform.position, finalRotation);
         }
     }
 

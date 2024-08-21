@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class stunMan : MonoBehaviour
 {
@@ -14,70 +15,122 @@ public class stunMan : MonoBehaviour
     public int damage = 10;
     public float runAwayDistanceDivisor = 2f;
     public float runAwaySpeedDivisor = 2f;
-    private float elasped = 0f;
+    private float elapsed = 0f;
 
-    public bool hitTarget{get; set;} = false;
+    public bool hitTarget { get; set; } = false;
 
     public float shootSpeed = 1f;
-    // Start is called before the first frame update
+
+    private NavMeshAgent navMeshAgent;
+    private Animator animator;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("character");
+        navMeshAgent = GetComponent<NavMeshAgent>();
+
+        // Set the NavMeshAgent speed to match the original speed variable
+        navMeshAgent.speed = speed;
+
+        // Ensure NavMeshAgent only updates the x and y axis in 2D
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updateUpAxis = false;
     }
-    void attacking(){
-       
-        if(Vector3.Distance(player.transform.position, transform.position) < attackRange){
-            if(elasped >= attackSpeed){
-                elasped = 0f;
+
+    void Attacking()
+    {
+        if (Vector3.Distance(player.transform.position, transform.position) < attackRange)
+        {
+            if (elapsed >= attackSpeed)
+            {
+                animator.SetBool("isAttacking", true);
+                elapsed = 0f;
                 characterStats cStats = player.GetComponent<characterStats>();
                 cStats.takeDamage(damage);
             }
-            
         }
-        if(Vector3.Distance(player.transform.position, transform.position) > attackRange - 1){
-             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+
+        if (Vector3.Distance(player.transform.position, transform.position) > attackRange - 1)
+        {
+            navMeshAgent.SetDestination(player.transform.position);
+        }
+        else
+        {
+            navMeshAgent.ResetPath(); // Stop moving if within attack range
         }
     }
-    void shoot(){
-        if(elasped >= shootSpeed){
-            elasped = 0f;
-
-
+    
+    void stopAttack()
+    {
+        animator.SetBool("isAttacking", false);
+    }
+    void Shoot()
+    {
+        animator.SetBool("isAttacking", true);
+        if (elapsed >= shootSpeed)
+        {
+            elapsed = 0f;
             GameObject instantiatedStun = Instantiate(stun, transform.position, Quaternion.identity);
 
             // Attach a script or modify properties on the instantiated object if needed
             stun stunScript = instantiatedStun.GetComponent<stun>();
-            stunScript.SetCreator(gameObject); // Assuming you have a method to set the creator in StunScript
-            
+            stunScript.SetCreator(gameObject);
         }
     }
-    void stunning(){
-        if(Vector3.Distance(player.transform.position, transform.position) > stunRange){
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }else{ 
-            shoot();       
-            if(Vector3.Distance(player.transform.position, transform.position) < stunRange/runAwayDistanceDivisor){
-                Vector3 directionToPlayer = transform.position - player.transform.position;
-                transform.position = Vector3.MoveTowards(transform.position, transform.position + directionToPlayer, (speed/runAwaySpeedDivisor) * Time.deltaTime);
+
+    void Stunning()
+    {
+        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+
+        if (distanceToPlayer > stunRange)
+        {
+            animator.SetBool("isWalking", true);
+            navMeshAgent.SetDestination(player.transform.position);
+        }
+        else
+        {
+            Shoot();
+
+            if (distanceToPlayer < stunRange / runAwayDistanceDivisor)
+            {
+                Vector3 directionAwayFromPlayer = (transform.position - player.transform.position).normalized;
+                Vector3 newDestination = transform.position + directionAwayFromPlayer * (stunRange / runAwayDistanceDivisor);
+                navMeshAgent.SetDestination(newDestination);
+            }
+            else
+            {
+                navMeshAgent.ResetPath(); // Stop moving if within the stun range
             }
         }
     }
-    void cancelAttack(){
+
+    void CancelAttack()
+    {
         hitTarget = false;
     }
-    public void startAttackTimer(){
-        Invoke("cancelAttack", attackTime);
+
+    public void StartAttackTimer()
+    {
+        Invoke("CancelAttack", attackTime);
     }
-    // Update is called once per frame
+
     void Update()
     {
-        if(hitTarget == true){
-            attacking();
-        }else{
-             stunning();
+        if (hitTarget)
+        {
+            Attacking();
         }
-        elasped += Time.deltaTime;
-        
-        
+        else
+        {
+            Stunning();
+        }
+
+        elapsed += Time.deltaTime;
+
+        // Keep the Z position fixed to prevent rendering issues
+        Vector3 fixedPosition = transform.position;
+        fixedPosition.z = -1f;
+        transform.position = fixedPosition;
     }
 }

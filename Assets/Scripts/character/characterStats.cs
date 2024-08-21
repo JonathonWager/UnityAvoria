@@ -144,7 +144,9 @@ public class characterStats : MonoBehaviour
     {
         canFire = true;
     }
-
+    public void addGold(int Gold){
+        gold += Gold;
+    }
     // Update is called once per frame
     void Update()
     {

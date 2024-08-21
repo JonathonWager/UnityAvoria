@@ -92,7 +92,7 @@ public class stun : MonoBehaviour
                 mStats.setSpeed(tempMoveSpeed / stunDivisor);
                 stunMan sStats = parent.GetComponent<stunMan>();
                 sStats.hitTarget = true;
-                sStats.startAttackTimer();
+                sStats.StartAttackTimer();
 
 
             }
