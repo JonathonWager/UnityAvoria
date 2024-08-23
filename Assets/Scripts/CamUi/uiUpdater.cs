@@ -9,22 +9,25 @@ public class uiUpdater : MonoBehaviour
     public GameObject player;
     public Image panel;
     public Image qAbilityPanel, eAbilityPanel;
+    public Text hpUI,goldUI;
 
-    public TMP_Text hpUI, invUI, qUI, eUI, potionUI, shopUI, goldUI;
-
+    public TMP_Text   qUI, eUI, potionUI, shopUI;
+    Text[] invUI;
+    Image[] invIcons;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("character");
 
         foreach (Transform child in transform)
         {
-            if (child.name == "hpUI")
+            if (child.name == "HP")
             {
-                hpUI = child.GetComponent<TextMeshProUGUI>();
+                hpUI = child.GetComponentInChildren<Text>();
             }
-            if (child.name == "invUI")
+            if (child.name == "Weapons")
             {
-                invUI = child.GetComponent<TextMeshProUGUI>();
+                invUI = child.GetComponentsInChildren<Text>();
+                invIcons = child.GetComponentsInChildren<Image>();
             }
             if (child.name == "qUI")
             {
@@ -42,9 +45,9 @@ public class uiUpdater : MonoBehaviour
             {
                 shopUI = child.GetComponent<TextMeshProUGUI>();
             }
-            if (child.name == "goldUI")
+            if (child.name == "Gold")
             {
-                goldUI = child.GetComponent<TextMeshProUGUI>();
+                goldUI = child.GetComponentInChildren<Text>();
             }
         }
     }
@@ -54,8 +57,8 @@ public class uiUpdater : MonoBehaviour
         updatehpUI();
         updatesprintUI();
         updateinvUI();
-        updateqeUI();
-        updatepotionUI();
+        //updateqeUI();
+        //updatepotionUI();
         updateGoldUI();
     }
 
@@ -68,21 +71,34 @@ public class uiUpdater : MonoBehaviour
     void updatehpUI()
     {
         characterStats cStats = player.GetComponent<characterStats>();
-        hpUI.text = "HP: " + cStats.getHp();
+        hpUI.text = "100 / " + cStats.getHp();
     }
 
     void updatesprintUI()
     {
         playerMovement mStats = player.GetComponentInChildren<playerMovement>();
         bool dash = mStats.getDashStatus();
-        panel.color = dash ? Color.white : new Color32(233, 67, 67, 100);
+
+        panel.color = dash ?   new Color32(84, 160, 255, 168) : Color.white;
     }
 
     void updateinvUI()
     {
-        InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
-        Weapon curWeapon = iStats.getCurrentWeapon();
-        invUI.text = curWeapon.weaponName;
+         InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
+         Weapon CurrentWeapon = iStats.getCurrentWeapon();
+         for(int i = 0; i < 2; i++){
+            invUI[i].text = iStats.getWeapons()[i].weaponName;
+            if(CurrentWeapon.weaponName == iStats.getWeapons()[i].weaponName){
+                invIcons[i+1].color = Color.white;
+            }else{
+                invIcons[i+1].color = new Color32(72, 219, 251, 255);
+            }
+         }
+         
+        
+       
+       
+ 
     }
 
     void updateqeUI()
@@ -114,7 +130,7 @@ public class uiUpdater : MonoBehaviour
     void updateGoldUI()
     {
         characterStats cStats = player.GetComponent<characterStats>();
-        goldUI.text = "Gold: " + cStats.gold;
+        goldUI.text = cStats.gold.ToString();
     }
 
     public void showShop(List<string> shopItems)

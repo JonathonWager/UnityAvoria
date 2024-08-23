@@ -36,6 +36,10 @@ public class InventoryV3 : MonoBehaviour
     {
         return currentWeapon;
     }
+     public Weapon[] getWeapons()
+    {
+        return InvWeapons;
+    }
 
     // Method to add a weapon to the inventory
     public void addWeapon(int id)
