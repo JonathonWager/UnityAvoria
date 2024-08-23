@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Range Master
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 24fdffb5890b1f44c9368fb248532a8b, type: 2}
   cooldown: 5
   rangeModifier: 1.9000001
   duration: 5.3999996

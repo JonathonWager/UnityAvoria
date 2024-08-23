@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Fire Ring
   description: 
-  icon: {fileID: 21300000, guid: 33cc6c12af95a7a4e8b147fac057990d, type: 3}
+  icon: {fileID: 21300000, guid: 7e9018ee89fbca444869e46801bc4e0f, type: 2}
   cooldown: 5
   fireRingPrefab: {fileID: 1286197361288833161, guid: dce04a606551d484981a571992220135, type: 3}
   duration: 5
   level: 7
-  useCount: 13
+  useCount: 17
   levelCount: 20

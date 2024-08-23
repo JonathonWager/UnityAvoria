@@ -12,8 +12,8 @@ public class uiUpdater : MonoBehaviour
     public Text hpUI,goldUI;
 
     public TMP_Text   qUI, eUI, potionUI, shopUI;
-    Text[] invUI;
-    Image[] invIcons;
+    Text[] invUI, abilityUi;
+    Image[] invIcons,abilityIcons;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("character");
@@ -29,13 +29,10 @@ public class uiUpdater : MonoBehaviour
                 invUI = child.GetComponentsInChildren<Text>();
                 invIcons = child.GetComponentsInChildren<Image>();
             }
-            if (child.name == "qUI")
+            if (child.name == "Abilitys")
             {
-                qUI = child.GetComponent<TextMeshProUGUI>();
-            }
-            if (child.name == "eUI")
-            {
-                eUI = child.GetComponent<TextMeshProUGUI>();
+                abilityUi = child.GetComponentsInChildren<Text>();
+                abilityIcons = child.GetComponentsInChildren<Image>();
             }
             if (child.name == "potionUI")
             {
@@ -57,7 +54,7 @@ public class uiUpdater : MonoBehaviour
         updatehpUI();
         updatesprintUI();
         updateinvUI();
-        //updateqeUI();
+        updateAbilities();
         //updatepotionUI();
         updateGoldUI();
     }
@@ -84,32 +81,40 @@ public class uiUpdater : MonoBehaviour
 
     void updateinvUI()
     {
-         InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
-         Weapon CurrentWeapon = iStats.getCurrentWeapon();
+        InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
+        Weapon CurrentWeapon = iStats.getCurrentWeapon();
+        Weapon[] Weapons = iStats.getWeapons();
          for(int i = 0; i < 2; i++){
-            invUI[i].text = iStats.getWeapons()[i].weaponName;
-            if(CurrentWeapon.weaponName == iStats.getWeapons()[i].weaponName){
+            invUI[i].text = Weapons[i].weaponName;
+            if(CurrentWeapon.weaponName == Weapons[i].weaponName){
                 invIcons[i+1].color = Color.white;
             }else{
                 invIcons[i+1].color = new Color32(72, 219, 251, 255);
             }
+            
          }
-         
+         invIcons[1].sprite = Resources.Load<Sprite>("WeaponIcons/"+ Weapons[0].weaponName);
+         invIcons[2].sprite = Resources.Load<Sprite>("WeaponIcons/"+ Weapons[1].weaponName);
         
        
        
  
     }
 
-    void updateqeUI()
+    void updateAbilities()
     {
         AbilityManager abilityManager = player.GetComponentInChildren<AbilityManager>();
 
         if (abilityManager != null)
         {
-            qUI.text = abilityManager.currentQ != null ? abilityManager.currentQ.abilityName : "None";
-            eUI.text = abilityManager.currentE != null ? abilityManager.currentE.abilityName : "None";
-            UpdateAbilityUI(abilityManager.IsQOnCooldown, abilityManager.IsEOnCooldown);
+            Debug.Log(abilityIcons.Length + " ");
+            abilityUi[0].text =  abilityManager.currentQ != null ? abilityManager.currentQ.abilityName : "None";
+            abilityUi[1].text =  abilityManager.currentE != null ? abilityManager.currentE.abilityName : "None";
+            
+            abilityIcons[1].sprite = abilityManager.currentQ != null ? abilityManager.currentQ.icon : null;
+                        
+            abilityIcons[3].sprite = abilityManager.currentQ != null ? abilityManager.currentE.icon : null;
+            //UpdateAbilityUI(abilityManager.IsQOnCooldown, abilityManager.IsEOnCooldown);
         }
     }
 

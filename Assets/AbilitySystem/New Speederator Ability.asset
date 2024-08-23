@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Speed Demon
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7a957f189749b3540baafe6b9fc52494, type: 2}
   cooldown: 5
   speedModifier: 1.6
   duration: 5.1
