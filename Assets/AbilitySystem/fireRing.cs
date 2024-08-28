@@ -17,6 +17,7 @@ public class fireRing : MonoBehaviour
 
     public void dmgEnemys()
     {
+        Debug.Log("Damaging ENemys");
         foreach (GameObject enemy in currentEnemys)
         {
             enemyStats eEnemy = enemy.GetComponent<enemyStats>();
@@ -51,6 +52,7 @@ public class fireRing : MonoBehaviour
 
         if (other.CompareTag("enemy"))
         {
+            Debug.Log("adding enemy");
             currentEnemys.Add(other.gameObject);
             if (!isDmging)
             {

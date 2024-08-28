@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponDatabase : MonoBehaviour
 {
     public static List<Weapon> allWeapons = new List<Weapon>();
-
+    
     void Awake()
     {
         // Initialize the database with all weapons

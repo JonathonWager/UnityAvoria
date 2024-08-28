@@ -56,11 +56,10 @@ namespace AbilitySystem
             yield return new WaitForSeconds(delayBeforeImpact);
 
             GameObject meteor = Instantiate(meteorPrefab, position, Quaternion.identity);
-            Debug.Log("Meteor instantiated at position: " + position);
 
             yield return new WaitForSeconds(duration);
             Destroy(meteor);
-            Debug.Log("Meteor destroyed after duration.");
+
 
             // Trigger cooldown via AbilityManager
             EndAbility();

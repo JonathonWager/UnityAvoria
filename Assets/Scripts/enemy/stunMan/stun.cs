@@ -106,7 +106,7 @@ public class stun : MonoBehaviour
             Invoke("stunResetDelete",stunDuration);
          }
          if(other.gameObject.tag != "enemy" && other.gameObject.tag != "Untagged" && !hasHitPlayer){
-            Destroy(gameObject);
+            //Destroy(gameObject);
          }
         
     }

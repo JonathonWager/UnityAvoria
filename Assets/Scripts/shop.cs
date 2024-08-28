@@ -1,70 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class shop : MonoBehaviour
 {
     public int shopTier = 1;
     public int weaponAmount = 2;
     List<Weapon> shopWeapons = new List<Weapon>();
 
-    public bool shopActive = false;
-
-    uiUpdater script;
     GameObject player;
+    public GameObject UI;
 
+    public GameObject shopEntryPrefab;
+    public Transform shopPanelParent;
+
+    public void ToggleChildByName(GameObject parent, string childName, bool isActive)
+    {
+        Transform childTransform = parent.transform.Find(childName);
+        if (childTransform != null)
+        {
+            childTransform.gameObject.SetActive(isActive);
+        }
+        else
+        {
+            Debug.LogWarning($"Child with name '{childName}' not found.");
+        }
+    }
+    public void AddShopEntry(string name, Sprite icon, int goldAmount)
+    {
+        // Instantiate the prefab
+        GameObject entry = Instantiate(shopEntryPrefab, shopPanelParent);
+
+        // Get the ShopEntryUI component and set the values
+        ShopEntryUI entryUI = entry.GetComponent<ShopEntryUI>();
+        entryUI.SetWeaponName(name);
+        entryUI.SetWeaponIcon(icon);
+        entryUI.SetGoldAmount(goldAmount);
+        Button button = entry.GetComponent<Button>();
+        if (button != null)
+        {
+            button.onClick.AddListener(() => OnShopEntryClicked(name, goldAmount, entry));
+        }
+    }
+    private void OnShopEntryClicked(string name, int goldAmount, GameObject panel)
+    {
+        // Handle what happens when a shop entry is clicked
+        Debug.Log("Clicked on: " + name + " for " + goldAmount + " gold");
+        characterStats cStats = player.GetComponent<characterStats>();
+        if(cStats.gold > goldAmount){
+            cStats.gold = cStats.gold - goldAmount;
+            
+            InventoryV3 inventory = player.GetComponentInChildren<InventoryV3>();
+            if (inventory != null)
+            {
+                inventory.swapOutWeapon(shopWeapons.Find(weapon => weapon.weaponName == name));
+                shopWeapons.RemoveAll(weapon => weapon.weaponName == name);
+                Debug.Log("Showing second shop?");
+                Destroy(panel);
+            }
+        }
+        // Perform the desired actions, such as buying the item or showing more details
+    }
     public void showShop(){
-          Camera mainCamera = Camera.main;
-            if (mainCamera != null)
-            {
-                GameObject uiObject = mainCamera.transform.Find("UiReloadedV1")?.gameObject;
-                if (uiObject != null)
-                {
-                    script = uiObject.GetComponent<uiUpdater>();
-                    if (script != null)
-                    {
-                        List<string> shopItems = new List<string>();
-                        foreach (Weapon wep in shopWeapons)
-                        {
-                            shopItems.Add(wep.weaponName + " " + wep.price + " Gold");
-                        }
-                        script.showShop(shopItems);
-                    }
-                    else
-                    {
-                        Debug.LogWarning("uiUpdater script not found on UiReloadedV1.");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("UiReloadedV1 GameObject not found as a child of the main camera.");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Main camera not found.");
-            }
+        ToggleChildByName(UI, "ShopBlur", true);
+        ToggleChildByName(UI, "ShopPanel", true);
     }
      public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("entered trigger");
-
         if (other.gameObject.tag == "character")
-        {
-            player = other.gameObject;
-            shopActive = true;
-            Debug.Log("Character detected");
+        {  
+            player = other.gameObject;  
             showShop();
-            // Get the main camera and find the UiReloadedV1 GameObject
-          
         }
     }
      public void OnTriggerExit2D(Collider2D other)
     {
          if (other.gameObject.tag == "character")
         {
-            shopActive = false;
-            script.disableShop();
+            ToggleChildByName(UI, "ShopBlur", false);
+            ToggleChildByName(UI, "ShopPanel", false);
         }
     }
     // Start is called before the first frame update
@@ -81,43 +95,17 @@ public class shop : MonoBehaviour
                 allWeapons.Remove(w);
             }else{
                 i--;
-            }
-            
+            }           
         }
-
+        foreach (Weapon wep in shopWeapons)
+        {
+            Debug.Log("Printing WEp");
+            AddShopEntry(wep.weaponName, Resources.Load<Sprite>("WeaponIcons/"+ wep.weaponName), wep.price);
+        }
         // Loop through the weapons in the shop and print their names
         foreach (Weapon w in shopWeapons)
         {
             Debug.Log(w.weaponName);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(shopActive){
-            for (int i = 1; i <= shopWeapons.Count; i++)
-            {
-                if (Input.GetKeyDown(i.ToString()))
-                {
-                    Debug.Log("Player pressed key: " + i);
-                    characterStats cStats = player.GetComponent<characterStats>();
-                    if(cStats.gold > shopWeapons[i-1].price){
-                        cStats.gold = cStats.gold - shopWeapons[i-1].price;
-                        
-                        InventoryV3 inventory = player.GetComponentInChildren<InventoryV3>();
-                        if (inventory != null)
-                        {
-                            // Now you can call methods on the InventoryV3 script
-                            inventory.swapOutWeapon(shopWeapons[i-1]);
-                            shopWeapons.RemoveAt(i-1);
-                            showShop();
-                        }
-                    }
-                    // Access the InventoryV3 script directly by child index
-                    
-                }
-            }
         }
     }
 }

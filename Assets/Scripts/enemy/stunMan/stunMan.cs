@@ -130,7 +130,7 @@ public class stunMan : MonoBehaviour
 
         // Keep the Z position fixed to prevent rendering issues
         Vector3 fixedPosition = transform.position;
-        fixedPosition.z = -1f;
+        fixedPosition.z = 0f;
         transform.position = fixedPosition;
     }
 }

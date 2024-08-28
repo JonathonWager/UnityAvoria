@@ -27,7 +27,6 @@ public class waveSpawner : MonoBehaviour
             if (Resources.Load(selectedEnemy) as GameObject != null)
             {
                 Instantiate(Resources.Load(selectedEnemy) as GameObject, spawnPosition, Quaternion.identity);
-                Debug.Log("Spawning Enemy: " + selectedEnemy + " at Position: " + spawnPosition);
             }
             else
             {
@@ -38,7 +37,6 @@ public class waveSpawner : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-              Debug.Log("Spawning");
         if (other.CompareTag("character"))
         {
             entered = true;

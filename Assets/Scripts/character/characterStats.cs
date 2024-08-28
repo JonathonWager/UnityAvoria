@@ -35,13 +35,11 @@ public class characterStats : MonoBehaviour
     // Method to deduct health points based on received damage
     public void takeDamage(decimal damage)
     {
-        Debug.Log("Taking Damage");
         animator.SetBool("isDamaged", true);
         // Apply damage after considering defense
         hp = hp - (int)(damage * (1 - (def / 100)));
     }
     void stopDamage(){
-        Debug.Log("Stoping Damage");
         animator.SetBool("isDamaged", false);
     }
     // Getter method to retrieve current health points
@@ -82,7 +80,23 @@ public class characterStats : MonoBehaviour
     // Method for melee attack
     void melleAttack()
     {
-        Debug.Log("attacking");
+// Get the current mouse position in the world
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // Determine the direction from the character to the mouse
+        Vector3 directionToMouse = mousePosition - transform.position;
+
+        // Check if the mouse is on the left or right side of the character
+        bool mouseIsOnRightSide = directionToMouse.x > 0;
+
+        // Check if the character is currently facing right
+        bool characterFacingRight = transform.localScale.x > 0;
+
+        // Run the function if the character is not facing the mouse
+        if ((mouseIsOnRightSide && !characterFacingRight) || (!mouseIsOnRightSide && characterFacingRight))
+        {
+            Flip(); // Function to flip the character
+        }
         animator.SetBool("isAttacking", true);
         // Calculate mouse direction and create a ray
         Vector2 mouseDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
@@ -99,6 +113,7 @@ public class characterStats : MonoBehaviour
                     // Check if the enemy is within attack range
                     if (hit.distance <= range && canAttack)
                     {
+                       
                         // Damage the enemy
                         enemyStats eEnemy = hit.collider.gameObject.GetComponent<enemyStats>();
                         eEnemy.takeDamage((int)(adjAtk));
@@ -137,6 +152,12 @@ public class characterStats : MonoBehaviour
             // Set a cooldown for firing
             Invoke("fireReset", currentSelectedWeapon.shootInterval);
         }
+    }
+    public void Flip()
+    {
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1; // Invert the X scale to flip the sprite
+        transform.localScale = theScale;
     }
 
     // Method to reset the firing cooldown

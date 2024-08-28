@@ -66,8 +66,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0033499002, y: 0.0012999773, z: 0}
-    m_Extent: {x: 2.7962499, y: 2.8056998, z: 0}
+    m_Center: {x: 0, y: 0.000049948692, z: 0}
+    m_Extent: {x: 2.7997, y: 2.7999501, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -192,4 +192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burnInterval: 1.25
+  destroyTime: 5
   burnDmg: 10
+  waitForBurn: 0.22

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5621682848502240444}
   - component: {fileID: 6753519732503759988}
   - component: {fileID: 5820765377227258325}
+  - component: {fileID: 3954398868439757469}
   m_Layer: 0
   m_Name: brimonolly
   m_TagString: enemy
@@ -127,6 +128,7 @@ MonoBehaviour:
   speed: 2
   range: 5
   minDistance: 3
+  accuracy: 0.5
   attackTime: 5
 --- !u!195 &5621682848502240444
 NavMeshAgent:
@@ -170,6 +172,8 @@ MonoBehaviour:
   attackRate: 0
   AgroRange: 0
   isAgro: 0
+  minGold: 0
+  maxGold: 2
 --- !u!70 &5820765377227258325
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -205,3 +209,30 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.33}
   m_Size: {x: 0.48, y: 0.34}
   m_Direction: 0
+--- !u!50 &3954398868439757469
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251182788093081057}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
