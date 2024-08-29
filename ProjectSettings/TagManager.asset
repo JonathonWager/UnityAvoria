@@ -11,6 +11,7 @@ TagManager:
   - projectile
   - towerArray
   - boss
+  - playerFeet
   layers:
   - Default
   - TransparentFX

@@ -18,7 +18,6 @@ public class BrimFireV2 : MonoBehaviour
     }
     public void  OnTriggerEnter2D(Collider2D other){
          if(other.gameObject.tag == "character"){
-            Debug.Log("BURNING PLAYER");
             playerTarget = other.gameObject;
             InvokeRepeating("dealDmg", waitForBurn, burnInterval);
          }

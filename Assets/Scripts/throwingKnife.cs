@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class throwingKnife : MonoBehaviour
 {
-    public GameObject explo;
-     private Vector3 direction;
-    // Target position for the arrow
+   
     private Vector3 targetPosition;
 
     // Starting position of the arrow
+  
+
+    public GameObject explo;
+    private Vector3 direction;
     private Vector3 startLocation;
-    // Start is called before the first frame update
     private int dmg;
     private float range;
 
     public float speed = 7f;
+    public float knockbackForce = 5f;
 
     void Start()
     {
@@ -24,33 +26,43 @@ public class throwingKnife : MonoBehaviour
         targetPosition.z = transform.position.z;
         direction = (targetPosition - transform.position).normalized;
 
-
         dmg = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().adjAtk;
         range = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().range;
     }
-        public void OnTriggerEnter2D(Collider2D other)
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the arrow collides with an enemy
         if (other.gameObject.tag == "enemy")
         {
-            // Inflict damage to the enemy
             enemyStats eEnemy = other.gameObject.GetComponent<enemyStats>();
-            eEnemy.takeDamage(dmg);
+            if (eEnemy != null)
+            {
+                // Calculate knockback direction
+                Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
 
-            // Instantiate the explosion effect at the arrow's position
-            Quaternion finalRotation = transform.rotation * Quaternion.Euler(0f, 90f, 0f);
-            Instantiate(explo, transform.position, finalRotation);
+                // Apply damage and knockback
+                eEnemy.takeDamage(dmg, knockbackDirection, knockbackForce);
+
+                // Instantiate the explosion effect
+                Quaternion finalRotation = transform.rotation * Quaternion.Euler(0f, 90f, 0f);
+                Instantiate(explo, transform.position, finalRotation);
+            }
         }
-
     }
-    // Update is called once per frame
+
     void Update()
     {
-         transform.Rotate(Vector3.forward * 1000f * Time.deltaTime);
+        // Rotate the knife for a spinning effect
+        transform.Rotate(Vector3.forward * 1000f * Time.deltaTime);
+
+        // Check the distance and destroy if out of range
         float distance = Vector3.Distance(startLocation, transform.position);
-        if(distance > range){
+        if (distance > range)
+        {
             Destroy(gameObject);
         }
+
+        // Move the knife forward
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
     }
 }

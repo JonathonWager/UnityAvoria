@@ -78,64 +78,118 @@ public class characterStats : MonoBehaviour
     }
 
     // Method for melee attack
-    void melleAttack()
+ void meleeAttack()
+{
+    animator.SetBool("isAttacking", true);
+    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    // Determine the direction from the character to the mouse
+    Vector3 directionToMouse = mousePosition - transform.position;
+
+    // Check if the mouse is on the left or right side of the character
+    bool mouseIsOnRightSide = directionToMouse.x > 0;
+
+    // Check if the character is currently facing right
+    bool characterFacingRight = transform.localScale.x > 0;
+    if ((mouseIsOnRightSide && !characterFacingRight) || (!mouseIsOnRightSide && characterFacingRight))
     {
-// Get the current mouse position in the world
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Flip(); // Function to flip the character
+    }
 
-        // Determine the direction from the character to the mouse
-        Vector3 directionToMouse = mousePosition - transform.position;
+    // Normalize the direction to the mouse for angle comparison
+    Vector2 attackDirection = directionToMouse.normalized;
 
-        // Check if the mouse is on the left or right side of the character
-        bool mouseIsOnRightSide = directionToMouse.x > 0;
+    // Set the attack angle (in degrees)
+    float attackAngle = currentSelectedWeapon.attackAngle; // Example: 90 degrees in front of the player
 
-        // Check if the character is currently facing right
-        bool characterFacingRight = transform.localScale.x > 0;
-
-        // Run the function if the character is not facing the mouse
-        if ((mouseIsOnRightSide && !characterFacingRight) || (!mouseIsOnRightSide && characterFacingRight))
+    // Get all colliders within the attack range
+    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, range);
+    foreach (Collider2D collider in hitColliders)
+    {
+        if (collider.CompareTag("enemy")) // Check if the collider has the correct tag
         {
-            Flip(); // Function to flip the character
-        }
-        animator.SetBool("isAttacking", true);
-        // Calculate mouse direction and create a ray
-        Vector2 mouseDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        Ray2D ray = new Ray2D(transform.position, mouseDirection);
+            // Determine the direction from the player to the target
+            Vector3 directionToTarget = (collider.transform.position - transform.position).normalized;
 
-        // Cast a ray and check for hits
-        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, 20f);
-        if (hits.Length > 1)
-        {
-            foreach (RaycastHit2D hit in hits)
+            // Calculate the angle between the attack direction and the target direction
+            float angleToTarget = Vector2.Angle(attackDirection, directionToTarget);
+
+            // Check if the target is within the attack angle
+            if (angleToTarget <= attackAngle / 2f)
             {
-                if (hit.collider != null && hit.collider.gameObject.tag == "enemy")
-                {
-                    // Check if the enemy is within attack range
-                    if (hit.distance <= range && canAttack)
-                    {
-                       
-                        // Damage the enemy
-                        enemyStats eEnemy = hit.collider.gameObject.GetComponent<enemyStats>();
-                        eEnemy.takeDamage((int)(adjAtk));
-                        canAttack = false;
-                        Invoke("attackReset", attackResetTime);
-                    }
-                }
-                if (hit.collider != null && hit.collider.gameObject.tag == "boss")
-                {
-                    Debug.Log("hit boss");
-                    // Check if the enemy is within attack range
-                    if (hit.distance <= range && canAttack)
-                    {
-                        // Damage the enemy
-                        bossStats bStats = hit.collider.gameObject.GetComponent<bossStats>();
-                        bStats.takeDamage((int)(adjAtk));
-                        canAttack = false;
-                        Invoke("attackReset", attackResetTime);
-                    }
-                }
+
+                // Optionally, apply knockback
+                Vector2 knockbackDirection = directionToTarget;
+                float knockbackForce = currentSelectedWeapon.knockBack; // Define this in your weapon class
+                collider.GetComponent<enemyStats>().takeDamage((int)(adjAtk), knockbackDirection, knockbackForce);
+
+                // Disable attacking temporarily to allow for cooldown
+                canAttack = false;
+                Invoke("attackReset", attackResetTime);
             }
         }
+    }
+
+
+
+
+
+// Get the current mouse position in the world
+        // Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // // Determine the direction from the character to the mouse
+        // Vector3 directionToMouse = mousePosition - transform.position;
+
+        // // Check if the mouse is on the left or right side of the character
+        // bool mouseIsOnRightSide = directionToMouse.x > 0;
+
+        // // Check if the character is currently facing right
+        // bool characterFacingRight = transform.localScale.x > 0;
+
+        // // Run the function if the character is not facing the mouse
+        // if ((mouseIsOnRightSide && !characterFacingRight) || (!mouseIsOnRightSide && characterFacingRight))
+        // {
+        //     Flip(); // Function to flip the character
+        // }
+        // animator.SetBool("isAttacking", true);
+        // // Calculate mouse direction and create a ray
+        // Vector2 mouseDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        // Ray2D ray = new Ray2D(transform.position, mouseDirection);
+
+        // // Cast a ray and check for hits
+        // RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, 20f);
+        // if (hits.Length > 1)
+        // {
+        //     foreach (RaycastHit2D hit in hits)
+        //     {
+        //         if (hit.collider != null && hit.collider.gameObject.tag == "enemy")
+        //         {
+        //             // Check if the enemy is within attack range
+        //             if (hit.distance <= range && canAttack)
+        //             {
+                       
+        //                 // Damage the enemy
+        //                 enemyStats eEnemy = hit.collider.gameObject.GetComponent<enemyStats>();
+        //                 eEnemy.takeDamage((int)(adjAtk));
+        //                 canAttack = false;
+        //                 Invoke("attackReset", attackResetTime);
+        //             }
+        //         }
+        //         if (hit.collider != null && hit.collider.gameObject.tag == "boss")
+        //         {
+        //             Debug.Log("hit boss");
+        //             // Check if the enemy is within attack range
+        //             if (hit.distance <= range && canAttack)
+        //             {
+        //                 // Damage the enemy
+        //                 bossStats bStats = hit.collider.gameObject.GetComponent<bossStats>();
+        //                 bStats.takeDamage((int)(adjAtk));
+        //                 canAttack = false;
+        //                 Invoke("attackReset", attackResetTime);
+        //             }
+        //         }
+        //     }
+        // }
     }
     void attackReset(){
         canAttack = true;
@@ -180,14 +234,17 @@ public class characterStats : MonoBehaviour
         // Check for player input to perform attacks
         if (Input.GetMouseButtonDown(0)) // 0 corresponds to the left mouse button
         {
-            if (currentSelectedWeapon.isRanged == "M")
-            {
-                melleAttack();
+            if(canAttack){
+                if (currentSelectedWeapon.isRanged == "M")
+                {
+                    meleeAttack();
+                }
+                else if (currentSelectedWeapon.isRanged == "R")
+                {
+                    rangeAttack();
+                }
             }
-            else if (currentSelectedWeapon.isRanged == "R")
-            {
-                rangeAttack();
-            }
+            
         }
     }
 }

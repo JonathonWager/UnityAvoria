@@ -19,7 +19,9 @@ public class Weapon
 
     public int price{get; set;}
     public int tier{get; set;}
-    public Weapon(int ID, string Name, int Damage, float Range, string ranged,string projectileName, float fireRate, int Price,int Tier){
+    public float knockBack{get; set;}
+    public float attackAngle{get; set;}
+    public Weapon(int ID, string Name, int Damage, float Range, string ranged,string projectileName, float fireRate, int Price,int Tier,float KnockBack, float AttackAngle){
         id = ID;
         weaponName = Name;
         damage = Damage;
@@ -29,6 +31,8 @@ public class Weapon
         shootInterval = fireRate;
         price = Price;
         tier = Tier;
+        knockBack = KnockBack;
+        attackAngle = AttackAngle;
     }
 
     public Weapon findWeaponFromAll(int ID)

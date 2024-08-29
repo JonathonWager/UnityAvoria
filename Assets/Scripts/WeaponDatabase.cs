@@ -10,25 +10,25 @@ public class WeaponDatabase : MonoBehaviour
     {
         // Initialize the database with all weapons
         string[] weapons = {
-            "1,Fists,2,1,M,NA,0,0,0",
-            "2,Basic Sword,10,1.5,M,NA,0,10,1",
-            "3,Great Sword,10,1.5,M,NA,2,20,2",
-            "4,Long Sword,10,2.2,M,NA,0,30,3",
-            "5,Basic Axe,10,2.2,M,NA,0,15,1",
-            "6,Great Axe,10,2.2,M,NA,0,25,2",
-            "7,Long Axe,10,2.2,M,NA,0,45,4",
-            "8,BaseBall Bat,10,2.2,M,NA,0,5,1",
-            "9,Chainsaw,10,2.2,M,NA,0,55,4",
-            "10,Basic Bow,10,5,R,Arrow,1,0,0",
-            "11,Long Bow,30,5,R,Arrow,1,25,2",
-            "12,Great Bow,30,5,R,Arrow,1,35,3",
-            "13,Compound Bow,30,5,R,Arrow,1,50,4",
-            "14,Glock,30,5,R,Arrow,1,20,2",
-            "15,ShotGun,5,5,R,ShotgunShell,1,45,3",
-            "16,Ak-47,30,5,R,Bullet,1,60,4",
-            "17,RPG,30,5,R,Arrow,1,100,5",
-            "18,Boomerang,30,10,R,Boomerang,1,40,3",
-            "19,Throwing Knives,10,7,R,ThrowingKnife,1,15,1"
+            "1,Fists,2,1,M,NA,0,0,0,2,100",
+            "2,Basic Sword,10,1.5,M,NA,0,10,1,2.2,100",
+            "3,Great Sword,10,1.5,M,NA,2,20,2,2.5,100",
+            "4,Long Sword,10,2.2,M,NA,0,30,3,2.7,100",
+            "5,Basic Axe,10,2.2,M,NA,0,15,1,1,100",
+            "6,Great Axe,10,2.2,M,NA,0,25,2,1,100",
+            "7,Long Axe,10,2.2,M,NA,0,45,4,1,100",
+            "8,BaseBall Bat,10,2.2,M,NA,0,5,1,1,100",
+            "9,Chainsaw,10,2.2,M,NA,0,55,4,1,100",
+            "10,Basic Bow,10,5,R,Arrow,1,0,0,1,0",
+            "11,Long Bow,30,5,R,Arrow,1,25,2,1,0",
+            "12,Great Bow,30,5,R,Arrow,1,35,3,1,0",
+            "13,Compound Bow,30,5,R,Arrow,1,50,4,1,0",
+            "14,Glock,30,5,R,Arrow,1,20,2,1,0",
+            "15,ShotGun,5,5,R,ShotgunShell,1,45,3,1,0",
+            "16,Ak-47,30,5,R,Bullet,1,60,4,1,0",
+            "17,RPG,30,5,R,Arrow,1,100,5,1,0",
+            "18,Boomerang,30,10,R,Boomerang,1,40,3,1,0",
+            "19,Throwing Knives,10,7,R,ThrowingKnife,1,15,1,1,0"
         };
         makeWeapons(weapons);
     }
@@ -47,7 +47,9 @@ public class WeaponDatabase : MonoBehaviour
                 atts[5],
                 float.Parse(atts[6]),
                 int.Parse(atts[7]),
-                int.Parse(atts[8])
+                int.Parse(atts[8]),
+                float.Parse(atts[9]),
+                float.Parse(atts[10])
             );
             allWeapons.Add(weapon);
         }

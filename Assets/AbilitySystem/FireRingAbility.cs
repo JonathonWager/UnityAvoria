@@ -14,7 +14,6 @@ namespace AbilitySystem
 
         public override void Activate(GameObject player)
         {
-            Debug.Log("Activating Fire Ring Ability");
 
             if (fireRingPrefab == null)
             {
@@ -31,7 +30,6 @@ namespace AbilitySystem
             LevelUp();
 
             GameObject fireRing = Instantiate(fireRingPrefab, player.transform.position, Quaternion.identity);
-            Debug.Log("Fire Ring instantiated at position: " + player.transform.position);
 
             AbilityManager abilityManager = player.GetComponentInChildren<AbilityManager>();
             if (abilityManager == null)

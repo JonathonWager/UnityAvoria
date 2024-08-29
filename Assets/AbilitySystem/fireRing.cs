@@ -17,13 +17,13 @@ public class fireRing : MonoBehaviour
 
     public void dmgEnemys()
     {
-        Debug.Log("Damaging ENemys");
+        Debug.Log("Damaging Enemys");
         foreach (GameObject enemy in currentEnemys)
         {
             enemyStats eEnemy = enemy.GetComponent<enemyStats>();
             if (eEnemy != null)
             {
-                eEnemy.takeDamage(dmgToEnemys);
+                eEnemy.takeDamage(dmgToEnemys, Vector2.zero, 0f);  // Pass Vector2.zero to indicate no knockback
             }
         }
     }
