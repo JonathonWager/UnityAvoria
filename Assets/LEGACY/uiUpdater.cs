@@ -9,7 +9,7 @@ public class uiUpdater : MonoBehaviour
     public GameObject player;
     public Image panel;
     public Image qAbilityPanel, eAbilityPanel;
-    public Text hpUI,goldUI;
+    public Text hpUI,goldUI, waveUI;
 
     public TMP_Text   qUI, eUI, potionUI, shopUI;
     Text[] invUI, abilityUi;
@@ -46,6 +46,10 @@ public class uiUpdater : MonoBehaviour
             {
                 goldUI = child.GetComponentInChildren<Text>();
             }
+            if (child.name == "WaveCounter")
+            {
+                waveUI = child.GetComponentInChildren<Text>();
+            }
         }
     }
 
@@ -64,7 +68,9 @@ public class uiUpdater : MonoBehaviour
         qAbilityPanel.color = isQOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
         eAbilityPanel.color = isEOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
     }
-
+    public void updateWave(int Wave){
+        waveUI.text = Wave.ToString();
+    }
     void updatehpUI()
     {
         characterStats cStats = player.GetComponent<characterStats>();

@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 9131931323992455829}
   - component: {fileID: 9210515350328500280}
   - component: {fileID: 4726903668488986339}
-  - component: {fileID: 8245689496976368061}
   - component: {fileID: 8669119122997906885}
   - component: {fileID: 6280600380857684052}
   - component: {fileID: 4240801738388656141}
   - component: {fileID: 1053717895443370267}
+  - component: {fileID: -1810589935219799123}
   m_Layer: 0
   m_Name: girxer
   m_TagString: enemy
@@ -111,23 +111,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8245689496976368061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2919460103788815041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc5764bd5dfdef449be7e3add5ec7505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roamDistance: 10
-  attackRange: 10
-  damageRange: 1.2
-  damageCooldown: 1.5
-  damageAmount: 10
 --- !u!195 &8669119122997906885
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -164,10 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 25
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
   AgroRange: 0
   isAgro: 0
   minGold: 0
@@ -233,4 +213,20 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &-1810589935219799123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2919460103788815041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc651e0c9825944c9484fc4a6134b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 15
+  damageRange: 1.5
+  damageCooldown: 3
+  damageAmount: 10

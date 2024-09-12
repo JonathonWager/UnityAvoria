@@ -50,15 +50,17 @@ public class stunMan : MonoBehaviour
                 cStats.takeDamage(damage);
             }
         }
-
-        if (Vector3.Distance(player.transform.position, transform.position) > attackRange - 1)
+        if(navMeshAgent.enabled)
         {
-            navMeshAgent.SetDestination(player.transform.position);
-        }
-        else
-        {
-            navMeshAgent.ResetPath(); // Stop moving if within attack range
-        }
+            if (Vector3.Distance(player.transform.position, transform.position) > attackRange - 1)
+            {
+                navMeshAgent.SetDestination(player.transform.position);
+            }
+            else
+            {
+                navMeshAgent.ResetPath(); // Stop moving if within attack range
+            }
+        }        
     }
     
     void stopAttack()

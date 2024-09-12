@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class enemyStats : MonoBehaviour
 {
     public int hp;
@@ -13,35 +13,57 @@ public class enemyStats : MonoBehaviour
 
     private Animator animator;
     private GameObject player;
-
+    private NavMeshAgent agent;
+    private bool dead = false;
     void Start()
     {
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("character");
+         agent = GetComponent<NavMeshAgent>();
     }
       void stopDamageAnimation(){
         animator.SetBool("isHurt", false);
     }
+    
     public void takeDamage(float damage, Vector2 knockbackDirection, float knockbackForce)
     {
-        if (hp - damage <= 0)
+        hp -= (int)damage;
+        if (hp<= 0)
         {
             animator.SetBool("isDead", true);
         }
         else
         {
-            hp -= (int)damage;
+
             animator.SetBool("isHurt", true);
 
             // Apply knockback
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            if (rb != null)
+            if (agent != null)
             {
-                rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+                // Disable the NavMeshAgent temporarily
+                agent.enabled = false;
+
+                // Apply knockback force manually
+                Vector3 knockbackVelocity = new Vector3(knockbackDirection.x, 0, knockbackDirection.y) * knockbackForce;
+
+                // Move the enemy by modifying its position manually for knockback
+                StartCoroutine(ApplyKnockback(agent, knockbackVelocity, 0.2f)); // 0.2f is the knockback duration
             }
         }
     }
+private IEnumerator ApplyKnockback(UnityEngine.AI.NavMeshAgent agent, Vector3 velocity, float duration)
+{
+    float timer = 0f;
+    while (timer < duration)
+    {
+        transform.position += velocity * Time.deltaTime;
+        timer += Time.deltaTime;
+        yield return null;
+    }
 
+    // Re-enable the NavMeshAgent after knockback
+    agent.enabled = true;
+}
     void killEnemy()
     {
         SpawnGold();
@@ -50,13 +72,15 @@ public class enemyStats : MonoBehaviour
 
     void Update()
     {
-        if (hp <= 0)
+        if (hp <= 0 && !dead)
         {
+            dead = true;
             DisableAllOtherScripts();
-        }
-        if (Vector3.Distance(transform.position, player.transform.position) < AgroRange)
-        {
-            isAgro = true;
+            if(agent != null){
+                agent.enabled = false; 
+            }
+
+
         }
     }
 

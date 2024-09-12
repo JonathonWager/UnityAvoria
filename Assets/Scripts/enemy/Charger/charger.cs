@@ -38,7 +38,6 @@ public class charger : MonoBehaviour
 
     void Flip()
     {
-        Debug.Log("FLIPPING");
         // Flip the GameObject by inverting its local scale
         Vector3 scale = transform.localScale;
         scale.x *= -1;
@@ -49,7 +48,6 @@ public class charger : MonoBehaviour
     }
     void Update()
     {
-        if(isAgro){
             transform.rotation = Quaternion.identity;
             // Determine if the enemy needs to flip to face the player
             if (playerPos != null)
@@ -101,12 +99,7 @@ public class charger : MonoBehaviour
                 }
                 attackTime -= Time.deltaTime;
             }
-        }else{
-             enemyStats eStats = this.GetComponent<enemyStats>();
-             if(eStats.isAgro){
-                isAgro = true;
-             }
-        }
+      
         
     }
 }

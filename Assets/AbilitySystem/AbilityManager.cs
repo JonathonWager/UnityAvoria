@@ -52,8 +52,6 @@ namespace AbilitySystem
             {
                 IsEOnCooldown = false;
             }
-
-            Debug.Log($"{abilityKey} ability is ready to use again.");
         }
 
         private void UpdateUI()

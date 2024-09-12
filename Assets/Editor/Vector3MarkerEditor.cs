@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(waveSpawner))]
+[CustomEditor(typeof(WaveArea))]
 public class Vector3MarkerEditor : Editor
 {
     private SerializedProperty vector3List;
@@ -20,7 +20,7 @@ public class Vector3MarkerEditor : Editor
 
     private void OnSceneGUI()
     {
-        waveSpawner waveSpawner = (waveSpawner)target;
+        WaveArea waveSpawner = (WaveArea)target;
 
         if (waveSpawner.vector3List != null)
         {

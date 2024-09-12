@@ -12,6 +12,12 @@ TagManager:
   - towerArray
   - boss
   - playerFeet
+  - shop
+  - SpawnObject
+  - SpawnArea
+  - WaveManager
+  - UI
+  - NavMesh
   layers:
   - Default
   - TransparentFX

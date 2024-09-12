@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6484735810393713452}
   m_Layer: 0
   m_Name: FireRing
-  m_TagString: Untagged
+  m_TagString: splashDmg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +84,7 @@ MonoBehaviour:
   dmgBuff: 2
   enemyDamageTimeInterval: 2
   dmgToEnemys: 5
+  currentEnemys: []
 --- !u!1 &8251818194783212856
 GameObject:
   m_ObjectHideFlags: 0

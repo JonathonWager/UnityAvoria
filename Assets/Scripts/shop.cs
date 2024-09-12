@@ -44,8 +44,6 @@ public class shop : MonoBehaviour
     }
     private void OnShopEntryClicked(string name, int goldAmount, GameObject panel)
     {
-        // Handle what happens when a shop entry is clicked
-        Debug.Log("Clicked on: " + name + " for " + goldAmount + " gold");
         characterStats cStats = player.GetComponent<characterStats>();
         if(cStats.gold > goldAmount){
             cStats.gold = cStats.gold - goldAmount;
@@ -55,7 +53,6 @@ public class shop : MonoBehaviour
             {
                 inventory.swapOutWeapon(shopWeapons.Find(weapon => weapon.weaponName == name));
                 shopWeapons.RemoveAll(weapon => weapon.weaponName == name);
-                Debug.Log("Showing second shop?");
                 Destroy(panel);
             }
         }
@@ -90,22 +87,17 @@ public class shop : MonoBehaviour
         {
             // Use the class name to access the static method
             Weapon w = allWeapons[Random.Range(0, allWeapons.Count)];
-            if(w.tier == shopTier){
-                shopWeapons.Add(w);
-                allWeapons.Remove(w);
+            if(w.tier == shopTier && !shopWeapons.Contains(w)){
+                    shopWeapons.Add(w);
+
+                //allWeapons.Remove(w);
             }else{
                 i--;
             }           
         }
         foreach (Weapon wep in shopWeapons)
         {
-            Debug.Log("Printing WEp");
             AddShopEntry(wep.weaponName, Resources.Load<Sprite>("WeaponIcons/"+ wep.weaponName), wep.price);
-        }
-        // Loop through the weapons in the shop and print their names
-        foreach (Weapon w in shopWeapons)
-        {
-            Debug.Log(w.weaponName);
         }
     }
 }

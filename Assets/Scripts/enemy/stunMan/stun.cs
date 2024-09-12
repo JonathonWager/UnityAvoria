@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class stun : MonoBehaviour
 {
-    //public GameObject explo;
     public float deleteTime = 5f;
     public float speed = 7f;
     public float stunDivisor;
@@ -13,17 +12,13 @@ public class stun : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 startLocation;
     private float range;
-
     private float angle;
     private GameObject player;
     private float tempMoveSpeed;
     public float stunDuration = 5f;
-   
-   private bool hasHitPlayer = false;
-
-
-   public GameObject parent;
-   public void SetCreator(GameObject creatorObject)
+    private bool hasHitPlayer = false;
+    public GameObject parent;
+    public void SetCreator(GameObject creatorObject)
     {
         parent = creatorObject;
     }
@@ -64,16 +59,12 @@ public class stun : MonoBehaviour
         // Apply force to the object in the calculated direction
         rb.velocity = direction * speed;
     }
-
-
-
     private void stunResetDelete()
     {
         playerMovement mStats = player.GetComponent<playerMovement>();
         if(tempMoveSpeed > 0){
             mStats.setSpeed(tempMoveSpeed);
-        }
-        
+        }      
         mStats.isStunned = false;
         Destroy(gameObject);
     }
@@ -86,32 +77,17 @@ public class stun : MonoBehaviour
             hasHitPlayer = true;
             playerMovement mStats = player.GetComponent<playerMovement>();
             if(!mStats.isStunned){
-              
+                Debug.Log("Slowing Character");
                 tempMoveSpeed = mStats.getSpeed();
                 mStats.isStunned = true;
                 mStats.setSpeed(tempMoveSpeed / stunDivisor);
                 stunMan sStats = parent.GetComponent<stunMan>();
                 sStats.hitTarget = true;
                 sStats.StartAttackTimer();
-
-
-            }
-          
-            
-            
+            }           
             foreach (Transform child in transform)
                 child.gameObject.SetActive(false);
-
-
-            Invoke("stunResetDelete",stunDuration);
-         }
-         if(other.gameObject.tag != "enemy" && other.gameObject.tag != "Untagged" && !hasHitPlayer){
-            //Destroy(gameObject);
-         }
-        
-    }
-    void Update(){
-
-
+                Invoke("stunResetDelete",stunDuration);
+        }  
     }
 }

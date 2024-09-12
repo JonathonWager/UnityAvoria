@@ -7,12 +7,15 @@ public class characterStats : MonoBehaviour
     public int gold = 100;
     // Player's health points
     public int hp = 100;
+    private int basehp;
 
     // Player's defense stat
     public int def = 10;
 
     // Player's base attack stat
     public int baseAtk = 10;
+    public int regenAmount = 1;
+    public float regenTime = 2f;
 
     // Player's adjusted attack stat (modifiable)
     public int adjAtk { get; set; } = 10;
@@ -61,8 +64,15 @@ public class characterStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        basehp = hp;
         // Initialization code can be added here if needed
         animator = GetComponent<Animator>();
+               InvokeRepeating("healthRegen", 0f, regenTime);
+    }
+    void healthRegen(){
+        if(hp < basehp){
+            hp += regenAmount;
+        }
     }
     void stopAttack(){
 
