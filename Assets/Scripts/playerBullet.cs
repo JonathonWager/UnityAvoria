@@ -9,15 +9,28 @@ public class playerBullet : MonoBehaviour
     public int dmg;
     public float range;
     public float knockbackForce = 5f;
-
+         private Vector3 targetDirection; 
     private Vector3 startLocation;
 
     void Start()
     {
+         Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = Camera.main.WorldToScreenPoint(transform.position).z; // Set the z to be the same as the GameObject
+        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        // Calculate the direction towards the target position
+        targetDirection = (targetPosition - transform.position).normalized;
+
+        // Rotate towards the target direction
+        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+
         startLocation = transform.position;
-        dmg = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().adjAtk;
-        range = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().range;
         player = GameObject.FindGameObjectWithTag("character");
+        dmg = player.GetComponent<characterStats>().adjAtk;
+        range = player.GetComponent<characterStats>().range;
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -45,6 +58,6 @@ public class playerBullet : MonoBehaviour
         }
 
         // Move the bullet forward
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        transform.position += targetDirection * speed * Time.deltaTime;
     }
 }

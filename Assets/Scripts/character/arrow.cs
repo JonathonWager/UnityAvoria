@@ -14,6 +14,7 @@ public class arrow : MonoBehaviour
     void Start()
     {
         startLocation = transform.position;
+        
         dmg = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().adjAtk;
         range = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().range;
 

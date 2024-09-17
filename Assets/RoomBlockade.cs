@@ -23,7 +23,10 @@ public class RoomBlockade : MonoBehaviour
     }
      public void OnTriggerExit2D(Collider2D other)
     {
-        ToggleChildByName(UI,"Blockade", false);
+        if (other.CompareTag("character"))
+        {
+            ToggleChildByName(UI,"Blockade", false);
+        }
     }
      public void ToggleChildByName(GameObject parent, string childName, bool isActive)
     {

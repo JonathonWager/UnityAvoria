@@ -10,7 +10,14 @@ public class WaveArea : MonoBehaviour
 
     public void spawnEnemy(string enemyName)
     {
-        int randValue = Random.Range(0, 10);
+        int randValue;
+        if(closestAreas.Count >= 1){
+            randValue = Random.Range(0, 10);
+        }else
+        {
+            randValue = 5;
+        }
+       
         if (randValue > 4)
         {
             int positionIndex = Random.Range(0, vector3List.Count);
@@ -26,7 +33,10 @@ public class WaveArea : MonoBehaviour
         }
         else
         {
-            if (randValue <= 2)
+            if(closestAreas.Count < 2){
+                randValue = 2;
+            }
+            if (randValue <= 2&& closestAreas.Count >= 1)
             {
                 WaveArea wArea = closestAreas[0].GetComponent<WaveArea>();      
                 wArea.spawnEnemy(enemyName);         

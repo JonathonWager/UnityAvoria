@@ -166,14 +166,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 30
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
   AgroRange: 0
   isAgro: 0
-  minGold: 0
-  maxGold: 2
+  minGold: 5
+  maxGold: 20
 --- !u!70 &5820765377227258325
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

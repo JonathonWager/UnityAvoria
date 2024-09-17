@@ -204,14 +204,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 30
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
   AgroRange: 0
   isAgro: 0
-  minGold: 0
-  maxGold: 2
+  minGold: 15
+  maxGold: 30
 --- !u!50 &2529422111984437688
 Rigidbody2D:
   serializedVersion: 4

@@ -18,6 +18,7 @@ TagManager:
   - WaveManager
   - UI
   - NavMesh
+  - WeaponsSystem
   layers:
   - Default
   - TransparentFX

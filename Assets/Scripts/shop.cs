@@ -78,11 +78,15 @@ public class shop : MonoBehaviour
             ToggleChildByName(UI, "ShopPanel", false);
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-         // No need to get the WeaponDatabase component since GetWeaponById is static
+    public void setStart(int teir,int wepCount){
+        
+        UI = GameObject.FindGameObjectWithTag("UI");
+        shopPanelParent = UI.transform.Find("ShopPanel");
+        shopTier = teir;
+        weaponAmount = wepCount;
+          // No need to get the WeaponDatabase component since GetWeaponById is static
         List<Weapon> allWeapons = WeaponDatabase.getAllWeapons();
+ 
         for (int i = 0; i < weaponAmount; i++)
         {
             // Use the class name to access the static method
@@ -100,4 +104,5 @@ public class shop : MonoBehaviour
             AddShopEntry(wep.weaponName, Resources.Load<Sprite>("WeaponIcons/"+ wep.weaponName), wep.price);
         }
     }
+ 
 }

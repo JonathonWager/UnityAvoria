@@ -131,7 +131,7 @@ public class characterStats : MonoBehaviour
                 // Optionally, apply knockback
                 Vector2 knockbackDirection = directionToTarget;
                 float knockbackForce = currentSelectedWeapon.knockBack; // Define this in your weapon class
-                collider.GetComponent<enemyStats>().takeDamage((int)(adjAtk), knockbackDirection, knockbackForce);
+                //collider.GetComponent<enemyStats>().takeDamage((int)(adjAtk), knockbackDirection, knockbackForce);
 
                 // Disable attacking temporarily to allow for cooldown
                 canAttack = false;
@@ -242,19 +242,19 @@ public class characterStats : MonoBehaviour
         }
 
         // Check for player input to perform attacks
-        if (Input.GetMouseButtonDown(0)) // 0 corresponds to the left mouse button
-        {
-            if(canAttack){
-                if (currentSelectedWeapon.isRanged == "M")
-                {
-                    meleeAttack();
-                }
-                else if (currentSelectedWeapon.isRanged == "R")
-                {
-                    rangeAttack();
-                }
-            }
+        // if (Input.GetMouseButtonDown(0)) // 0 corresponds to the left mouse button
+        // {
+        //     if(canAttack){
+        //         if (currentSelectedWeapon.isRanged == "M")
+        //         {
+        //             meleeAttack();
+        //         }
+        //         else if (currentSelectedWeapon.isRanged == "R")
+        //         {
+        //             rangeAttack();
+        //         }
+        //     }
             
-        }
+        // }
     }
 }

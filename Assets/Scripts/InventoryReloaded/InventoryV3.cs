@@ -178,7 +178,7 @@ public class InventoryV3 : MonoBehaviour
     {
         // Initialize weapons and add them to the inventory
         addWeapon(1);
-        addWeapon(10);
+        addWeapon(14);
         currentWeapon = InvWeapons[0];
         currentWeaponChange();
 

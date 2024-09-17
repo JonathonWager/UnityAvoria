@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using AbilitySystem;
+using WeaponsSystem;
 public class uiUpdater : MonoBehaviour
 {
     public GameObject player;
@@ -12,7 +13,7 @@ public class uiUpdater : MonoBehaviour
     public Text hpUI,goldUI, waveUI;
 
     public TMP_Text   qUI, eUI, potionUI, shopUI;
-    Text[] invUI, abilityUi;
+    public Text[] invUI, abilityUi;
     Image[] invIcons,abilityIcons;
     void Start()
     {
@@ -26,6 +27,7 @@ public class uiUpdater : MonoBehaviour
             }
             if (child.name == "Weapons")
             {
+                Debug.Log("getting inv");
                 invUI = child.GetComponentsInChildren<Text>();
                 invIcons = child.GetComponentsInChildren<Image>();
             }
@@ -87,20 +89,21 @@ public class uiUpdater : MonoBehaviour
 
     void updateinvUI()
     {
-        InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
-        Weapon CurrentWeapon = iStats.getCurrentWeapon();
-        Weapon[] Weapons = iStats.getWeapons();
+     
+        InventoryV4 iStats = player.GetComponentInChildren<InventoryV4>();
+        WeaponBase CurrentWeapon = iStats.currentWeapon;
+        WeaponBase[] Weapons = iStats.InvWeapons;
          for(int i = 0; i < 2; i++){
-            invUI[i].text = Weapons[i].weaponName;
-            if(CurrentWeapon.weaponName == Weapons[i].weaponName){
+            invUI[i].text = Weapons[i].name;
+            if(CurrentWeapon.name == Weapons[i].name){
                 invIcons[i+1].color = Color.white;
             }else{
                 invIcons[i+1].color = new Color32(72, 219, 251, 255);
             }
             
          }
-         invIcons[1].sprite = Resources.Load<Sprite>("WeaponIcons/"+ Weapons[0].weaponName);
-         invIcons[2].sprite = Resources.Load<Sprite>("WeaponIcons/"+ Weapons[1].weaponName);
+         invIcons[1].sprite = Weapons[0].icon;
+         invIcons[2].sprite = Weapons[1].icon;
         
        
        

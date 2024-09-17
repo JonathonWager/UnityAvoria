@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6778040335052327056}
-  - component: {fileID: 9184350330638387161}
   - component: {fileID: 5829439019992555028}
   - component: {fileID: 858166190546436446}
+  - component: {fileID: -2611870669433900380}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: projectile
@@ -36,21 +36,6 @@ Transform:
   - {fileID: 5311809353776207806}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9184350330638387161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2505732143174920360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57d10b808a903d4c95a1ae50f09da0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explo: {fileID: 4077714038759337487, guid: 4b4120fb2acbbde4f98a1450b3b3ea2c, type: 3}
-  deleteTime: 10
-  speed: 15
 --- !u!50 &5829439019992555028
 Rigidbody2D:
   serializedVersion: 4
@@ -113,6 +98,24 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0025376643, y: 0.031667646}
   m_Size: {x: 1.0024447, y: 0.058484375}
   m_Direction: 1
+--- !u!114 &-2611870669433900380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505732143174920360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41981b1f052727f49b7318b7ea2db5e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explo: {fileID: 4077714038759337487, guid: 4b4120fb2acbbde4f98a1450b3b3ea2c, type: 3}
+  deleteTime: 10
+  speed: 7
+  dmg: 15
+  range: 0
+  knockBack: 0
 --- !u!1 &6524567863235776052
 GameObject:
   m_ObjectHideFlags: 0
