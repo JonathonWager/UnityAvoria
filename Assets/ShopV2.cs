@@ -14,6 +14,8 @@ public class ShopV2 : MonoBehaviour
 
     public GameObject shopEntryPrefab;
     public Transform shopPanelParent;
+
+    public List<GameObject> shopPannels =  new List<GameObject>();
     // Start is called before the first frame update
 
      public void OnTriggerEnter2D(Collider2D other)
@@ -30,9 +32,16 @@ public class ShopV2 : MonoBehaviour
         {
             ToggleChildByName(UI, "ShopBlur", false);
             ToggleChildByName(UI, "ShopPanel", false);
+            foreach (GameObject pannel in shopPannels){
+                Destroy(pannel.gameObject);
+            }
         }
     }
      public void showShop(){
+         foreach (WeaponBase wep in shopWeapons)
+        {
+            AddShopEntry(wep.name,wep.icon, wep.price);
+        }
         ToggleChildByName(UI, "ShopBlur", true);
         ToggleChildByName(UI, "ShopPanel", true);
     }
@@ -40,7 +49,7 @@ public class ShopV2 : MonoBehaviour
     {
         // Instantiate the prefab
         GameObject entry = Instantiate(shopEntryPrefab, shopPanelParent);
-
+        shopPannels.Add(entry);
         // Get the ShopEntryUI component and set the values
         ShopEntryUI entryUI = entry.GetComponent<ShopEntryUI>();
         entryUI.SetWeaponName(name);
@@ -54,6 +63,7 @@ public class ShopV2 : MonoBehaviour
     }
       private void OnShopEntryClicked(string name, int goldAmount, GameObject panel)
     {
+        Debug.Log(name  + " " + goldAmount);
         characterStats cStats = player.GetComponent<characterStats>();
         if(cStats.gold > goldAmount){
             cStats.gold = cStats.gold - goldAmount;
@@ -85,7 +95,7 @@ public class ShopV2 : MonoBehaviour
         shopPanelParent = UI.transform.Find("ShopPanel");
         shopTier = teir;
         weaponAmount = wepCount;
-
+        Debug.Log(this.gameObject.name + " making "+ wepCount+ " pannels");
         WeaponBase[] allWeaponsArray  = Resources.LoadAll<WeaponBase>("Weapons");
         List<WeaponBase> allWeapons = new List<WeaponBase>();
         for(int i = 0; i <  allWeaponsArray.Length; i++){
@@ -103,10 +113,10 @@ public class ShopV2 : MonoBehaviour
             allWeapons.RemoveAt(index);
         }
 
-        foreach (WeaponBase wep in shopWeapons)
-        {
-            AddShopEntry(wep.name,wep.icon, wep.price);
-        }
+       
+    }
+    public void Start(){
+        //setStart(shopTier,weaponAmount);
     }
 
 }

@@ -7,17 +7,33 @@ namespace WeaponsSystem
     [CreateAssetMenu(menuName = "Weapon/BasicMelee")]
     public class BasicMelee : WeaponBase
     {
-        [Header("Melee Specific Properties")]
-        public int damage;
+        [Header("Melee Specific Properties(Base)")]
+        public float baseDamage;
+        public float  baseRange;
+        public float baseAttackCooldown;
+        public int baseLevelInc;
+        [Header("Melee Specific Properties(Actual)")]
+        public float damage;
         public float range;
         public float attackAngle;
         public float knockBack;
         public float attackCooldown;
 
+        public float levelUpDmgBuff ;
+         public float levelUpRangeBuff ;
+        public float levelUpCooldownBuff ;
         private bool canAttack = true;
         private LineRenderer lineRenderer; // LineRenderer to show the attack area
         public int arcSegments = 50; // Number of segments for smoothness of the arc
         private Animator animator;
+        public override void ResetLevel(){
+            damage = baseDamage;
+            range = baseRange;
+            attackCooldown = baseAttackCooldown;
+            levelInc = baseLevelInc;
+            level = 1;
+            useCount = 0;
+        }
         public override void Attack(GameObject player)
         {
             if (canAttack)
@@ -39,6 +55,8 @@ namespace WeaponsSystem
                 {
                     if (collider.CompareTag("enemy")) // Check if the collider has the correct tag
                     {
+                        useCount++;
+                        CheckLevel();
                         // Determine the direction from the player to the target
                         Vector3 directionToTarget = (collider.transform.position - player.transform.position).normalized;
 
@@ -49,7 +67,7 @@ namespace WeaponsSystem
                         if (angleToTarget <= attackAngle / 2f)
                         {
                             Vector2 knockbackDirection = directionToTarget;
-                            collider.GetComponent<enemyStats>().takeDamage(damage, knockbackDirection, knockBack);
+                            collider.GetComponent<enemyStats>().takeDamage((int)damage, knockbackDirection, knockBack);
                         }
                     }
                 }
@@ -59,7 +77,15 @@ namespace WeaponsSystem
                 player.GetComponent<MonoBehaviour>().StartCoroutine(ClearAttackArc(0.5f)); // Clear the arc after a short delay
             }
         }
-
+        public void CheckLevel(){
+            if(useCount >= levelInc){
+                level++;
+                levelInc = levelInc * 2;
+                damage = damage + levelUpDmgBuff;
+                range = range +  levelUpRangeBuff;
+                attackCooldown = attackCooldown - levelUpRangeBuff;
+            }
+        }
         private IEnumerator Cooldown()
         {
             yield return new WaitForSeconds(attackCooldown);
@@ -81,6 +107,7 @@ namespace WeaponsSystem
         // Method to draw the attack arc using LineRenderer
         private void DrawAttackArc(GameObject player, Vector2 attackDirection)
         {
+            lineRenderer = player.GetComponent<LineRenderer>();
             if (lineRenderer == null)
             {
                 // Create and configure the LineRenderer if not already created

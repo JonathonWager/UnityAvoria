@@ -6,14 +6,28 @@ namespace AbilitySystem
     [CreateAssetMenu(menuName = "Abilities/Rangerator")]
     public class RangeratorAbility : AbilityBase
     {
+        [Header("Rangerator Base Properties")]
+        public float rangeModifierBase;
+        public float durationBase;
+        [Header("Rangerator Level Up Properties")]
+        public float rangeLevelModifier;
+        public float durationModifier;
+        [Header("Rangerator Properties")]
         public float rangeModifier = 1.5f;
         public float duration = 5f;
         public int level = 1;
         public int useCount = 0;
-        public int levelCount = 5;
-
+        public int levelCount = 10;
+        public int levelCountBase;
         private float originalRange;
+        public override void ResetLevel(){
+            rangeModifier = rangeModifierBase;
+            duration = durationBase;
+            level = 1;
+            useCount = 0;
+            levelCount = levelCountBase;
 
+        }
         public override void Activate(GameObject player)
         {
             LevelUp();
@@ -51,8 +65,8 @@ namespace AbilitySystem
             {
                 level++;
                 levelCount *= 2;
-                rangeModifier += 0.1f;
-                duration += 0.1f;
+                rangeModifier += rangeLevelModifier;
+                duration += durationModifier;
             }
         }
     }

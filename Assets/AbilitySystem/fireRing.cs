@@ -5,9 +5,10 @@ using UnityEngine;
 public class fireRing : MonoBehaviour
 {
     int tempDmg;  
-    public float dmgBuff = 2f;  
+    public float playerDamageBuff = 2f;  
     public float enemyDamageTimeInterval = 2f;  
-    public float dmgToEnemys = 5f;  
+    public float damage = 5f;  
+
 
     private bool isDmging = false;  
     private int level = 1;  
@@ -23,16 +24,11 @@ public class fireRing : MonoBehaviour
             enemyStats eEnemy = enemy.GetComponent<enemyStats>();
             if (eEnemy != null)
             {
-                eEnemy.takeDamage(dmgToEnemys, Vector2.zero, 0f);  // Pass Vector2.zero to indicate no knockback
+                eEnemy.takeDamage(damage, Vector2.zero, 0f);  // Pass Vector2.zero to indicate no knockback
             }
         }
     }
 
-    public void updateLevelModifier()
-    {
-        dmgToEnemys += level / 10f;
-        dmgBuff += level / 10f;
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -46,7 +42,7 @@ public class fireRing : MonoBehaviour
                     setLevel = true;
                 }
                 tempDmg = cStats.adjAtk;
-                cStats.setDamage((int)(dmgBuff * tempDmg));
+              //  cStats.setDamage((int)(dmgBuff * tempDmg));
             }
         }
 

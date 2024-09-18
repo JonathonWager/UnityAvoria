@@ -48,9 +48,25 @@ public class enemyStats : MonoBehaviour
 
                 // Move the enemy by modifying its position manually for knockback
                 StartCoroutine(ApplyKnockback(agent, knockbackVelocity, 0.2f)); // 0.2f is the knockback duration
+            }else{
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    // Apply knockback force to the Rigidbody
+                    Vector2 knockbackForce2D = knockbackDirection.normalized * knockbackForce;
+                    rb.AddForce(knockbackForce2D, ForceMode2D.Impulse);
+                    StartCoroutine(ResetKnockback(rb, 0.2f));
+                }
             }
         }
     }
+private IEnumerator ResetKnockback(Rigidbody2D rb, float delay)
+{
+    yield return new WaitForSeconds(delay);
+
+    // Reset velocity to stop sliding
+    rb.velocity = Vector2.zero;
+}
 private IEnumerator ApplyKnockback(UnityEngine.AI.NavMeshAgent agent, Vector3 velocity, float duration)
 {
     float timer = 0f;

@@ -5,14 +5,29 @@ namespace AbilitySystem
 {
     [CreateAssetMenu(menuName = "Abilities/Meteor Smash")]
     public class MeteorSmashAbility : AbilityBase
-    {
+    {   
+        [Header("Meteor Base Properties")]
+        public float damageBase;
+        public float durationBase;
+        [Header("Meteor Level Properties")]
+        public float damageModifer;
+        public float durationModifer;
+        [Header("Meteor Properties")]
+        public float damage = 10f;
         public GameObject meteorPrefab;
         public float delayBeforeImpact = 0.5f;
         public float duration = 5f;  // How long the meteor stays before it is destroyed
         public int level = 1;
         public int useCount = 0;
-        public int levelCount = 5;
-
+        public int levelCount = 10;
+        public int levelCountBase = 10;
+        public override void ResetLevel(){
+            level = 1;
+            useCount = 0;
+            damage = damageBase;
+            duration = durationBase;
+            levelCount = levelCountBase;
+        }
         public override void Activate(GameObject player)
         {
             if (meteorPrefab == null)
@@ -55,10 +70,12 @@ namespace AbilitySystem
         {
             yield return new WaitForSeconds(delayBeforeImpact);
 
-            GameObject meteor = Instantiate(meteorPrefab, position, Quaternion.identity);
+            GameObject meteorObject = Instantiate(meteorPrefab, position, Quaternion.identity);
+            MeteorObject mStats = meteorObject.GetComponent<MeteorObject>();
+            mStats.dmgToEnemys = damage;
 
             yield return new WaitForSeconds(duration);
-            Destroy(meteor);
+            Destroy(meteorObject);
 
 
             // Trigger cooldown via AbilityManager
@@ -73,6 +90,8 @@ namespace AbilitySystem
                 level++;
                 levelCount *= 2;
                 // Adjust other properties on level up if needed
+                damage += damageModifer;
+                duration -= durationModifer;
             }
         }
     }

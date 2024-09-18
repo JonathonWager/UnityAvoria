@@ -5,8 +5,14 @@ namespace WeaponsSystem{
     [CreateAssetMenu(menuName = "Weapon/BasicRanged")]
     public class BasicRanged : WeaponBase
     {
+        [Header("Ranged Specific Properties(Base)")]
+        public float baseFireRate;
+        public int baseDamage;
+        public float baseSpeed;
+        public float baseRange;
+        public int baseLevelInc;
 
-        [Header("Ranged Specific Properties")]
+        [Header("Ranged Specific Properties(Actual)")]
         public float fireRate;
 
         public string projectilePrefabName;
@@ -21,7 +27,14 @@ namespace WeaponsSystem{
         public float knockBack;
 
         public float safteyDestoryTime;
-
+        public override void ResetLevel(){
+            damage = baseDamage;
+            speed = baseSpeed;
+            range = baseRange;
+            fireRate = baseFireRate;
+            level = 1;
+            levelInc = baseLevelInc;
+        }
         public override void Attack(GameObject player)
         {
             if (canFire)

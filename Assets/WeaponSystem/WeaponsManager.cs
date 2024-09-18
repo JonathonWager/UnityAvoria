@@ -19,6 +19,13 @@ namespace WeaponsSystem
             {
                 player = transform.root.gameObject;
             }
+             WeaponBase[] allWeapons = Resources.LoadAll<WeaponBase>("Weapons");
+
+            // Loop through each weapon and call a function (e.g., ResetToDefault)
+            foreach (WeaponBase weapon in allWeapons)
+            {
+                weapon.ResetLevel(); // Assuming you have a ResetToDefault() function in WeaponBase
+            }
         }
 
         // Update is called once per frame

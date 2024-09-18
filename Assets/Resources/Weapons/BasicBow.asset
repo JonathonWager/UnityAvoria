@@ -15,15 +15,22 @@ MonoBehaviour:
   name: Basic Bow
   description: 
   icon: {fileID: 21300000, guid: ffd9dc2e1b18d6649b06d1656fe265f8, type: 2}
-  level: 0
+  level: 1
   tier: 0
   hasRightClick: 0
   price: 0
+  useCount: 0
+  levelInc: 10
   weaponClass: 1
+  baseFireRate: 2
+  baseDamage: 10
+  baseSpeed: 10
+  baseRange: 6
+  baseLevelInc: 10
   fireRate: 2
   projectilePrefabName: Arrow
   damage: 10
   speed: 10
   range: 6
-  knockBack: 10
+  knockBack: 3
   safteyDestoryTime: 15

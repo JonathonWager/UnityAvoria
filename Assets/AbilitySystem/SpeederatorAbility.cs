@@ -6,15 +6,29 @@ namespace AbilitySystem
     [CreateAssetMenu(menuName = "Abilities/Speederator")]
     public class SpeederatorAbility : AbilityBase
     {
+        [Header("Speederator Base Properties")]
+         public float speedModifierBase;
+        public float durationBase;
+        [Header("Speederator Level Properties")]
+         public float speedLevelModifier;
+        public float durationModifer;
+        [Header("Speederator Properties")]
         public float speedModifier = 1.5f;
         public float duration = 5f;
         public int level = 1;
         public int useCount = 0;
-        public int levelCount = 5;
+        public int levelCount = 10;
 
         private float originalSpeed;
+        public int levelCountBase;
         private Coroutine activeCoroutine;  // To track the coroutine
-
+        public override void ResetLevel(){
+            speedModifier = speedModifierBase;
+            duration = durationBase;
+            level = 1;
+            useCount = 0;
+            levelCount = levelCountBase;
+        }
         public override void Activate(GameObject player)
         {
             LevelUp();
@@ -72,8 +86,8 @@ namespace AbilitySystem
             {
                 level++;
                 levelCount *= 2;
-                speedModifier += 0.1f;
-                duration += 0.1f;
+                speedModifier += speedLevelModifier;
+                duration += durationModifer;
             }
         }
     }

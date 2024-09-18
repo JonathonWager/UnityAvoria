@@ -15,14 +15,23 @@ MonoBehaviour:
   name: Basic Sword
   description: 
   icon: {fileID: 21300000, guid: 7c7f90dd325808047bce52670617bb74, type: 2}
-  level: 0
+  level: 3
   tier: 0
   hasRightClick: 0
   price: 10
+  useCount: 29
+  levelInc: 40
   weaponClass: 0
-  damage: 15
-  range: 1.5
+  baseDamage: 15
+  baseRange: 1.5
+  baseAttackCooldown: 1
+  baseLevelInc: 10
+  damage: 15.200001
+  range: 1.5999999
   attackAngle: 90
-  knockBack: 5
-  attackCooldown: 1
+  knockBack: 6
+  attackCooldown: 0.9
+  levelUpDmgBuff: 0.1
+  levelUpRangeBuff: 0.05
+  levelUpCooldownBuff: 0.05
   arcSegments: 50

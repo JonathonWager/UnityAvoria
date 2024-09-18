@@ -14,14 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Great Sword
   description: 
-  icon: {fileID: 0}
-  level: 0
+  icon: {fileID: 21300000, guid: 7c7f90dd325808047bce52670617bb74, type: 2}
+  level: 1
   tier: 1
   hasRightClick: 0
-  price: 0
-  damage: 15
-  range: 2
+  price: 75
+  useCount: 0
+  levelInc: 10
+  weaponClass: 0
+  baseDamage: 20
+  baseRange: 1.8
+  baseAttackCooldown: 1
+  baseLevelInc: 10
+  damage: 20
+  range: 1.8
   attackAngle: 90
-  knockBack: 15
-  attackCooldown: 1.5
+  knockBack: 7
+  attackCooldown: 1
+  levelUpDmgBuff: 0.1
+  levelUpRangeBuff: 0.05
+  levelUpCooldownBuff: 0.02
   arcSegments: 50

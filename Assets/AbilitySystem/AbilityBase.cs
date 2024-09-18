@@ -15,6 +15,7 @@ namespace AbilitySystem
         public abstract void Activate(GameObject player);
         public abstract void Deactivate(GameObject player);
 
+        public abstract void ResetLevel();
         protected void EndAbility()
         {
             // Trigger the end event

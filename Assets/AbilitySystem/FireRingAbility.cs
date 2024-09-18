@@ -6,12 +6,37 @@ namespace AbilitySystem
     [CreateAssetMenu(menuName = "Abilities/Fire Ring")]
     public class FireRingAbility : AbilityBase
     {
+        [Header("Fire Ring Base Properties")]
+        public float playerDamageBuffBase = 2f;  
+        public float enemyDamageTimeIntervalBase = 2f;  
+        public float damageBase = 5f;  
+        public float baseDuration = 5f;
+        [Header("Fire Ring Level Up Properties")]
+        public float playerBuffModifer;
+        public float burnIntervalModifer;
+        public float enemyDamageModifer;
+        public float durationModifer;
+        [Header("Fire Ring Prefab Properties")]
+        public float playerDamageBuff = 2f;  
+        public float enemyDamageTimeInterval = 2f;  
+        public float damage = 5f;  
+
+        [Header("Fire Ring Manager Properties")]
         public GameObject fireRingPrefab;
-        public float duration = 5f;  // Duration the fire ring lasts
+        public float duration = 5f; 
         public int level = 1;
         public int useCount = 0;
-        public int levelCount = 5;
-
+        public int levelCount = 10;
+        public int baseLevelCount = 10;
+        public override void ResetLevel(){
+            level = 1;
+            useCount = 0;
+            levelCount = baseLevelCount;
+            playerBuffModifer = playerDamageBuffBase;
+            enemyDamageTimeInterval = enemyDamageTimeIntervalBase;
+            damage = damageBase;
+            duration = baseDuration;
+        }
         public override void Activate(GameObject player)
         {
 
@@ -30,6 +55,11 @@ namespace AbilitySystem
             LevelUp();
 
             GameObject fireRing = Instantiate(fireRingPrefab, player.transform.position, Quaternion.identity);
+            fireRing frStats = fireRing.GetComponent<fireRing>();
+            frStats.playerDamageBuff = playerDamageBuff;
+            frStats.enemyDamageTimeInterval = enemyDamageTimeInterval;
+            frStats.damage = damage;
+
 
             AbilityManager abilityManager = player.GetComponentInChildren<AbilityManager>();
             if (abilityManager == null)
@@ -61,6 +91,10 @@ namespace AbilitySystem
                 level++;
                 levelCount *= 2;
                 // Adjust other properties on level up if needed
+                playerDamageBuff += playerBuffModifer;
+                enemyDamageTimeInterval -= burnIntervalModifer;
+                damage += enemyDamageModifer;
+                duration -= durationModifer;
             }
         }
     }

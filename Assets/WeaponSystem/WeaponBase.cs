@@ -13,12 +13,15 @@ namespace WeaponsSystem
         public int tier;
         public bool hasRightClick;
         public int price;
+        public int useCount = 0;
+        public int levelInc = 10;
         public enum WeaponClass{
             Melee,
             Ranged
         }
         public WeaponClass weaponClass;
         public abstract void Attack(GameObject player);
+        public abstract void ResetLevel();
     
     }
 }

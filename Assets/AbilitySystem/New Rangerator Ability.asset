@@ -16,8 +16,13 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 24fdffb5890b1f44c9368fb248532a8b, type: 2}
   cooldown: 5
-  rangeModifier: 1.9000001
+  rangeModifierBase: 0
+  durationBase: 0
+  rangeLevelModifier: 0
+  durationModifier: 0
+  rangeModifier: 1.9
   duration: 5.3999996
-  level: 5
-  useCount: 3
-  levelCount: 5
+  level: 1
+  useCount: 0
+  levelCount: 10
+  levelCountBase: 0

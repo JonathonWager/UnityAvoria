@@ -16,9 +16,15 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 16f3bba51c2cde04ba0ecf9e819425d6, type: 2}
   cooldown: 5
+  damageBase: 10
+  durationBase: 2
+  damageModifer: 0
+  durationModifer: 0
+  damage: 10
   meteorPrefab: {fileID: 5081428435579349801, guid: 374d39d6ccd94034f8e41d83d1d297e1, type: 3}
   delayBeforeImpact: 0.5
   duration: 2
-  level: 8
-  useCount: 20
-  levelCount: 40
+  level: 1
+  useCount: 2
+  levelCount: 10
+  levelCountBase: 10

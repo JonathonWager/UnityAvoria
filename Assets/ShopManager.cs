@@ -17,15 +17,15 @@ public class ShopManager : MonoBehaviour
         {
             return 2;
         }
-        if (shopNumber> 0){
+        if (shopNumber>= 0){
             return 1;
         }
         return 0;
     }
     void UpdateShops(){
-        for(int i = 0; i < shopCount; i++){
-            if(!shopList.Contains(i)){
-                int rand = Random.Range(0, vector3List.Count);
+        for(int i = 0; i < shopCount; i++){           
+            int rand = Random.Range(0, vector3List.Count);
+            if(!shopList.Contains(rand)){
                 shopList.Add(rand);
                 Vector3 spawnPosition = vector3List[rand];
                 GameObject shop = Instantiate(shopMan, spawnPosition, Quaternion.identity);

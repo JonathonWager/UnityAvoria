@@ -18,6 +18,6 @@ MonoBehaviour:
   cooldown: 5
   fireRingPrefab: {fileID: 1286197361288833161, guid: dce04a606551d484981a571992220135, type: 3}
   duration: 5
-  level: 7
-  useCount: 17
-  levelCount: 20
+  level: 1
+  useCount: 0
+  levelCount: 10
