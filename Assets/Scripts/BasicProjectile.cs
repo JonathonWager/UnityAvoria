@@ -13,6 +13,8 @@ public class BasicProjectile : MonoBehaviour
      
     public float knockBack;
 
+    public int collateralCount = 1;
+    private int hitCount = 0;
 
     void Start()
     {
@@ -58,8 +60,12 @@ public class BasicProjectile : MonoBehaviour
                 Debug.Log(iStats.InvWeapons[1].name);
                 iStats.InvWeapons[1].CheckLevel();
             }
+            hitCount += 1;
+            if(hitCount >= collateralCount){
+                Destroy(gameObject);
+            }
             Instantiate(explo, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            
         }
 
         if (other.CompareTag("Untagged"))

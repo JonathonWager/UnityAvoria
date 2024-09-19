@@ -108,7 +108,9 @@ public class uiUpdater : MonoBehaviour
          invUI[2].text = Weapons[0].level.ToString();
          invUI[3].text = Weapons[1].level.ToString();
         
-       
+        if(CurrentWeapon is ChargedRanged chargedRangedWeapon){
+            invIcons[3].fillAmount = Mathf.Clamp01(chargedRangedWeapon.chargeTime/ chargedRangedWeapon.maxCharge);
+        }
        
  
     }

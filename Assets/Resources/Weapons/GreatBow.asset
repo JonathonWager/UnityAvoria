@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Great Bow
   description: 
-  icon: {fileID: 21300000, guid: ffd9dc2e1b18d6649b06d1656fe265f8, type: 2}
+  icon: {fileID: 210169560, guid: 985d42a2b6a3bf14f9c443829443c88a, type: 3}
   level: 1
   tier: 1
   hasRightClick: 0
+  hasCharge: 0
   price: 70
   useCount: 0
   levelInc: 10
@@ -27,6 +28,8 @@ MonoBehaviour:
   baseSpeed: 12
   baseRange: 8
   baseLevelInc: 10
+  playerDamageBuff: 0
+  playerRangeBuff: 0
   fireRate: 1.6
   projectilePrefabName: Arrow
   damage: 15
@@ -34,3 +37,6 @@ MonoBehaviour:
   range: 8
   knockBack: 4
   safteyDestoryTime: 15
+  levelUpDmgBuff: 0
+  levelUpRangeBuff: 0
+  levelUpCooldownBuff: 0

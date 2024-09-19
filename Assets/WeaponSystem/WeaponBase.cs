@@ -12,6 +12,7 @@ namespace WeaponsSystem
         public int level;
         public int tier;
         public bool hasRightClick;
+        public bool hasCharge;
         public int price;
         public int useCount = 0;
         public int levelInc = 10;

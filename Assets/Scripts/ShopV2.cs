@@ -63,7 +63,6 @@ public class ShopV2 : MonoBehaviour
     }
       private void OnShopEntryClicked(string name, int goldAmount, GameObject panel)
     {
-        Debug.Log(name  + " " + goldAmount);
         characterStats cStats = player.GetComponent<characterStats>();
         if(cStats.gold > goldAmount){
             cStats.gold = cStats.gold - goldAmount;
@@ -95,7 +94,6 @@ public class ShopV2 : MonoBehaviour
         shopPanelParent = UI.transform.Find("ShopPanel");
         shopTier = teir;
         weaponAmount = wepCount;
-        Debug.Log(this.gameObject.name + " making "+ wepCount+ " pannels");
         WeaponBase[] allWeaponsArray  = Resources.LoadAll<WeaponBase>("Weapons");
         List<WeaponBase> allWeapons = new List<WeaponBase>();
         for(int i = 0; i <  allWeaponsArray.Length; i++){

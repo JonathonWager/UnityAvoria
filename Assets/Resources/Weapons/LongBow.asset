@@ -14,18 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Long Bow
   description: 
-  icon: {fileID: 21300000, guid: ffd9dc2e1b18d6649b06d1656fe265f8, type: 2}
-  level: 0
+  icon: {fileID: -893656995, guid: 985d42a2b6a3bf14f9c443829443c88a, type: 3}
+  level: 1
   tier: 2
   hasRightClick: 0
+  hasCharge: 0
   price: 150
   useCount: 0
-  levelInc: 10
+  levelInc: 0
   weaponClass: 1
-  fireRate: 1.8
+  baseFireRate: 0
+  baseDamage: 0
+  baseSpeed: 0
+  baseRange: 0
+  baseLevelInc: 0
+  playerDamageBuff: 0
+  playerRangeBuff: 0
+  fireRate: 0
   projectilePrefabName: Arrow
-  damage: 20
-  speed: 15
-  range: 10
+  damage: 0
+  speed: 0
+  range: 0
   knockBack: 5
   safteyDestoryTime: 15
+  levelUpDmgBuff: 0
+  levelUpRangeBuff: 0
+  levelUpCooldownBuff: 0

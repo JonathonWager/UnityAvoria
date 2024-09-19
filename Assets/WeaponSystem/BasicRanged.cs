@@ -52,6 +52,7 @@ namespace WeaponsSystem{
         {
             if (canFire)
             {
+                getPlayerBuffs(player);
                 GameObject instantProjectile = Instantiate(projectile, player.transform.position, Quaternion.identity);
                 Debug.Log(instantProjectile.name);
                 BasicProjectile proStats = instantProjectile.GetComponent<BasicProjectile>();
