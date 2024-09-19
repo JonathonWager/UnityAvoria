@@ -12,6 +12,9 @@ namespace WeaponsSystem
         public float  baseRange;
         public float baseAttackCooldown;
         public int baseLevelInc;
+        [Header("CharacterStats buffs")]
+         public int playerDamageBuff;
+         public float playerRangeBuff;
         [Header("Melee Specific Properties(Actual)")]
         public float damage;
         public float range;
@@ -22,6 +25,8 @@ namespace WeaponsSystem
         public float levelUpDmgBuff ;
          public float levelUpRangeBuff ;
         public float levelUpCooldownBuff ;
+
+       
         private bool canAttack = true;
         private LineRenderer lineRenderer; // LineRenderer to show the attack area
         public int arcSegments = 50; // Number of segments for smoothness of the arc
@@ -34,10 +39,22 @@ namespace WeaponsSystem
             level = 1;
             useCount = 0;
         }
+        void flip(GameObject player){
+            Vector3 theScale = player.transform.localScale;
+            theScale.x *= -1; // Invert the X scale to flip the sprite
+            player.transform.localScale = theScale;
+        }
+
+        void getPlayerBuffs(GameObject player){
+            characterStats cStats = player.GetComponent<characterStats>();
+            playerDamageBuff = cStats.dmgBuff;
+            playerRangeBuff = cStats.rangeBuff;
+        }
         public override void Attack(GameObject player)
         {
             if (canAttack)
             {
+                getPlayerBuffs(player);
                 animator = player.GetComponent<Animator>();
                 animator.SetBool("isAttacking", true);
                 canAttack = false;
@@ -47,15 +64,21 @@ namespace WeaponsSystem
                 Vector3 directionToMouse = mousePosition - player.transform.position;
                 Vector2 attackDirection = directionToMouse.normalized; // Normalize to ensure direction only
 
+                bool mouseIsOnRightSide = directionToMouse.x > 0;
+                 bool characterFacingRight = player.transform.localScale.x > 0;
+                if ((mouseIsOnRightSide && !characterFacingRight) || (!mouseIsOnRightSide && characterFacingRight))
+                {
+                    flip(player); // Function to flip the character
+                }
+
                 // Draw the attack area using LineRenderer
                 DrawAttackArc(player, attackDirection);
 
-                Collider2D[] hitColliders = Physics2D.OverlapCircleAll(player.transform.position, range);
+                Collider2D[] hitColliders = Physics2D.OverlapCircleAll(player.transform.position, (range + playerRangeBuff));
                 foreach (Collider2D collider in hitColliders)
                 {
                     if (collider.CompareTag("enemy")) // Check if the collider has the correct tag
                     {
-                        useCount++;
                         CheckLevel();
                         // Determine the direction from the player to the target
                         Vector3 directionToTarget = (collider.transform.position - player.transform.position).normalized;
@@ -67,7 +90,7 @@ namespace WeaponsSystem
                         if (angleToTarget <= attackAngle / 2f)
                         {
                             Vector2 knockbackDirection = directionToTarget;
-                            collider.GetComponent<enemyStats>().takeDamage((int)damage, knockbackDirection, knockBack);
+                            collider.GetComponent<enemyStats>().takeDamage((int)(damage + playerDamageBuff), knockbackDirection, knockBack);
                         }
                     }
                 }
@@ -77,13 +100,14 @@ namespace WeaponsSystem
                 player.GetComponent<MonoBehaviour>().StartCoroutine(ClearAttackArc(0.5f)); // Clear the arc after a short delay
             }
         }
-        public void CheckLevel(){
+        public override void CheckLevel(){
+            useCount++;
             if(useCount >= levelInc){
                 level++;
                 levelInc = levelInc * 2;
                 damage = damage + levelUpDmgBuff;
                 range = range +  levelUpRangeBuff;
-                attackCooldown = attackCooldown - levelUpRangeBuff;
+                attackCooldown = attackCooldown - levelUpCooldownBuff;
             }
         }
         private IEnumerator Cooldown()

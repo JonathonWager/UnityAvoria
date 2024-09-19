@@ -26,6 +26,8 @@ public class playerMovement : MonoBehaviour
     // Property indicating whether the player is stunned
     public bool isStunned { get; set; } = false;
 
+    private float speedBuff;
+
     private Animator animator;
     private Rigidbody2D rb;
 
@@ -60,6 +62,8 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
+        characterStats cStats = this.gameObject.GetComponent<characterStats>();
+        speedBuff = cStats.movementBuff;
         if (Input.GetKeyDown(KeyCode.A) && facingRight)
         {
             Flip();
@@ -104,11 +108,11 @@ public class playerMovement : MonoBehaviour
                 elapsed = 0f;
             }
 
-            rb.velocity = movement.normalized * moveSpeed * dashIntensity;
+            rb.velocity = movement.normalized * (moveSpeed + speedBuff) * dashIntensity;
         }
         else
         {
-            rb.velocity = movement.normalized * moveSpeed;
+            rb.velocity = movement.normalized * (moveSpeed + speedBuff);
         }
     }
 }

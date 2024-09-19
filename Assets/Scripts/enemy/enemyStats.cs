@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DropBuffs;
 public class enemyStats : MonoBehaviour
 {
     public int hp;
@@ -15,19 +17,43 @@ public class enemyStats : MonoBehaviour
     private GameObject player;
     private NavMeshAgent agent;
     private bool dead = false;
+
+    public int dropOdds;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("character");
-         agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
     }
-      void stopDamageAnimation(){
+    void stopDamageAnimation(){
         animator.SetBool("isHurt", false);
     }
     
     public void takeDamage(float damage, Vector2 knockbackDirection, float knockbackForce)
     {
         hp -= (int)damage;
+        // Apply knockback
+        if (agent != null)
+        {
+            // Disable the NavMeshAgent temporarily
+            agent.enabled = false;
+
+            // Apply knockback force manually
+            Vector3 knockbackVelocity = new Vector3(knockbackDirection.x, 0, knockbackDirection.y) * knockbackForce;
+
+            // Move the enemy by modifying its position manually for knockback
+            StartCoroutine(ApplyKnockback(agent, knockbackVelocity, 0.2f)); // 0.2f is the knockback duration
+        }else{
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                // Apply knockback force to the Rigidbody
+                Vector2 knockbackForce2D = knockbackDirection.normalized * knockbackForce;
+                rb.AddForce(knockbackForce2D, ForceMode2D.Impulse);
+                StartCoroutine(ResetKnockback(rb, 0.2f));
+            }
+        }
         if (hp<= 0)
         {
             animator.SetBool("isDead", true);
@@ -37,29 +63,39 @@ public class enemyStats : MonoBehaviour
 
             animator.SetBool("isHurt", true);
 
-            // Apply knockback
-            if (agent != null)
-            {
-                // Disable the NavMeshAgent temporarily
-                agent.enabled = false;
-
-                // Apply knockback force manually
-                Vector3 knockbackVelocity = new Vector3(knockbackDirection.x, 0, knockbackDirection.y) * knockbackForce;
-
-                // Move the enemy by modifying its position manually for knockback
-                StartCoroutine(ApplyKnockback(agent, knockbackVelocity, 0.2f)); // 0.2f is the knockback duration
-            }else{
-                Rigidbody2D rb = GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    // Apply knockback force to the Rigidbody
-                    Vector2 knockbackForce2D = knockbackDirection.normalized * knockbackForce;
-                    rb.AddForce(knockbackForce2D, ForceMode2D.Impulse);
-                    StartCoroutine(ResetKnockback(rb, 0.2f));
-                }
-            }
+            
         }
     }
+
+public void DropCalculator(){
+    Debug.Log("Drop Calc");
+    int rand = Random.Range(0, 100);
+    Debug.Log(rand);
+    if(rand <= dropOdds){
+        int randTier = Random.Range(0, 100);
+         Debug.Log(randTier);
+        int tierSelected = 0;
+        if(randTier <= 50){
+            tierSelected = 1;
+        }else if(randTier <= 80){
+            tierSelected = 2;
+        }else if(randTier <= 95){
+            tierSelected = 3;
+        }else if( randTier <= 100){
+            tierSelected = 4;
+        }
+         Debug.Log(tierSelected);
+        DropBase[] allDrops = Resources.LoadAll<DropBase>("Drops");
+        List<DropBase> currentTierDrops = new List<DropBase>();
+        foreach(DropBase d in allDrops){
+            if(d.tier == tierSelected){
+                currentTierDrops.Add(d);
+            }
+        }
+        int randDrop = Random.Range(0,currentTierDrops.Count);
+        currentTierDrops[randDrop].Drop(this.gameObject);
+    }
+}
 private IEnumerator ResetKnockback(Rigidbody2D rb, float delay)
 {
     yield return new WaitForSeconds(delay);
@@ -82,6 +118,7 @@ private IEnumerator ApplyKnockback(UnityEngine.AI.NavMeshAgent agent, Vector3 ve
 }
     void killEnemy()
     {
+        DropCalculator();
         SpawnGold();
         Destroy(this.gameObject);
     }

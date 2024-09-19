@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class stunMan : MonoBehaviour
 {
+    [Header("Stun Man Properties")]
     private GameObject player;
     public GameObject stun;
     public float speed = 5f;
@@ -20,7 +21,10 @@ public class stunMan : MonoBehaviour
     public bool hitTarget { get; set; } = false;
 
     public float shootSpeed = 1f;
-
+    [Header("Stun Properties")]
+    public float stunSpeed = 7f;
+    public float speedNerf;
+    public float stunDuration = 5f;
     private NavMeshAgent navMeshAgent;
     private Animator animator;
 
@@ -77,6 +81,9 @@ public class stunMan : MonoBehaviour
 
             // Attach a script or modify properties on the instantiated object if needed
             stun stunScript = instantiatedStun.GetComponent<stun>();
+            stunScript.stunDuration = stunDuration;
+            stunScript.speed = stunSpeed;
+            stunScript.speedNerf = speedNerf;
             stunScript.SetCreator(gameObject);
         }
     }

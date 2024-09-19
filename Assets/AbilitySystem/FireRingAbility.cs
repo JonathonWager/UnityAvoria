@@ -7,9 +7,9 @@ namespace AbilitySystem
     public class FireRingAbility : AbilityBase
     {
         [Header("Fire Ring Base Properties")]
-        public float playerDamageBuffBase = 2f;  
+        public int playerDamageBuffBase = 2;  
         public float enemyDamageTimeIntervalBase = 2f;  
-        public float damageBase = 5f;  
+        public int damageBase = 5;  
         public float baseDuration = 5f;
         [Header("Fire Ring Level Up Properties")]
         public float playerBuffModifer;
@@ -17,9 +17,9 @@ namespace AbilitySystem
         public float enemyDamageModifer;
         public float durationModifer;
         [Header("Fire Ring Prefab Properties")]
-        public float playerDamageBuff = 2f;  
+        public int playerDamageBuff = 2;  
         public float enemyDamageTimeInterval = 2f;  
-        public float damage = 5f;  
+        public int damage = 5;  
 
         [Header("Fire Ring Manager Properties")]
         public GameObject fireRingPrefab;
@@ -91,9 +91,9 @@ namespace AbilitySystem
                 level++;
                 levelCount *= 2;
                 // Adjust other properties on level up if needed
-                playerDamageBuff += playerBuffModifer;
+                playerDamageBuff = (int)(playerBuffModifer + playerDamageBuff);
                 enemyDamageTimeInterval -= burnIntervalModifer;
-                damage += enemyDamageModifer;
+                damage = (int)(damage + enemyDamageModifer);
                 duration -= durationModifer;
             }
         }

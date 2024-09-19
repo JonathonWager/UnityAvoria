@@ -1,30 +1,26 @@
 using System.Collections;
 using UnityEngine;
 
-public class arrow : MonoBehaviour
+public class BasicProjectile : MonoBehaviour
 {
     public GameObject explo;
     public float deleteTime = 10f;
     public float speed = 7f;
-    private int dmg = 15;
+    public int dmg = 15;
     private Vector3 direction;
     private Vector3 startLocation;
-    private float range;
+    public float range;
+     
+    public float knockBack;
+
 
     void Start()
     {
         startLocation = transform.position;
-        
-        dmg = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().adjAtk;
-        range = GameObject.FindGameObjectWithTag("character").GetComponent<characterStats>().range;
-
         Destroy(gameObject, deleteTime);
-
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPosition.z = transform.position.z;
-
         direction = (targetPosition - transform.position).normalized;
-
         ShootObject(direction);
         RotateObject(direction);
     }
@@ -50,11 +46,18 @@ public class arrow : MonoBehaviour
             {
                 // Knockback direction and force
                 Vector2 knockbackDirection = direction;
-                float knockbackForce = 5f;
-
-                eEnemy.takeDamage(dmg, knockbackDirection, knockbackForce);
+                eEnemy.takeDamage(dmg, knockbackDirection, knockBack);
             }
-
+            GameObject player = GameObject.FindGameObjectWithTag("character");
+            if (player != null){
+                Debug.Log("Got player");
+                InventoryV4 iStats = player.GetComponentInChildren<InventoryV4>();
+                if(iStats != null){
+                    Debug.Log("not NULL");
+                }
+                Debug.Log(iStats.InvWeapons[1].name);
+                iStats.InvWeapons[1].CheckLevel();
+            }
             Instantiate(explo, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

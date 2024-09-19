@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c7764259eeccb43aef007b26825267, type: 3}
+  m_Name: SmallSpeed
+  m_EditorClassIdentifier: 
+  name: Small Speed Potion
+  description: 
+  icon: {fileID: 0}
+  drop: {fileID: 8231405137921807007, guid: 862e1b3c9367daf4da927bbec5cb422d, type: 3}
+  tier: 1
+  dropTime: 10
+  speedBuff: 1.5
+  duration: 4

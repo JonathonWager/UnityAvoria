@@ -23,6 +23,9 @@ public class WaveManager : MonoBehaviour
     public float roundTransitionTime = 5f;
      public GameObject UI;
      int test = 0;
+
+     public int waveShopResetWave = 3;
+     private int waveShopCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,9 +39,19 @@ public class WaveManager : MonoBehaviour
     void UpdateEnemyCount(){
         //EnemyCount += (int)(-0.2 + 4.7 * wave - 0.1363636 * Mathf.Pow(wave, 2));
         EnemyCount = (int)(14.6619f * Mathf.Log(3.66683f * wave + 10.8431f) - 34.44f);
+        Debug.Log("Spawning Enemys "  + EnemyCount);
+    }
+    void UpdateShops(){
+        GameObject shopManager = GameObject.FindGameObjectWithTag("shopmanager");
+        shopManager.GetComponent<ShopManager>().DeleteShops();
     }
     void UpdateWave(){
         wave += 1;
+        waveShopCount += 1;
+        if(waveShopCount == waveShopResetWave){
+            waveShopCount  = 0;
+            UpdateShops();
+        }
         UI.GetComponent<uiUpdater>().updateWave(wave);
         UpdateEnemyCount();
         spawnCount = 0;
@@ -61,7 +74,6 @@ public class WaveManager : MonoBehaviour
   
         if(spawnCount < EnemyCount){
             test += 1;
-            Debug.Log("enemysSpawned " + test + " Wave " + wave);
             int sum = 0;
             for(int i = 0; i < enemyRatios.Length; i++){
                 sum += enemyRatios[i];

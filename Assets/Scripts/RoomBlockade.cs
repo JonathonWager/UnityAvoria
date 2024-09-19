@@ -51,7 +51,7 @@ public class RoomBlockade : MonoBehaviour
     {
         if(isActive){
             if (Input.GetKeyDown(KeyCode.B)){
-                if(player.GetComponent<characterStats>().gold > blockadeCost){
+                if(player.GetComponent<characterStats>().gold >= blockadeCost){
                     player.GetComponent<characterStats>().gold -= blockadeCost;
                     this.GetComponent<NavMeshModifier>().area = UnityEngine.AI.NavMesh.GetAreaFromName("Walkable");
                     GameObject navMeshObject = GameObject.FindGameObjectWithTag("NavMesh");

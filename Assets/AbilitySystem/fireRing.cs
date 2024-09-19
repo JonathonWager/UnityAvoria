@@ -5,7 +5,7 @@ using UnityEngine;
 public class fireRing : MonoBehaviour
 {
     int tempDmg;  
-    public float playerDamageBuff = 2f;  
+    public int playerDamageBuff = 2;  
     public float enemyDamageTimeInterval = 2f;  
     public float damage = 5f;  
 
@@ -18,7 +18,6 @@ public class fireRing : MonoBehaviour
 
     public void dmgEnemys()
     {
-        Debug.Log("Damaging Enemys");
         foreach (GameObject enemy in currentEnemys)
         {
             enemyStats eEnemy = enemy.GetComponent<enemyStats>();
@@ -41,14 +40,13 @@ public class fireRing : MonoBehaviour
                 {
                     setLevel = true;
                 }
-                tempDmg = cStats.adjAtk;
+                cStats.dmgBuff += playerDamageBuff;
               //  cStats.setDamage((int)(dmgBuff * tempDmg));
             }
         }
 
         if (other.CompareTag("enemy"))
         {
-            Debug.Log("adding enemy");
             currentEnemys.Add(other.gameObject);
             if (!isDmging)
             {
@@ -65,7 +63,7 @@ public class fireRing : MonoBehaviour
             characterStats cStats = other.GetComponent<characterStats>();
             if (cStats != null)
             {
-                cStats.setDamage(tempDmg);
+                cStats.dmgBuff -= playerDamageBuff;
             }
         }
 

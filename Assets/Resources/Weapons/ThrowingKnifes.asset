@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0226d0238f5e6e54fab7f5d1d0073fac, type: 3}
+  m_Name: ThrowingKnifes
+  m_EditorClassIdentifier: 
+  name: Throwing Knifes
+  description: 
+  icon: {fileID: 21300000, guid: f411fcf51678e3e48b7caa4b9d02a2cc, type: 2}
+  level: 1
+  tier: 1
+  hasRightClick: 0
+  price: 100
+  useCount: 15
+  levelInc: 20
+  weaponClass: 1
+  baseFireRate: 0.5
+  baseDamage: 5
+  baseSpeed: 15
+  baseRange: 3
+  baseLevelInc: 20
+  playerDamageBuff: 0
+  playerRangeBuff: 0
+  fireRate: 0.5
+  projectilePrefabName: ThrowingKnife
+  damage: 5
+  speed: 15
+  range: 3
+  knockBack: 0
+  safteyDestoryTime: 15
+  levelUpDmgBuff: 0.75
+  levelUpRangeBuff: 0.25
+  levelUpCooldownBuff: 0

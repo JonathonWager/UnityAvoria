@@ -209,6 +209,7 @@ MonoBehaviour:
   isAgro: 0
   minGold: 15
   maxGold: 30
+  dropOdds: 75
 --- !u!50 &2529422111984437688
 Rigidbody2D:
   serializedVersion: 4

@@ -35,6 +35,14 @@ public class ShopManager : MonoBehaviour
             }
         }
     }
+    public void DeleteShops(){
+        GameObject[] shops = GameObject.FindGameObjectsWithTag("shop");
+        for(int i = 0; i < shops.Length; i++){
+            Destroy(shops[i]);
+        }
+        shopList = new List<int>();
+        UpdateShops();
+    }
     void Start()
     {
         UpdateShops();

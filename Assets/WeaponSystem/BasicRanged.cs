@@ -7,26 +7,38 @@ namespace WeaponsSystem{
     {
         [Header("Ranged Specific Properties(Base)")]
         public float baseFireRate;
-        public int baseDamage;
+        public float baseDamage;
         public float baseSpeed;
         public float baseRange;
         public int baseLevelInc;
-
-        [Header("Ranged Specific Properties(Actual)")]
+        [Header("CharacterStats buffs")]
+        public int playerDamageBuff;
+        public float playerRangeBuff;  
+        
+        [Header("Ranged Object Specific Properties")]
         public float fireRate;
 
         public string projectilePrefabName;
         private GameObject projectile;
         private bool canFire = true;
 
-        [Header("Ranged Object Specific Properties")]
-        public int damage;
+      [Header("Ranged Specific Properties(Actual)")]
+        public float damage;
         public float speed;
         public float range;
 
         public float knockBack;
 
         public float safteyDestoryTime;
+        public float levelUpDmgBuff ;
+         public float levelUpRangeBuff ;
+        public float levelUpCooldownBuff ;
+
+        void getPlayerBuffs(GameObject player){
+            characterStats cStats = player.GetComponent<characterStats>();
+            playerDamageBuff = cStats.dmgBuff;
+            playerRangeBuff = cStats.rangeBuff;
+        }
         public override void ResetLevel(){
             damage = baseDamage;
             speed = baseSpeed;
@@ -34,6 +46,7 @@ namespace WeaponsSystem{
             fireRate = baseFireRate;
             level = 1;
             levelInc = baseLevelInc;
+            useCount = 0;
         }
         public override void Attack(GameObject player)
         {
@@ -42,9 +55,9 @@ namespace WeaponsSystem{
                 GameObject instantProjectile = Instantiate(projectile, player.transform.position, Quaternion.identity);
                 Debug.Log(instantProjectile.name);
                 BasicProjectile proStats = instantProjectile.GetComponent<BasicProjectile>();
-                proStats.dmg = damage;
+                proStats.dmg = (int)(damage + playerDamageBuff);
                 proStats.speed = speed;
-                proStats.range = range;
+                proStats.range = (range + playerDamageBuff);
                 proStats.knockBack = knockBack;
                 proStats.deleteTime = safteyDestoryTime;
                 
@@ -69,7 +82,16 @@ namespace WeaponsSystem{
             canFire = true;
             projectile = Resources.Load(projectilePrefabName) as GameObject;
         }
-
+        public override void CheckLevel(){
+            useCount++;
+            if(useCount >= levelInc){
+                level++;
+                levelInc = levelInc * 2;
+                damage = damage + levelUpDmgBuff;
+                range = range +  levelUpRangeBuff;
+                fireRate = fireRate - levelUpCooldownBuff;
+            }
+        }
     }
 }
 

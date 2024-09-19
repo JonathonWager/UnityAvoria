@@ -17,7 +17,8 @@ public class spinAttcker : MonoBehaviour
     private bool isSpinning = false;
     private bool isAttacking = false;
     public float engageRange = 1f;
-    private float lastXRotation;
+
+     private UnityEngine.AI.NavMeshAgent navMeshAgent;
     public int getDamage(){
         return attackDamage;
     }
@@ -27,18 +28,22 @@ public class spinAttcker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-         player = GameObject.FindGameObjectWithTag("character");
-         foreach (Transform child in transform)
+        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("character");
+        foreach (Transform child in transform)
                 child.gameObject.SetActive(false);
+
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updateUpAxis = false;
     }
     void stopAttacking(){
         isAttacking = false;
     }
     void stopSpinning(){
         isSpinning = false;
-          foreach (Transform child in transform)
-                child.gameObject.SetActive(false);
+        foreach (Transform child in transform)
+            child.gameObject.SetActive(false);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         Invoke("stopAttacking", attackReset);
     }
     void attack(){
@@ -56,15 +61,17 @@ public class spinAttcker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+         Vector3 position = transform.position;
+        position.z = 0;
+        transform.position = position;
         if(isAttacking){
             attack();
         }else{
             if(Vector3.Distance(player.transform.position, transform.position) > engageRange){
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+                navMeshAgent.SetDestination(player.transform.position);
             }else{
                 isAttacking = true;
                 isSpinning = true;
-                lastXRotation = transform.rotation.eulerAngles.x;
             }
         }
         

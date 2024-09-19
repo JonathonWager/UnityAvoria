@@ -19,7 +19,6 @@ namespace AbilitySystem
         public int useCount = 0;
         public int levelCount = 10;
         public int levelCountBase;
-        private float originalRange;
         public override void ResetLevel(){
             rangeModifier = rangeModifierBase;
             duration = durationBase;
@@ -35,10 +34,9 @@ namespace AbilitySystem
             var cStats = player.GetComponent<characterStats>();
             if (cStats != null)
             {
-                originalRange = cStats.range;
-                cStats.range *= rangeModifier;
 
-                player.GetComponentInChildren<AbilityManager>().StartCoroutine(DeactivateAfterTime(player));
+            cStats.rangeBuff += rangeModifier;
+            player.GetComponentInChildren<AbilityManager>().StartCoroutine(DeactivateAfterTime(player));
             }
         }
 
@@ -47,7 +45,7 @@ namespace AbilitySystem
             var cStats = player.GetComponent<characterStats>();
             if (cStats != null)
             {
-                cStats.range = originalRange;
+                cStats.rangeBuff -= rangeModifier;
                 EndAbility(); // Signal the end of the ability's effect, triggering the cooldown
             }
         }

@@ -22,6 +22,7 @@ namespace WeaponsSystem
         public WeaponClass weaponClass;
         public abstract void Attack(GameObject player);
         public abstract void ResetLevel();
+        public abstract void CheckLevel();
     
     }
 }

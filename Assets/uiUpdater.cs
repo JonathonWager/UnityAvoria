@@ -104,6 +104,9 @@ public class uiUpdater : MonoBehaviour
          }
          invIcons[1].sprite = Weapons[0].icon;
          invIcons[2].sprite = Weapons[1].icon;
+
+         invUI[2].text = Weapons[0].level.ToString();
+         invUI[3].text = Weapons[1].level.ToString();
         
        
        
@@ -125,19 +128,7 @@ public class uiUpdater : MonoBehaviour
         }
     }
 
-    void updatepotionUI()
-    {
-        potionUI.text = "Potions:";
-        InventoryV3 iStats = player.GetComponentInChildren<InventoryV3>();
-        Dictionary<string, int> potionDictionary = iStats.getpotionDictionary();
-        foreach (var kvp in potionDictionary)
-        {
-            if (kvp.Value > 0)
-            {
-                potionUI.text += "\n" + kvp.Key + ": " + kvp.Value;
-            }
-        }
-    }
+
 
     void updateGoldUI()
     {

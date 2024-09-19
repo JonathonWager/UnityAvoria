@@ -34,14 +34,11 @@ public class girxerv2 : MonoBehaviour
             if (distanceToPlayer <= damageRange && !isAttacking)
             {
                 // Stop roaming if attacking
+                animator.SetBool("isWalking", false);
                 StartCoroutine(AttackPlayer());
-            }
-            else if (distanceToPlayer <= attackRange && !isAttacking)
+            }else
             {
-                navMeshAgent.SetDestination(player.transform.position);
-            }
-            else if (distanceToPlayer > attackRange && !isAttacking)
-            {
+                animator.SetBool("isWalking", true);
                 navMeshAgent.SetDestination(player.transform.position);
             }
         }

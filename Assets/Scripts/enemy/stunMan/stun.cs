@@ -7,14 +7,13 @@ public class stun : MonoBehaviour
 {
     public float deleteTime = 5f;
     public float speed = 7f;
-    public float stunDivisor;
+    public float speedNerf;
     private Vector3 direction;
     private Vector3 targetPosition;
     private Vector3 startLocation;
     private float range;
     private float angle;
     private GameObject player;
-    private float tempMoveSpeed;
     public float stunDuration = 5f;
     private bool hasHitPlayer = false;
     public GameObject parent;
@@ -61,11 +60,8 @@ public class stun : MonoBehaviour
     }
     private void stunResetDelete()
     {
-        playerMovement mStats = player.GetComponent<playerMovement>();
-        if(tempMoveSpeed > 0){
-            mStats.setSpeed(tempMoveSpeed);
-        }      
-        mStats.isStunned = false;
+        characterStats cStats = player.GetComponent<characterStats>();
+        cStats.movementBuff += speedNerf;
         Destroy(gameObject);
     }
 
@@ -75,16 +71,11 @@ public class stun : MonoBehaviour
          if(other.gameObject.tag == "character" && !hasHitPlayer){
             
             hasHitPlayer = true;
-            playerMovement mStats = player.GetComponent<playerMovement>();
-            if(!mStats.isStunned){
-                Debug.Log("Slowing Character");
-                tempMoveSpeed = mStats.getSpeed();
-                mStats.isStunned = true;
-                mStats.setSpeed(tempMoveSpeed / stunDivisor);
-                stunMan sStats = parent.GetComponent<stunMan>();
-                sStats.hitTarget = true;
-                sStats.StartAttackTimer();
-            }           
+            characterStats cStats = player.GetComponent<characterStats>();
+            cStats.movementBuff -= speedNerf;
+            stunMan sStats = parent.GetComponent<stunMan>();
+            sStats.hitTarget = true;
+            sStats.StartAttackTimer();        
             foreach (Transform child in transform)
                 child.gameObject.SetActive(false);
                 Invoke("stunResetDelete",stunDuration);

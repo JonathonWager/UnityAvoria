@@ -152,6 +152,7 @@ MonoBehaviour:
   isAgro: 0
   minGold: 0
   maxGold: 10
+  dropOdds: 10
 --- !u!70 &4240801738388656141
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
