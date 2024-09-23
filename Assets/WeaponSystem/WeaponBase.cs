@@ -16,6 +16,7 @@ namespace WeaponsSystem
         public int price;
         public int useCount = 0;
         public int levelInc = 10;
+        GameObject UI;
         public enum WeaponClass{
             Melee,
             Ranged
@@ -24,6 +25,11 @@ namespace WeaponsSystem
         public abstract void Attack(GameObject player);
         public abstract void ResetLevel();
         public abstract void CheckLevel();
+        public void UpdateLevelUI(){
+            Debug.Log("SERTTING UI");
+            UI = GameObject.FindGameObjectWithTag("UI");
+            UI.GetComponent<uiUpdater>().WeaponsLevelUp(name,level);
+        }
     
     }
 }

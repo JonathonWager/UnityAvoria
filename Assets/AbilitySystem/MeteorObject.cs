@@ -7,6 +7,7 @@ public class MeteorObject : MonoBehaviour
 {
     public float dmgToEnemys = 10f;
     public float knockbackForce = 5f;  // Variable for knockback force
+    public float size;
 
     private MeteorSmashAbility ability; // Reference to the MeteorSmashAbility
 
@@ -20,6 +21,7 @@ public class MeteorObject : MonoBehaviour
             ability = (MeteorSmashAbility)abilityManager.currentE;
             dmgToEnemys += ability.level / 10f;
         }
+        this.transform.localScale = new Vector3(size, size, 0f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

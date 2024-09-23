@@ -76,6 +76,7 @@ namespace WeaponsSystem{
             useCount++;
             if(useCount >= levelInc){
                 level++;
+                   UpdateLevelUI();
                 levelInc = levelInc * 2;
                 maxDamage += levelUpDmgBuff;
                 knockBack += levelKnockbackBuff;

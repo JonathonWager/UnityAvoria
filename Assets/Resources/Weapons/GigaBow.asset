@@ -19,7 +19,7 @@ MonoBehaviour:
   tier: 3
   hasRightClick: 0
   hasCharge: 1
-  price: 200
+  price: 400
   useCount: 0
   levelInc: 10
   weaponClass: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
   baseLevelInc: 10
   maxChargeBase: 1.5
   chargeTime: 0
-  maxCharge: 1.5
+  maxCharge: 1.4
   maxDamage: 50
   maxSpeed: 14
   maxRange: 14

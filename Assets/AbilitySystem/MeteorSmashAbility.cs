@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using System.Collections.Generic;
 namespace AbilitySystem
 {
     [CreateAssetMenu(menuName = "Abilities/Meteor Smash")]
@@ -21,6 +21,11 @@ namespace AbilitySystem
         public int useCount = 0;
         public int levelCount = 10;
         public int levelCountBase = 10;
+        public  float minSize,maxSize;
+        public int minMeteors,maxMeteors;
+        public float meteorSpread;
+          public float meteorInterval;
+
         public override void ResetLevel(){
             level = 1;
             useCount = 0;
@@ -66,22 +71,50 @@ namespace AbilitySystem
             // Intentionally left blank, as the coroutine will handle the lifecycle
         }
 
-        private IEnumerator HandleMeteor(Vector3 position, GameObject player)
-        {
-            yield return new WaitForSeconds(delayBeforeImpact);
+       private IEnumerator HandleMeteor(Vector3 cursorPosition, GameObject player)
+{
+    yield return new WaitForSeconds(delayBeforeImpact);
 
-            GameObject meteorObject = Instantiate(meteorPrefab, position, Quaternion.identity);
-            MeteorObject mStats = meteorObject.GetComponent<MeteorObject>();
-            mStats.dmgToEnemys = damage;
+    // Number of meteors to spawn and the radius for random positions
+    int numberOfMeteors = Random.Range(minMeteors, maxMeteors); // Randomize the number of meteors if desired
+    List<GameObject> meteors = new List<GameObject>();
+    for (int i = 0; i < numberOfMeteors; i++)
+    {
+        // Random angle and distance within the circle
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+        float distance = Random.Range(0f, meteorSpread);
 
-            yield return new WaitForSeconds(duration);
-            Destroy(meteorObject);
+        // Calculate spawn position in the circle
+        Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * distance;
+        Vector3 spawnPosition = cursorPosition + offset;
 
+        // Instantiate the meteor at the random position
+        GameObject meteorObject = Instantiate(meteorPrefab, spawnPosition, Quaternion.identity);
+        meteors.Add(meteorObject);
+        // Set the meteor's damage and size
+        MeteorObject mStats = meteorObject.GetComponent<MeteorObject>();
+        mStats.dmgToEnemys = damage;
 
-            // Trigger cooldown via AbilityManager
-            EndAbility();
-        }
+        // Random size for the meteor
+        float rand = Random.Range(minSize, maxSize);
+        mStats.size = rand;
 
+        // Wait before the next meteor (optional, to make the spawning look more spread out)
+        yield return new WaitForSeconds(meteorInterval);
+    }
+
+    // Wait for the meteor duration
+    yield return new WaitForSeconds(duration);
+
+    // Destroy meteors after the duration
+    foreach (GameObject meteor in meteors)
+    {
+        Destroy(meteor);
+    }
+
+    // Trigger cooldown via AbilityManager
+    EndAbility();
+}
         private void LevelUp()
         {
             useCount++;

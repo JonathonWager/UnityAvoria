@@ -26,6 +26,7 @@ public class RoomBlockade : MonoBehaviour
         if (other.CompareTag("character"))
         {
             ToggleChildByName(UI,"Blockade", false);
+                        isActive = false;
         }
     }
      public void ToggleChildByName(GameObject parent, string childName, bool isActive)
@@ -50,7 +51,7 @@ public class RoomBlockade : MonoBehaviour
     void Update()
     {
         if(isActive){
-            if (Input.GetKeyDown(KeyCode.B)){
+            if (Input.GetKeyDown(KeyCode.F)){
                 if(player.GetComponent<characterStats>().gold >= blockadeCost){
                     player.GetComponent<characterStats>().gold -= blockadeCost;
                     this.GetComponent<NavMeshModifier>().area = UnityEngine.AI.NavMesh.GetAreaFromName("Walkable");

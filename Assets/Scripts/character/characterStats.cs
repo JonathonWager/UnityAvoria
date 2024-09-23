@@ -66,6 +66,8 @@ public class characterStats : MonoBehaviour
         // Check if the player's health is zero or below
         if (hp <= 0)
         {
+            GameObject sceneReset = GameObject.FindGameObjectWithTag("scenereset");
+            sceneReset.GetComponent<SceneReset>().StartReset();
             Destroy(this.gameObject);
         }
     }

@@ -32,6 +32,9 @@ public class enemyStats : MonoBehaviour
     
     public void takeDamage(float damage, Vector2 knockbackDirection, float knockbackForce)
     {
+        animator.SetBool("isWalking", false);
+         animator.SetBool("isAttacking", false);
+         
         hp -= (int)damage;
         // Apply knockback
         if (agent != null)
@@ -56,24 +59,28 @@ public class enemyStats : MonoBehaviour
         }
         if (hp<= 0)
         {
+                        DisableAllOtherScripts();
+             animator.SetBool("isWalking", false);
+             animator.SetBool("isAttacking", false);
+            animator.SetBool("isHurt", false);
             animator.SetBool("isDead", true);
         }
         else
         {
-
+            
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isAttacking", false);
             animator.SetBool("isHurt", true);
+
 
             
         }
     }
 
 public void DropCalculator(){
-    Debug.Log("Drop Calc");
     int rand = Random.Range(0, 100);
-    Debug.Log(rand);
     if(rand <= dropOdds){
         int randTier = Random.Range(0, 100);
-         Debug.Log(randTier);
         int tierSelected = 0;
         if(randTier <= 50){
             tierSelected = 1;
@@ -84,7 +91,6 @@ public void DropCalculator(){
         }else if( randTier <= 100){
             tierSelected = 4;
         }
-         Debug.Log(tierSelected);
         DropBase[] allDrops = Resources.LoadAll<DropBase>("Drops");
         List<DropBase> currentTierDrops = new List<DropBase>();
         foreach(DropBase d in allDrops){

@@ -20,6 +20,7 @@ TagManager:
   - NavMesh
   - WeaponsSystem
   - shopmanager
+  - scenereset
   layers:
   - Default
   - TransparentFX

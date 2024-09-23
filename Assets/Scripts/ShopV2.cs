@@ -16,26 +16,42 @@ public class ShopV2 : MonoBehaviour
     public Transform shopPanelParent;
 
     public List<GameObject> shopPannels =  new List<GameObject>();
-    // Start is called before the first frame update
 
+    private bool isPrompt = false;
+    // Start is called before the first frame update
+    void Update(){
+        if(isPrompt){
+            if (Input.GetKeyDown(KeyCode.F)){
+                ToggleChildByName(UI, "ShopPrompt", false);
+                showShop();
+                isPrompt = false;
+            }
+        }
+    }
      public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "character")
         {  
             player = other.gameObject;  
-            showShop();
+            showShopPrompt();
         }
     }
      public void OnTriggerExit2D(Collider2D other)
     {
          if (other.gameObject.tag == "character")
         {
+            ToggleChildByName(UI, "ShopPrompt", false);
             ToggleChildByName(UI, "ShopBlur", false);
             ToggleChildByName(UI, "ShopPanel", false);
             foreach (GameObject pannel in shopPannels){
                 Destroy(pannel.gameObject);
             }
+            isPrompt = false;
         }
+    }
+    void showShopPrompt(){
+        ToggleChildByName(UI, "ShopPrompt", true);
+        isPrompt = true;
     }
      public void showShop(){
          foreach (WeaponBase wep in shopWeapons)

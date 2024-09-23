@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stun: {fileID: 9034453896764929477, guid: df38f2c64d01da541b3cb792081b0adf, type: 3}
-  speed: 5
+  speed: 4
   stunRange: 7
   attackRange: 2
   attackSpeed: 1.5
@@ -132,7 +132,10 @@ MonoBehaviour:
   damage: 10
   runAwayDistanceDivisor: 2
   runAwaySpeedDivisor: 2
-  shootSpeed: 1
+  shootSpeed: 2
+  stunSpeed: 7
+  speedNerf: 1
+  stunDuration: 5
 --- !u!195 &489599923188840371
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -202,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8f15a046cb41140907bc3229625e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 30
+  hp: 10
   speed: 0
   def: 0
   AgroRange: 0

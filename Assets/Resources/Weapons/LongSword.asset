@@ -21,20 +21,20 @@ MonoBehaviour:
   hasCharge: 0
   price: 150
   useCount: 0
-  levelInc: 0
+  levelInc: 10
   weaponClass: 0
-  baseDamage: 0
-  baseRange: 0
-  baseAttackCooldown: 0
-  baseLevelInc: 0
+  baseDamage: 28
+  baseRange: 2
+  baseAttackCooldown: 1
+  baseLevelInc: 10
   playerDamageBuff: 0
   playerRangeBuff: 0
-  damage: 0
-  range: 0
+  damage: 28
+  range: 2
   attackAngle: 90
   knockBack: 8
-  attackCooldown: 0
-  levelUpDmgBuff: 0
-  levelUpRangeBuff: 0
-  levelUpCooldownBuff: 0
+  attackCooldown: 1
+  levelUpDmgBuff: 0.15
+  levelUpRangeBuff: 0.05
+  levelUpCooldownBuff: 0.04
   arcSegments: 50

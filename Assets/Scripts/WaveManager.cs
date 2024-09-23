@@ -22,10 +22,23 @@ public class WaveManager : MonoBehaviour
     public int[] enemyRatios;
     public float roundTransitionTime = 5f;
      public GameObject UI;
-     int test = 0;
+
 
      public int waveShopResetWave = 3;
      private int waveShopCount = 0;
+     int countdownTimer;
+     bool skipWave = false;
+
+     public int spawnSizeInterval = 2;
+     public int spawnSizeIncrease = 1;
+     public int spawnSize = 1;
+
+     private int spawnSizeCounter = 0;
+
+     public int enemyHealthBuffBase = 10;
+     public int enemyHealthBuffTotal = 0;
+     int enemyBuffCounter = -1;
+     public int enemyBuffRoundInterval = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,24 +46,39 @@ public class WaveManager : MonoBehaviour
         wave = 0;
         EnemyCount = 5;
         InvokeRepeating("checkEnemyCount", 0f, 1f);
-        Invoke("UpdateWave", roundTransitionTime);
+        
+        StartCoroutine(CountdownCoroutine(roundTransitionTime));
     }
-
+    void updateEnemyHealth(){
+        enemyHealthBuffTotal += enemyHealthBuffBase;
+    }
     void UpdateEnemyCount(){
         //EnemyCount += (int)(-0.2 + 4.7 * wave - 0.1363636 * Mathf.Pow(wave, 2));
-        EnemyCount = (int)(14.6619f * Mathf.Log(3.66683f * wave + 10.8431f) - 34.44f);
-        Debug.Log("Spawning Enemys "  + EnemyCount);
+        EnemyCount = (int)(0.33 * (wave * wave) +5);
     }
     void UpdateShops(){
         GameObject shopManager = GameObject.FindGameObjectWithTag("shopmanager");
         shopManager.GetComponent<ShopManager>().DeleteShops();
     }
     void UpdateWave(){
+        Debug.Log("SPawn Size = " + spawnSize);
+        UI.GetComponent<uiUpdater>().DisableWaveAccept();
         wave += 1;
+        enemyBuffCounter += 1;
+        spawnSizeCounter += 1;
         waveShopCount += 1;
+        if(enemyBuffCounter == enemyBuffRoundInterval){
+            enemyBuffCounter = 0;
+            updateEnemyHealth() ;
+        }
+
         if(waveShopCount == waveShopResetWave){
             waveShopCount  = 0;
             UpdateShops();
+        }
+        if(spawnSizeCounter == spawnSizeInterval){
+            spawnSizeCounter = 0;
+            spawnSize += spawnSizeIncrease;
         }
         UI.GetComponent<uiUpdater>().updateWave(wave);
         UpdateEnemyCount();
@@ -65,38 +93,69 @@ public class WaveManager : MonoBehaviour
             if(enemys.Length <= 0 && spawnCount >= EnemyCount){
                 roundTransition = true;
                 CancelInvoke("SpawnEnemys");
-                Invoke("UpdateWave", roundTransitionTime);
+
+                skipWave = false;
+                StartCoroutine(CountdownCoroutine(roundTransitionTime));
             }
         }
       
     }
+    IEnumerator CountdownCoroutine(float roundTransitionTime){
+        countdownTimer = (int)(roundTransitionTime);
+
+        // Update the countdown each second
+        while (countdownTimer > 0){
+            if (skipWave)
+            {
+                countdownTimer = 0;
+            }
+            UI.GetComponent<uiUpdater>().nextWaveUI(countdownTimer, (wave + 1)); // Update your UI with the current countdown
+                    UI.GetComponent<uiUpdater>().EnableWaveAccept();
+            yield return new WaitForSeconds(1f);
+            countdownTimer--;
+        }
+
+        // After countdown finishes, proceed to the next wave
+        UpdateWave();
+    }
     void SpawnEnemys(){
-  
+        int currentSpawnSize = 0;
+        if(spawnSize + spawnCount > EnemyCount){
+            currentSpawnSize = (spawnSize + spawnCount) - EnemyCount;
+        }else{
+            currentSpawnSize = spawnSize;
+        }
         if(spawnCount < EnemyCount){
-            test += 1;
             int sum = 0;
             for(int i = 0; i < enemyRatios.Length; i++){
                 sum += enemyRatios[i];
             }
-            int rand = Random.Range(0, sum);
-            int counter = sum - enemyRatios[0];
-            for(int i = 0; i < availableEnemies.Length; i++){
-                if(rand >= counter){
-                    currentArea.GetComponent<WaveArea>().spawnEnemy(availableEnemies[i]);
-                    spawnCount++;
-                    break;
-                }else{
-                    if( enemyRatios[i + 1] != null){
-                        counter -= enemyRatios[i + 1];
+            for(int j = 0; j < currentSpawnSize; j++){
+                int rand = Random.Range(0, sum);
+                Debug.Log("rand spawn " + rand);
+                int counter = sum - enemyRatios[0];
+                for(int i = 0; i < availableEnemies.Length; i++){
+                    if(rand >= counter){
+                        currentArea.GetComponent<WaveArea>().spawnEnemy(availableEnemies[i],enemyHealthBuffTotal);
+                        spawnCount++;
+                        break;
+                    }else{
+                        if( enemyRatios[i + 1] != null){
+                            counter -= enemyRatios[i + 1];
+                        }
+                        
                     }
-                    
-                }
-            }            
+                }         
+            }
+              
         }
     }
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            skipWave = true;
+        }
     }
 }

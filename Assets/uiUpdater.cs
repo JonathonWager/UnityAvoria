@@ -9,12 +9,16 @@ public class uiUpdater : MonoBehaviour
 {
     public GameObject player;
     public Image panel;
+    public GameObject Reset;
+    public Transform WaveStartPanel;
     public Image qAbilityPanel, eAbilityPanel;
-    public Text hpUI,goldUI, waveUI;
+    public Text hpUI,goldUI, waveUI, weaponLevelUp;
 
     public TMP_Text   qUI, eUI, potionUI, shopUI;
-    public Text[] invUI, abilityUi;
+    public Text[] invUI, abilityUi,waveCountdown;
     Image[] invIcons,abilityIcons;
+    bool Switch = false;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("character");
@@ -27,7 +31,6 @@ public class uiUpdater : MonoBehaviour
             }
             if (child.name == "Weapons")
             {
-                Debug.Log("getting inv");
                 invUI = child.GetComponentsInChildren<Text>();
                 invIcons = child.GetComponentsInChildren<Image>();
             }
@@ -52,6 +55,16 @@ public class uiUpdater : MonoBehaviour
             {
                 waveUI = child.GetComponentInChildren<Text>();
             }
+            if (child.name == "WeaponsLevel")
+            {
+                Reset = child.gameObject;
+                weaponLevelUp = child.GetComponentInChildren<Text>();
+            }
+            if (child.name == "NextWave")
+            {
+                waveCountdown = child.GetComponentsInChildren<Text>();
+                WaveStartPanel = child;
+            }
         }
     }
 
@@ -64,7 +77,53 @@ public class uiUpdater : MonoBehaviour
         //updatepotionUI();
         updateGoldUI();
     }
+    public void nextWaveUI(int second, int wave){
+        if(!Switch){
+            Switch = true;
+            foreach (Transform child in transform)
+            {
+                if (child.name == "NextWave")
+                {
+                    waveCountdown = child.GetComponentsInChildren<Text>();
+                    WaveStartPanel = child;
 
+                }
+            }
+
+       }
+        
+        waveCountdown[0].text = "Wave "+ wave +" Starting in: " + second;
+    }
+    public void WeaponsLevelUp(string name, int level){
+        Debug.Log("GOT UI");
+        Reset.gameObject.SetActive(true);
+        weaponLevelUp.text = "Level up \n" + name + " " + level;
+        Invoke("DisableWeaponsLevel", 10f);
+    }
+    void DisableWeaponsLevel(){
+        Reset.gameObject.SetActive(false);
+    }
+    public void GameOver(){
+        foreach (Transform child in transform)
+        {
+            // If the child's name matches the specified name, keep it active
+            if (child.gameObject.name == "GameOver")
+            {
+                child.gameObject.SetActive(true);
+            }
+            else
+            {
+                // Otherwise, disable the child object
+                child.gameObject.SetActive(false);
+            }
+        }
+    }
+    public void EnableWaveAccept(){
+        WaveStartPanel.gameObject.SetActive(true);
+    }
+      public void DisableWaveAccept(){
+        WaveStartPanel.gameObject.SetActive(false);
+    }
     public void UpdateAbilityUI(bool isQOnCooldown, bool isEOnCooldown)
     {
         qAbilityPanel.color = isQOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;

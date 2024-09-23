@@ -10,7 +10,7 @@ public class axe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spinAttcker sStats = GetComponentInParent<spinAttcker>();
+        SpinAttacker sStats = GetComponentInParent<SpinAttacker>();
         damage = sStats.getDamage();
         range = sStats.getRange();
         spinSpeed = sStats.spinSpeed;

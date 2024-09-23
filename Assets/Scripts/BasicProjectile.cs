@@ -52,12 +52,7 @@ public class BasicProjectile : MonoBehaviour
             }
             GameObject player = GameObject.FindGameObjectWithTag("character");
             if (player != null){
-                Debug.Log("Got player");
                 InventoryV4 iStats = player.GetComponentInChildren<InventoryV4>();
-                if(iStats != null){
-                    Debug.Log("not NULL");
-                }
-                Debug.Log(iStats.InvWeapons[1].name);
                 iStats.InvWeapons[1].CheckLevel();
             }
             hitCount += 1;
@@ -68,11 +63,7 @@ public class BasicProjectile : MonoBehaviour
             
         }
 
-        if (other.CompareTag("Untagged"))
-        {
-            Destroy(gameObject);
-            Instantiate(explo, transform.position, Quaternion.identity);
-        }
+
     }
 
     void Update()

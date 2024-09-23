@@ -21,22 +21,22 @@ MonoBehaviour:
   hasCharge: 0
   price: 150
   useCount: 0
-  levelInc: 0
+  levelInc: 10
   weaponClass: 1
-  baseFireRate: 0
-  baseDamage: 0
-  baseSpeed: 0
-  baseRange: 0
-  baseLevelInc: 0
+  baseFireRate: 1.4
+  baseDamage: 21
+  baseSpeed: 14
+  baseRange: 10
+  baseLevelInc: 10
   playerDamageBuff: 0
   playerRangeBuff: 0
-  fireRate: 0
+  fireRate: 1.4
   projectilePrefabName: Arrow
-  damage: 0
-  speed: 0
-  range: 0
+  damage: 21
+  speed: 14
+  range: 10
   knockBack: 5
   safteyDestoryTime: 15
-  levelUpDmgBuff: 0
-  levelUpRangeBuff: 0
-  levelUpCooldownBuff: 0
+  levelUpDmgBuff: 0.75
+  levelUpRangeBuff: 0.18
+  levelUpCooldownBuff: 0.08

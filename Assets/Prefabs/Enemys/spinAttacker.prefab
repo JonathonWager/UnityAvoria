@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 620230896280526639}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.551, y: -0.017, z: 0}
+  m_LocalPosition: {x: 0.566, y: 0.284, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4993,7 +4993,7 @@ Transform:
   m_GameObject: {fileID: 2351219427539392593}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.575, y: -0.705, z: 0}
+  m_LocalPosition: {x: -0.545, y: -0.389, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10023,10 +10023,11 @@ GameObject:
   - component: {fileID: 5813405438763217843}
   - component: {fileID: 2589868473235989266}
   - component: {fileID: 2362837205665744874}
-  - component: {fileID: 6516482451176186991}
+  - component: {fileID: 3823068396961168156}
   - component: {fileID: 6234094069905725594}
   - component: {fileID: 6632908770370509721}
   - component: {fileID: 8375614474944959041}
+  - component: {fileID: 3612059228849619403}
   m_Layer: 0
   m_Name: spinAttacker
   m_TagString: enemy
@@ -10110,7 +10111,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5032997474424876749}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b8f15a046cb41140907bc3229625e0d, type: 3}
   m_Name: 
@@ -10123,7 +10124,7 @@ MonoBehaviour:
   minGold: 0
   maxGold: 2
   dropOdds: 0
---- !u!114 &6516482451176186991
+--- !u!114 &3823068396961168156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10135,12 +10136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6966c65750379b43b0bd069ac14593d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 10
   attackDamage: 0
-  attackRange: 3.5
-  attackReset: 2
+  attackRange: 3
+  attackReset: 3
   spinCount: 3
-  spinSpeed: 720
+  spinSpeed: 540
   spinTime: 3
   engageRange: 1
 --- !u!50 &6234094069905725594
@@ -10224,9 +10225,30 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.21}
+  m_Offset: {x: 0, y: 0.01}
   m_Size: {x: 0.43, y: 0.55}
   m_Direction: 0
+--- !u!95 &3612059228849619403
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032997474424876749}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09d4462f64f1e204ca2078accd221d1e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7606164564107848738
 GameObject:
   m_ObjectHideFlags: 0

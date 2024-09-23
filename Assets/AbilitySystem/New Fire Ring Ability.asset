@@ -15,9 +15,21 @@ MonoBehaviour:
   abilityName: Fire Ring
   description: 
   icon: {fileID: 21300000, guid: 7e9018ee89fbca444869e46801bc4e0f, type: 2}
-  cooldown: 5
+  cooldown: 8
+  playerDamageBuffBase: 2
+  enemyDamageTimeIntervalBase: 2
+  damageBase: 5
+  baseDuration: 5
+  playerBuffModifer: 0
+  burnIntervalModifer: 0
+  enemyDamageModifer: 0
+  durationModifer: 0
+  playerDamageBuff: 2
+  enemyDamageTimeInterval: 2
+  damage: 5
   fireRingPrefab: {fileID: 1286197361288833161, guid: dce04a606551d484981a571992220135, type: 3}
   duration: 5
-  level: 1
-  useCount: 0
-  levelCount: 10
+  level: 2
+  useCount: 19
+  levelCount: 20
+  baseLevelCount: 10

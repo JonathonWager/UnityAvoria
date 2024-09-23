@@ -291,9 +291,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.12}
+  m_Offset: {x: 0, y: -0.21}
   serializedVersion: 2
-  m_Radius: 1.28
+  m_Radius: 0.6
 --- !u!114 &-1205781806521449777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +311,4 @@ MonoBehaviour:
   UI: {fileID: 0}
   shopEntryPrefab: {fileID: 6945581286420178373, guid: 381e38e69ef211048b8b7755117e4b63, type: 3}
   shopPanelParent: {fileID: 0}
+  shopPannels: []
