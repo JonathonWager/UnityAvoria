@@ -9,13 +9,13 @@ public class uiUpdater : MonoBehaviour
 {
     public GameObject player;
     public Image panel;
-    public GameObject Reset;
-    public Transform WaveStartPanel;
+    public GameObject ResetWeapons,ResetAbilits;
+    public Transform WaveStartPanel, bossPanel;
     public Image qAbilityPanel, eAbilityPanel;
-    public Text hpUI,goldUI, waveUI, weaponLevelUp;
+    public Text hpUI,goldUI, waveUI, weaponLevelUp, abilityLevelUp;
 
     public TMP_Text   qUI, eUI, potionUI, shopUI;
-    public Text[] invUI, abilityUi,waveCountdown;
+    public Text[] invUI, abilityUi,waveCountdown, bossStats;
     Image[] invIcons,abilityIcons;
     bool Switch = false;
 
@@ -55,10 +55,20 @@ public class uiUpdater : MonoBehaviour
             {
                 waveUI = child.GetComponentInChildren<Text>();
             }
+            if (child.name == "BossPanel")
+            {
+                bossPanel = child;
+                bossStats = child.GetComponentsInChildren<Text>();
+            }
             if (child.name == "WeaponsLevel")
             {
-                Reset = child.gameObject;
+                ResetWeapons = child.gameObject;
                 weaponLevelUp = child.GetComponentInChildren<Text>();
+            }
+            if (child.name == "AbilityLevel")
+            {
+                ResetAbilits = child.gameObject;
+                abilityLevelUp = child.GetComponentInChildren<Text>();
             }
             if (child.name == "NextWave")
             {
@@ -94,22 +104,51 @@ public class uiUpdater : MonoBehaviour
         
         waveCountdown[0].text = "Wave "+ wave +" Starting in: " + second;
     }
+    public void SetBossUI(string bossName, int bossHealth, int bossMaxHealth){
+        bossPanel.gameObject.SetActive(true);
+        bossStats[1].text = bossName;
+        bossStats[0].text = bossHealth +"/"+bossMaxHealth;
+    }
     public void WeaponsLevelUp(string name, int level){
-        Debug.Log("GOT UI");
-        Reset.gameObject.SetActive(true);
+        ResetWeapons.gameObject.SetActive(true);
         weaponLevelUp.text = "Level up \n" + name + " " + level;
         Invoke("DisableWeaponsLevel", 10f);
     }
     void DisableWeaponsLevel(){
-        Reset.gameObject.SetActive(false);
+        ResetWeapons.gameObject.SetActive(false);
     }
-    public void GameOver(){
+    public void AbilityLevelUp(string name, int level){
+        ResetAbilits.gameObject.SetActive(true);
+        abilityLevelUp.text = "Level up \n" + name + " " + level;
+        Invoke("DisableAbilitysLevel", 10f);
+    }
+    void DisableAbilitysLevel(){
+        ResetAbilits.gameObject.SetActive(false);
+    }
+    public void GameOver(int score, int kills, int damage, int gold, int wave){
         foreach (Transform child in transform)
         {
             // If the child's name matches the specified name, keep it active
             if (child.gameObject.name == "GameOver")
             {
                 child.gameObject.SetActive(true);
+                foreach(Transform subChild in child){
+                    if(subChild.gameObject.name == "Score"){
+                        subChild.gameObject.GetComponent<Text>().text = "Score: " + score;
+                    }
+                    if(subChild.gameObject.name == "Kills"){
+                        subChild.gameObject.GetComponent<Text>().text = "Kills: " + kills;
+                    }
+                    if(subChild.gameObject.name == "Gold"){
+                        subChild.gameObject.GetComponent<Text>().text = "Gold: " + gold;
+                    }
+                    if(subChild.gameObject.name == "Damage"){
+                        subChild.gameObject.GetComponent<Text>().text = "Damage: " + damage;
+                    }
+                    if(subChild.gameObject.name == "Wave"){
+                        subChild.gameObject.GetComponent<Text>().text = "Wave: " + wave;
+                    }
+                }
             }
             else
             {
@@ -135,7 +174,7 @@ public class uiUpdater : MonoBehaviour
     void updatehpUI()
     {
         characterStats cStats = player.GetComponent<characterStats>();
-        hpUI.text = cStats.getHp()+ " / 100";
+        hpUI.text = cStats.getHp()+ " / " +  cStats.basehp;
     }
 
     void updatesprintUI()
@@ -181,6 +220,8 @@ public class uiUpdater : MonoBehaviour
         if (abilityManager != null){
             abilityUi[0].text =  abilityManager.currentQ != null ? abilityManager.currentQ.abilityName : "None";
             abilityUi[1].text =  abilityManager.currentE != null ? abilityManager.currentE.abilityName : "None";
+            abilityUi[2].text =  abilityManager.currentE != null ? abilityManager.currentQ.level.ToString() : "None";
+            abilityUi[3].text =  abilityManager.currentE != null ? abilityManager.currentE.level.ToString() : "None";
             
             abilityIcons[1].sprite = abilityManager.currentQ != null ? abilityManager.currentQ.icon : null;
                         

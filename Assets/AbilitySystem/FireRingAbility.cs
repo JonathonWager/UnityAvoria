@@ -24,11 +24,11 @@ namespace AbilitySystem
         [Header("Fire Ring Manager Properties")]
         public GameObject fireRingPrefab;
         public float duration = 5f; 
-        public int level = 1;
         public int useCount = 0;
         public int levelCount = 10;
         public int baseLevelCount = 10;
         public override void ResetLevel(){
+            Debug.Log("Reseting LEvel");
             level = 1;
             useCount = 0;
             levelCount = baseLevelCount;
@@ -90,7 +90,7 @@ namespace AbilitySystem
             {
                 level++;
                 levelCount *= 2;
-                // Adjust other properties on level up if needed
+                         UpdateLevelUI();
                 playerDamageBuff = (int)(playerBuffModifer + playerDamageBuff);
                 enemyDamageTimeInterval -= burnIntervalModifer;
                 damage = (int)(damage + enemyDamageModifer);

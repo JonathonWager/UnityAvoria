@@ -17,7 +17,6 @@ namespace AbilitySystem
         public GameObject meteorPrefab;
         public float delayBeforeImpact = 0.5f;
         public float duration = 5f;  // How long the meteor stays before it is destroyed
-        public int level = 1;
         public int useCount = 0;
         public int levelCount = 10;
         public int levelCountBase = 10;
@@ -121,6 +120,7 @@ namespace AbilitySystem
             if (useCount >= levelCount)
             {
                 level++;
+                UpdateLevelUI();
                 levelCount *= 2;
                 // Adjust other properties on level up if needed
                 damage += damageModifer;

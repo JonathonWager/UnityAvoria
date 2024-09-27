@@ -19,6 +19,13 @@ namespace AbilitySystem
             {
                 player = transform.root.gameObject;
             }
+            AbilityBase[] allAbilitys = Resources.LoadAll<AbilityBase>("Abilitys");
+
+            // Loop through each weapon and call a function (e.g., ResetToDefault)
+            foreach (AbilityBase ability in allAbilitys)
+            {
+                ability.ResetLevel(); // Assuming you have a ResetToDefault() function in WeaponBase
+            }
         }
 
         void Update()

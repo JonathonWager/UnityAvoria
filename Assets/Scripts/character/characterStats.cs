@@ -6,7 +6,7 @@ public class characterStats : MonoBehaviour
 {
     public int gold = 100;
     public int hp = 100;
-    private int basehp;
+    public int basehp;
 
     public int dmgBuff = 0;
     public float rangeBuff = 0;
@@ -18,9 +18,20 @@ public class characterStats : MonoBehaviour
     
     private Animator animator;
     // Method to deduct health points based on received damage
+    public int totalKills = 0;
+    public int totalDamage = 0;
+
+    public int totalGoldCollected = 0;
+
+    public int totalScore = 0;
+    public int totalWave = 0;
+
     public void takeDamage(decimal damage)
     {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isAttacking", false);
         animator.SetBool("isDamaged", true);
+
         // Apply damage after considering defense
         hp = hp - (int)(damage);
     }
@@ -55,10 +66,16 @@ public class characterStats : MonoBehaviour
     void stopAttack(){
 
             animator.SetBool("isAttacking", false);
+            
     }
     // Method to update weapon-related stats
     public void addGold(int Gold){
+        totalGoldCollected += Gold;
         gold += Gold;
+    }
+    void ScoreCalculator(){
+        totalWave = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().wave;
+        totalScore = (int)(((totalDamage/totalGoldCollected)+ totalKills)* totalWave );
     }
     // Update is called once per frame
     void Update()
@@ -67,7 +84,8 @@ public class characterStats : MonoBehaviour
         if (hp <= 0)
         {
             GameObject sceneReset = GameObject.FindGameObjectWithTag("scenereset");
-            sceneReset.GetComponent<SceneReset>().StartReset();
+            ScoreCalculator();
+            sceneReset.GetComponent<SceneReset>().StartReset(totalScore, totalKills, totalDamage, totalGoldCollected,totalWave );
             Destroy(this.gameObject);
         }
     }

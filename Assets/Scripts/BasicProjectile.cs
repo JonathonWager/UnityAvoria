@@ -41,6 +41,25 @@ public class BasicProjectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if(other.CompareTag("boss") ){
+             bossStats bEnemy = other.GetComponent<bossStats>();
+            if (bEnemy != null)
+            {
+                // Knockback direction and force
+                Vector2 knockbackDirection = direction;
+                bEnemy.takeDamage(dmg, knockbackDirection, knockBack);
+            }
+            GameObject player = GameObject.FindGameObjectWithTag("character");
+            if (player != null){
+                InventoryV4 iStats = player.GetComponentInChildren<InventoryV4>();
+                iStats.InvWeapons[1].CheckLevel();
+            }
+            hitCount += 1;
+            if(hitCount >= collateralCount){
+                Destroy(gameObject);
+            }
+            Instantiate(explo, transform.position, Quaternion.identity);
+        }
         if (other.CompareTag("enemy"))
         {
             enemyStats eEnemy = other.GetComponent<enemyStats>();

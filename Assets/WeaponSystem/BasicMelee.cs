@@ -56,6 +56,8 @@ namespace WeaponsSystem
             {
                 getPlayerBuffs(player);
                 animator = player.GetComponent<Animator>();
+                animator.SetBool("isHurt", false);
+                animator.SetBool("isWalking", false);
                 animator.SetBool("isAttacking", true);
                 canAttack = false;
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -77,9 +79,8 @@ namespace WeaponsSystem
                 Collider2D[] hitColliders = Physics2D.OverlapCircleAll(player.transform.position, (range + playerRangeBuff));
                 foreach (Collider2D collider in hitColliders)
                 {
-                    if (collider.CompareTag("enemy")) // Check if the collider has the correct tag
-                    {
-                        CheckLevel();
+                    if(collider.CompareTag("boss") || collider.CompareTag("enemy")){
+                         CheckLevel();
                         // Determine the direction from the player to the target
                         Vector3 directionToTarget = (collider.transform.position - player.transform.position).normalized;
 
@@ -90,7 +91,12 @@ namespace WeaponsSystem
                         if (angleToTarget <= attackAngle / 2f)
                         {
                             Vector2 knockbackDirection = directionToTarget;
-                            collider.GetComponent<enemyStats>().takeDamage((int)(damage + playerDamageBuff), knockbackDirection, knockBack);
+                            if (collider.CompareTag("enemy")) // Check if the collider has the correct tag
+                            {
+                                collider.GetComponent<enemyStats>().takeDamage((int)(damage + playerDamageBuff), knockbackDirection, knockBack);
+                            }else{
+                                collider.GetComponent<bossStats>().takeDamage((int)(damage + playerDamageBuff), knockbackDirection, knockBack);
+                            }
                         }
                     }
                 }

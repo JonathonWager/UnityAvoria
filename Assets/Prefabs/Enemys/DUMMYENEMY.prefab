@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8965723158226926326}
   - component: {fileID: 903513819298556875}
   - component: {fileID: 7553779265136102514}
+  - component: {fileID: 6710609435658618281}
   m_Layer: 0
   m_Name: DUMMYENEMY
   m_TagString: enemy
@@ -136,10 +137,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 1000
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
+  AgroRange: 0
+  isAgro: 0
+  minGold: 0
+  maxGold: 2
+  dropOdds: 0
 --- !u!50 &7553779265136102514
 Rigidbody2D:
   serializedVersion: 4
@@ -167,3 +170,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &6710609435658618281
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832630574865382118}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

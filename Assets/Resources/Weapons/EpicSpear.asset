@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cbc2e7283215c48a5edc7a706354cc, type: 3}
+  m_Name: EpicSpear
+  m_EditorClassIdentifier: 
+  name: Epic Spear
+  description: 
+  icon: {fileID: -1314031751, guid: 985d42a2b6a3bf14f9c443829443c88a, type: 3}
+  level: 1
+  tier: 2
+  hasRightClick: 0
+  hasCharge: 0
+  price: 150
+  useCount: 0
+  levelInc: 10
+  weaponClass: 0
+  baseDamage: 22
+  baseRange: 2.4
+  baseAttackCooldown: 1
+  baseLevelInc: 10
+  playerDamageBuff: 0
+  playerRangeBuff: 0
+  damage: 22
+  range: 2.4
+  attackAngle: 25
+  knockBack: 6
+  attackCooldown: 1
+  levelUpDmgBuff: 1
+  levelUpRangeBuff: 0.08
+  levelUpCooldownBuff: 0.12
+  arcSegments: 50

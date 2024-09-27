@@ -170,13 +170,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
-  speed: 0
-  def: 0
-  AgroRange: 7
-  isAgro: 0
+  maxHPDontSet: 0
   minGold: 5
   maxGold: 15
-  dropOdds: 20
+  cStats: {fileID: 0}
+  dropOdds: 10
 --- !u!70 &5220820938214843764
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

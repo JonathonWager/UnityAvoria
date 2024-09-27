@@ -5152,13 +5152,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 15
-  speed: 0
-  def: 0
-  AgroRange: 0
-  isAgro: 0
+  maxHPDontSet: 0
   minGold: 15
   maxGold: 30
-  dropOdds: 0
+  cStats: {fileID: 0}
+  dropOdds: 40
 --- !u!114 &72545510336723699
 MonoBehaviour:
   m_ObjectHideFlags: 0

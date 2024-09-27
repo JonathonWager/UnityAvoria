@@ -40,6 +40,12 @@ public class WaveManager : MonoBehaviour
      int enemyBuffCounter = -1;
      public int enemyBuffRoundInterval = 2;
     // Start is called before the first frame update
+    public void PauseSpawning(){
+        CancelInvoke("SpawnEnemys");
+    }
+    public void UnPauseSpawning(){
+         InvokeRepeating("SpawnEnemys", 0f, spawnInterval);
+    }
     void Start()
     {
         UI = GameObject.FindGameObjectWithTag("UI");

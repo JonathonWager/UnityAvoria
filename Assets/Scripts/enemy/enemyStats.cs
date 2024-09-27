@@ -6,10 +6,7 @@ using DropBuffs;
 public class enemyStats : MonoBehaviour
 {
     public int hp;
-    public float speed;
-    public float def;
-    public float AgroRange;
-    public bool isAgro;
+    public int maxHPDontSet;
     public int minGold = 0;
     public int maxGold = 2;
 
@@ -17,13 +14,16 @@ public class enemyStats : MonoBehaviour
     private GameObject player;
     private NavMeshAgent agent;
     private bool dead = false;
+    public characterStats cStats;
 
     public int dropOdds;
 
     void Start()
     {
+        maxHPDontSet = hp;
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("character");
+        cStats = player.GetComponent<characterStats>();
         agent = GetComponent<NavMeshAgent>();
     }
     void stopDamageAnimation(){
@@ -32,6 +32,7 @@ public class enemyStats : MonoBehaviour
     
     public void takeDamage(float damage, Vector2 knockbackDirection, float knockbackForce)
     {
+        cStats.totalDamage += (int)damage;
         animator.SetBool("isWalking", false);
          animator.SetBool("isAttacking", false);
          
@@ -82,11 +83,11 @@ public void DropCalculator(){
     if(rand <= dropOdds){
         int randTier = Random.Range(0, 100);
         int tierSelected = 0;
-        if(randTier <= 50){
+        if(randTier <= 60){
             tierSelected = 1;
-        }else if(randTier <= 80){
+        }else if(randTier <= 90){
             tierSelected = 2;
-        }else if(randTier <= 95){
+        }else if(randTier <= 97){
             tierSelected = 3;
         }else if( randTier <= 100){
             tierSelected = 4;
@@ -157,6 +158,7 @@ private IEnumerator ApplyKnockback(UnityEngine.AI.NavMeshAgent agent, Vector3 ve
 
     void DisableAllOtherScripts()
     {
+        cStats.totalKills += 1;
         MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour script in scripts)
         {

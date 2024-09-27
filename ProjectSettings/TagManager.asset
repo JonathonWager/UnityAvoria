@@ -21,6 +21,7 @@ TagManager:
   - WeaponsSystem
   - shopmanager
   - scenereset
+  - PauseScreen
   layers:
   - Default
   - TransparentFX

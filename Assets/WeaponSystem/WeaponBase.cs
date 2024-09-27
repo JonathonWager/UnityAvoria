@@ -29,6 +29,13 @@ namespace WeaponsSystem
             Debug.Log("SERTTING UI");
             UI = GameObject.FindGameObjectWithTag("UI");
             UI.GetComponent<uiUpdater>().WeaponsLevelUp(name,level);
+            GameObject player = GameObject.FindGameObjectWithTag("character");
+            foreach (Transform child in player.transform)
+            {
+                if(child.name == "LevelUpEffect"){
+                    child.gameObject.GetComponent<LevelUpEffect>().StartLevelEffect();
+                }
+            }
         }
     
     }

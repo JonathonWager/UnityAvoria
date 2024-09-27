@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 9195430138589348598}
   - component: {fileID: 4853136031469707160}
   - component: {fileID: -3454386237747417438}
-  - component: {fileID: 5675354456656373343}
+  - component: {fileID: 7920784130298887920}
+  - component: {fileID: 6269975032758657715}
   m_Layer: 0
   m_Name: skely
   m_TagString: enemy
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.8748374, y: -0.15959764, z: -1}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: -139867542, guid: 3d8aa4d294c0df64387257978c7680f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,7 +115,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4506317845103273374}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.23
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -123,8 +124,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.4226667
-  m_BaseOffset: 0.71133333
+  m_Height: 0.52
+  m_BaseOffset: 0.35
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &4853136031469707160
@@ -141,10 +142,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 15
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
+  AgroRange: 0
+  isAgro: 0
+  minGold: 0
+  maxGold: 2
+  dropOdds: 0
 --- !u!50 &-3454386237747417438
 Rigidbody2D:
   serializedVersion: 4
@@ -172,8 +175,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!68 &5675354456656373343
-EdgeCollider2D:
+--- !u!95 &7920784130298887920
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506317845103273374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc3eeb534ab5eb8489acecd7bce81cfa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &6269975032758657715
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -201,16 +225,9 @@ EdgeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.49746642, y: -0.28273615}
-  - {x: 0.0008633435, y: 0.5761846}
-  - {x: 0.50506747, y: -0.28526983}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
+  m_Offset: {x: 0, y: -0.06}
+  serializedVersion: 2
+  m_Radius: 0.29

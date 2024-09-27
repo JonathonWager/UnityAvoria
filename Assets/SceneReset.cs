@@ -12,10 +12,10 @@ public class SceneReset : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
-    public void StartReset(){
+    public void StartReset(int score, int kills, int damage, int gold, int wave){
         playerDead = true;
          UI = GameObject.FindGameObjectWithTag("UI");
-         UI.GetComponent<uiUpdater>().GameOver();
+         UI.GetComponent<uiUpdater>().GameOver(score,kills,damage,gold,wave);
 
     }
     // Optionally, call this method in Update() or another event (e.g., button click, key press)

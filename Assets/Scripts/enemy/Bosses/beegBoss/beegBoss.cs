@@ -39,10 +39,90 @@ public class beegBoss : MonoBehaviour
     private Rigidbody2D rb;
 
     // Faze flags
-    private bool fazeOne, fazeTwo, fazeThree, fazeFour = false;
-    private bool pastHalfToggle, pastQuartToggle, startedFour = false;
+    public bool fazeOne, fazeTwo, fazeThree, fazeFour = false;
+    public bool pastHalfToggle, pastQuartToggle, startedFour = false;
     public bool  pastHalf {get; set;} = false;    // Faze Two initialization
     public bool  pastQuart{get; set;} = false; 
+    public bool allTowers = false;
+    bool allTowersToggle = false;
+     private void Update()
+    {
+        //Debug.Log($"Faze 1: {fazeOne} | Faze 2: {fazeTwo} | Faze 3: {fazeThree} | Faze 4: {fazeFour}");
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+        TowerCheck();
+        elapsed += Time.deltaTime;
+        if(!allTowersToggle){
+            if(allTowers){
+                fazeOne = false;
+                fazeTwo = false;
+                fazeThree = true;
+                fazeFour = false;
+                allTowersToggle = true;
+            }
+        }
+        if (!pastHalfToggle)
+        {
+            if (pastHalf)
+            {
+                fazeOne = false;
+                fazeTwo = false;
+                fazeThree = true;
+                fazeFour = false;
+                pastHalfToggle = true;
+            }
+        }
+        if (!pastQuartToggle)
+        {  
+            if (pastQuart)
+            {
+                Debug.Log("starting 4");
+                fazeOne = false;
+                fazeTwo = false;
+                fazeThree = false;
+                fazeFour = true;
+                pastQuartToggle = true;
+            }
+        }
+
+        if (fazeOne)
+        {
+            FazeOne();
+        }
+        else if (fazeTwo)
+        {
+            FazeTwo();
+        }
+        else if (fazeThree)
+        {
+            FazeThree();
+        }
+        else if (fazeFour)
+        {
+            if (!startedFour)
+            {
+                Debug.Log("Starting Faze Four");
+                startedFour = true;
+                laser lStats = gameObject.GetComponent<laser>();
+                lStats.startPartyTime();
+                
+                Instantiate(Resources.Load("Explosion") as GameObject, transform.position, Quaternion.identity);
+                Invoke("StopFazeFour", FazeFourTime);
+            }
+        }
+    }
+     private void Start()
+    {
+        // Initialize variables
+        target = GameObject.FindGameObjectWithTag("character").transform;
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        towerArray = GameObject.FindGameObjectWithTag("towerArray");
+        elapsed = skellySpawnTimer;
+        rb = GetComponent<Rigidbody2D>();
+        fazeOne = true;
+        InitTowers();
+    }
     private void StartFazeTwo()
     {
         fazeOne = false;
@@ -80,22 +160,13 @@ public class beegBoss : MonoBehaviour
             towerCount = x;
             StartFazeTwo();
         }
+        if(towerCount == 0){
+            allTowers = true;
+        }
     }
 
     // Initialization
-    private void Start()
-    {
-        // Initialize variables
-        target = GameObject.FindGameObjectWithTag("character").transform;
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        towerArray = GameObject.FindGameObjectWithTag("towerArray");
-        elapsed = skellySpawnTimer;
-        rb = GetComponent<Rigidbody2D>();
-        fazeOne = true;
-        InitTowers();
-    }
+   
 
     // Initialize tower array
     private void InitTowers()
@@ -124,7 +195,7 @@ public class beegBoss : MonoBehaviour
             if (elapsed >= skellySpawnTimer)
             {
                 elapsed = 0f;
-                SpawnSkellyNest();
+               SpawnSkellyNest();
             }
             Vector3 awayDirection = transform.position - target.position;
             agent.SetDestination(transform.position + awayDirection);
@@ -215,61 +286,5 @@ public class beegBoss : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
-    {
-        //Debug.Log($"Faze 1: {fazeOne} | Faze 2: {fazeTwo} | Faze 3: {fazeThree} | Faze 4: {fazeFour}");
-        transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
-        TowerCheck();
-        elapsed += Time.deltaTime;
-
-        if (!pastHalfToggle)
-        {
-            if (pastHalf)
-            {
-                fazeOne = false;
-                fazeTwo = false;
-                fazeThree = true;
-                fazeFour = false;
-                pastHalfToggle = true;
-            }
-        }
-        if (!pastQuartToggle)
-        {  
-            if (pastQuart)
-            {
-                Debug.Log("starting 4");
-                fazeOne = false;
-                fazeTwo = false;
-                fazeThree = false;
-                fazeFour = true;
-                pastQuartToggle = true;
-            }
-        }
-
-        if (fazeOne)
-        {
-            FazeOne();
-        }
-        else if (fazeTwo)
-        {
-            FazeTwo();
-        }
-        else if (fazeThree)
-        {
-            FazeThree();
-        }
-        else if (fazeFour)
-        {
-            if (!startedFour)
-            {
-                Debug.Log("Starting Faze Four");
-                startedFour = true;
-                laser lStats = gameObject.GetComponent<laser>();
-                lStats.startPartyTime();
-                
-                Instantiate(Resources.Load("Explosion") as GameObject, transform.position, Quaternion.identity);
-                Invoke("StopFazeFour", FazeFourTime);
-            }
-        }
-    }
+   
 }

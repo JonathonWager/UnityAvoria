@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5594493368738287044}
   - component: {fileID: 2757743145430691217}
   - component: {fileID: 5028750696029782477}
+  - component: {fileID: 6470110670913637059}
   m_Layer: 0
   m_Name: Tower2
   m_TagString: enemy
@@ -163,10 +164,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 600
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
+  AgroRange: 0
+  isAgro: 0
+  minGold: 0
+  maxGold: 2
+  dropOdds: 0
 --- !u!50 &5028750696029782477
 Rigidbody2D:
   serializedVersion: 4
@@ -194,6 +197,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &6470110670913637059
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299867353545495816}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2947357893252186147
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +232,7 @@ GameObject:
   - component: {fileID: 1692708692802404550}
   - component: {fileID: 4616499277305417233}
   - component: {fileID: 6019306874857080625}
+  - component: {fileID: 4871521407649023946}
   m_Layer: 0
   m_Name: Tower4
   m_TagString: enemy
@@ -357,10 +382,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 600
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
+  AgroRange: 0
+  isAgro: 0
+  minGold: 0
+  maxGold: 2
+  dropOdds: 0
 --- !u!50 &6019306874857080625
 Rigidbody2D:
   serializedVersion: 4
@@ -388,6 +415,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &4871521407649023946
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2947357893252186147}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4282648497831893806
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +452,7 @@ GameObject:
   - component: {fileID: 4239264649818681782}
   - component: {fileID: 3794707311924103241}
   - component: {fileID: 8375754960266717810}
+  - component: {fileID: 7882969006902685743}
   m_Layer: 0
   m_Name: Tower1
   m_TagString: enemy
@@ -671,10 +720,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 600
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
+  AgroRange: 0
+  isAgro: 0
+  minGold: 0
+  maxGold: 2
+  dropOdds: 0
 --- !u!50 &8375754960266717810
 Rigidbody2D:
   serializedVersion: 4
@@ -702,6 +753,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &7882969006902685743
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282648497831893806}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4634521823717755267
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +840,7 @@ GameObject:
   - component: {fileID: 6526861072552761353}
   - component: {fileID: 1025053510850864376}
   - component: {fileID: 5506489716299048940}
+  - component: {fileID: 5122331474799900115}
   m_Layer: 0
   m_Name: Tower3
   m_TagString: enemy
@@ -917,10 +990,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 600
   speed: 0
-  dmg2: 0
   def: 0
-  splashInterval: 0
-  attackRate: 0
+  AgroRange: 0
+  isAgro: 0
+  minGold: 0
+  maxGold: 2
+  dropOdds: 0
 --- !u!50 &5506489716299048940
 Rigidbody2D:
   serializedVersion: 4
@@ -948,3 +1023,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &5122331474799900115
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6436849832552734927}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
