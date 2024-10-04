@@ -25,7 +25,7 @@ MonoBehaviour:
   meteorPrefab: {fileID: 5081428435579349801, guid: 374d39d6ccd94034f8e41d83d1d297e1, type: 3}
   delayBeforeImpact: 0.3
   duration: 1.8
-  useCount: 1
+  useCount: 0
   levelCount: 5
   levelCountBase: 5
   minSize: 0.2

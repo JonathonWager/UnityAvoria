@@ -14,6 +14,7 @@ public class characterStats : MonoBehaviour
     public float movementBuff = 0;
 
     public int regenAmount = 1;
+    public int regenAmountBase = 1;
     public float regenTime = 2f;
     
     private Animator animator;
@@ -25,7 +26,7 @@ public class characterStats : MonoBehaviour
 
     public int totalScore = 0;
     public int totalWave = 0;
-
+  private SpriteRenderer spriteRenderer;
     public void takeDamage(decimal damage)
     {
         animator.SetBool("isWalking", false);
@@ -53,6 +54,8 @@ public class characterStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+          spriteRenderer = GetComponent<SpriteRenderer>();
+        regenAmount = regenAmountBase;
         basehp = hp;
         // Initialization code can be added here if needed
         animator = GetComponent<Animator>();
@@ -60,13 +63,16 @@ public class characterStats : MonoBehaviour
     }
     void healthRegen(){
         if(hp < basehp){
-            hp += regenAmount;
+            if(hp +regenAmount > basehp){
+                hp = basehp;
+            }else{
+                hp += regenAmount;
+            }
+       
         }
     }
     void stopAttack(){
-
-            animator.SetBool("isAttacking", false);
-            
+            animator.SetBool("isAttacking", false);        
     }
     // Method to update weapon-related stats
     public void addGold(int Gold){
@@ -78,9 +84,28 @@ public class characterStats : MonoBehaviour
         totalScore = (int)(((totalDamage/totalGoldCollected)+ totalKills)* totalWave );
     }
     // Update is called once per frame
+     private void FlipCharacter()
+    {
+        // Get the mouse position in world coordinates
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0; // Set z to 0 since we are in 2D
+
+        // Check if the mouse is on the left or right side of the GameObject
+        if (mousePosition.x < transform.position.x)
+        {
+            // Mouse is on the left, flip the character to the left
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            // Mouse is on the right, flip the character to the right
+            spriteRenderer.flipX = false;
+        }
+    }
     void Update()
     {
         // Check if the player's health is zero or below
+        FlipCharacter();
         if (hp <= 0)
         {
             GameObject sceneReset = GameObject.FindGameObjectWithTag("scenereset");

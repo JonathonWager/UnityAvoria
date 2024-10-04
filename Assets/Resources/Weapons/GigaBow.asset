@@ -28,9 +28,9 @@ MonoBehaviour:
   maxRangeBase: 14
   knockBackBase: 5
   baseLevelInc: 10
-  maxChargeBase: 1.5
+  maxChargeBase: 1.1
   chargeTime: 0
-  maxCharge: 1.4
+  maxCharge: 1.1
   maxDamage: 50
   maxSpeed: 14
   maxRange: 14

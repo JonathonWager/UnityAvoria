@@ -210,7 +210,7 @@ MonoBehaviour:
   minGold: 15
   maxGold: 30
   cStats: {fileID: 0}
-  dropOdds: 45
+  dropOdds: 25
 --- !u!50 &2529422111984437688
 Rigidbody2D:
   serializedVersion: 4

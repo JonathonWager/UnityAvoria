@@ -25,11 +25,11 @@ MonoBehaviour:
   burnIntervalModifer: 0.1
   enemyDamageModifer: 2
   durationModifer: 0.25
-  playerDamageBuff: 14
+  playerDamageBuff: 2
   enemyDamageTimeInterval: 2
   damage: 4
   fireRingPrefab: {fileID: 1286197361288833161, guid: dce04a606551d484981a571992220135, type: 3}
   duration: 4
-  useCount: 1
+  useCount: 0
   levelCount: 5
   baseLevelCount: 5

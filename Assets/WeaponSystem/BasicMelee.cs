@@ -39,11 +39,7 @@ namespace WeaponsSystem
             level = 1;
             useCount = 0;
         }
-        void flip(GameObject player){
-            Vector3 theScale = player.transform.localScale;
-            theScale.x *= -1; // Invert the X scale to flip the sprite
-            player.transform.localScale = theScale;
-        }
+     
 
         void getPlayerBuffs(GameObject player){
             characterStats cStats = player.GetComponent<characterStats>();
@@ -66,12 +62,6 @@ namespace WeaponsSystem
                 Vector3 directionToMouse = mousePosition - player.transform.position;
                 Vector2 attackDirection = directionToMouse.normalized; // Normalize to ensure direction only
 
-                bool mouseIsOnRightSide = directionToMouse.x > 0;
-                 bool characterFacingRight = player.transform.localScale.x > 0;
-                if ((mouseIsOnRightSide && !characterFacingRight) || (!mouseIsOnRightSide && characterFacingRight))
-                {
-                    flip(player); // Function to flip the character
-                }
 
                 // Draw the attack area using LineRenderer
                 DrawAttackArc(player, attackDirection);

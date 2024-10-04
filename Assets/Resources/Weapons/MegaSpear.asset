@@ -23,13 +23,13 @@ MonoBehaviour:
   useCount: 0
   levelInc: 10
   weaponClass: 0
-  baseDamage: 30
+  baseDamage: 55
   baseRange: 2.6
   baseAttackCooldown: 1
   baseLevelInc: 10
   playerDamageBuff: 0
   playerRangeBuff: 0
-  damage: 30
+  damage: 55
   range: 2.6
   attackAngle: 25
   knockBack: 7

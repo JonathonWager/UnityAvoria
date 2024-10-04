@@ -19,6 +19,13 @@ public class ShopV2 : MonoBehaviour
 
     private bool isPrompt = false;
     // Start is called before the first frame update
+    void SetTeirLight(){
+        foreach(Transform child in this.transform){
+            if(child.gameObject.name == "Teir" + shopTier.ToString()){
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
     void Update(){
         if(isPrompt){
             if (Input.GetKeyDown(KeyCode.F)){
@@ -126,7 +133,7 @@ public class ShopV2 : MonoBehaviour
             shopWeapons.Add(allWeapons[index]);
             allWeapons.RemoveAt(index);
         }
-
+         SetTeirLight();
        
     }
     public void Start(){

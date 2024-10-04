@@ -36,6 +36,7 @@ public class beegBoss : MonoBehaviour
 
     // Timer and Rigidbody variables
     private float elapsed = 0f;
+    private float elapsed2 = 0f;
     private Rigidbody2D rb;
 
     // Faze flags
@@ -44,13 +45,14 @@ public class beegBoss : MonoBehaviour
     public bool  pastHalf {get; set;} = false;    // Faze Two initialization
     public bool  pastQuart{get; set;} = false; 
     public bool allTowers = false;
-    bool allTowersToggle = false;
+    public bool allTowersToggle = false;
      private void Update()
     {
         //Debug.Log($"Faze 1: {fazeOne} | Faze 2: {fazeTwo} | Faze 3: {fazeThree} | Faze 4: {fazeFour}");
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
         TowerCheck();
         elapsed += Time.deltaTime;
+        elapsed2 += Time.deltaTime;
         if(!allTowersToggle){
             if(allTowers){
                 fazeOne = false;
@@ -104,7 +106,11 @@ public class beegBoss : MonoBehaviour
                 startedFour = true;
                 laser lStats = gameObject.GetComponent<laser>();
                 lStats.startPartyTime();
-                
+                    if (elapsed >= skellySpawnTimer)
+                {
+                    elapsed = 0f;
+                SpawnSkellyNest();
+                }
                 Instantiate(Resources.Load("Explosion") as GameObject, transform.position, Quaternion.identity);
                 Invoke("StopFazeFour", FazeFourTime);
             }
@@ -127,6 +133,7 @@ public class beegBoss : MonoBehaviour
     {
         fazeOne = false;
         fazeTwo = true;
+
         Invoke("StopFazeTwo", fazeTwoTimer);
     }
 
@@ -134,6 +141,7 @@ public class beegBoss : MonoBehaviour
     private void StopFazeTwo()
     {
         fazeOne = false;
+        TowerCheck();
         if(!fazeThree){
             fazeOne = true;
         }
@@ -155,10 +163,21 @@ public class beegBoss : MonoBehaviour
                 x++;
             }
         }
+
+        Debug.Log("TOWER COUNT = " + x);
         if (x != towerCount)
         {
             towerCount = x;
-            StartFazeTwo();
+            if(towerCount ==  0){
+                 fazeOne = false;
+                fazeTwo = false;
+                fazeThree = true;
+                fazeFour = false;
+                allTowersToggle = true;
+            }else{
+                 StartFazeTwo();
+            }
+           
         }
         if(towerCount == 0){
             allTowers = true;
@@ -174,8 +193,11 @@ public class beegBoss : MonoBehaviour
         int count = 0;
         foreach (Transform child in towerArray.transform)
         {
-            towers[count] = child.gameObject;
+            if(child.gameObject.name != "Canvas"){
+                towers[count] = child.gameObject;
             count++;
+            }
+            
         }
     }
 
@@ -248,13 +270,16 @@ public class beegBoss : MonoBehaviour
             lStats.InitLaser();
             isVulnerable = true;
         }
+ 
+        if (elapsed2 >= skellySpawnTimer)
+        {
+            elapsed2 = 0f;
+            Debug.Log("SPAWING SKELLY");
+            SpawnSkellyNest();
+        }
+        
         if (Vector3.Distance(transform.position, target.position) <= fazeOneRange)
         {
-            if (elapsed >= skellySpawnTimer)
-            {
-                elapsed = 0f;
-                SpawnSkellyNest();
-            }
             Vector3 awayDirection = transform.position - target.position;
             agent.SetDestination(transform.position + awayDirection);
         }

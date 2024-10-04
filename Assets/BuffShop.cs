@@ -7,40 +7,48 @@ public class BuffShop : MonoBehaviour
     public GameObject UI;
     GameObject player;
 
+    public int healthRegenBuff = 1;
+    public float waitTimerBuff = 15f;
     public int hpBuff = 0;
     public float speedBuff = 0;
     public int dmgBuff = 0;
     public float rangeBuff = 0;
 
+    public float waitTimerIncrease = 15f;
     public int hpBuffIncrease = 10;
     public float speedBuffIncrease = 1;
     public int dmgBuffIncrease = 5;
     public float rangeBuffIncrease = 0.25f;
+    public int healthRegenIncrease = 2;
 
+    public int waveTimerCost = 50;
     public int hpBuffCost = 50;
     public int speedBuffCost = 50;
     public int dmgBuffCost = 50;
     public int rangeBuffCost = 50;
+    public int healthRegenCost = 50;
 
+    public int waveTimerLevel =1;
     public int hpLevel = 1;
     public int speedLevel = 1;
     public int rangeLevel = 1;
     public int dmgLevel = 1;
+    public int healthRegenLevel = 1;
 
     public bool shopActive = false;
     public GameObject buffStats;  // Drag and drop BuffStats in the editor or find it in code
 
-    private GameObject statEntryDmg;
+    private GameObject statEntryTimer;
     private GameObject statEntrySpeed;
-    private GameObject statEntryRange;
+    private GameObject statEntryRegen;
     private GameObject statEntryHp;
 
     void Start()
     {
         // Find the children of buffStats by name
-        statEntryDmg = buffStats.transform.Find("StatEntryDmg").gameObject;
+        statEntryTimer = buffStats.transform.Find("StatEntryTimer").gameObject;
         statEntrySpeed = buffStats.transform.Find("StatEntrySpeed").gameObject;
-        statEntryRange = buffStats.transform.Find("StatEntryRange").gameObject;
+        statEntryRegen = buffStats.transform.Find("StatEntryRegen").gameObject;
         statEntryHp = buffStats.transform.Find("StatEntryHp").gameObject;
     }
     // Start is called before the first frame update
@@ -57,21 +65,21 @@ public class BuffShop : MonoBehaviour
     }
     void SetUI(){
         buffStats.SetActive(true);
-        foreach(Transform child in statEntryDmg.transform){
+        foreach(Transform child in statEntryTimer.transform){
             if(child.name == "Cost"){
-                child.GetComponent<Text>().text = dmgBuffCost.ToString();
+                child.GetComponent<Text>().text = waveTimerCost.ToString();
             }
             if(child.name == "Increase"){
-                child.GetComponent<Text>().text = dmgBuffIncrease.ToString();
+                child.GetComponent<Text>().text = waitTimerIncrease.ToString();
             }
             if(child.name == "UpgradedAmount"){
-                child.GetComponent<Text>().text = (dmgBuff + dmgBuffIncrease).ToString();
+                child.GetComponent<Text>().text = (waitTimerBuff + waitTimerIncrease).ToString();
             }
             if(child.name == "CurrentLevel"){
-                child.GetComponent<Text>().text  = "Level " + dmgLevel;
+                child.GetComponent<Text>().text  = "Level " + waveTimerLevel;
             }
             if(child.name == "CurrentAmount"){
-                child.GetComponent<Text>().text = dmgBuff.ToString();
+                child.GetComponent<Text>().text = waitTimerBuff.ToString();
             }
         }
         foreach(Transform child in statEntryHp.transform){
@@ -108,21 +116,21 @@ public class BuffShop : MonoBehaviour
                 child.GetComponent<Text>().text = speedBuff.ToString();
             }
         }
-        foreach(Transform child in statEntryRange.transform){
+        foreach(Transform child in statEntryRegen.transform){
             if(child.name == "Cost"){
-                child.GetComponent<Text>().text = rangeBuffCost.ToString();
+                child.GetComponent<Text>().text = healthRegenCost.ToString();
             }
             if(child.name == "Increase"){
-                child.GetComponent<Text>().text = rangeBuffIncrease.ToString();
+                child.GetComponent<Text>().text = healthRegenIncrease.ToString();
             }
             if(child.name == "UpgradedAmount"){
-                child.GetComponent<Text>().text = (rangeBuff + rangeBuffIncrease).ToString();
+                child.GetComponent<Text>().text = (healthRegenBuff + healthRegenIncrease).ToString();
             }
             if(child.name == "CurrentLevel"){
-                child.GetComponent<Text>().text  = "Level " + rangeLevel;
+                child.GetComponent<Text>().text  = "Level " + healthRegenLevel;
             }
             if(child.name == "CurrentAmount"){
-                child.GetComponent<Text>().text = rangeBuff.ToString();
+                child.GetComponent<Text>().text = healthRegenBuff.ToString();
             }
         }
 
@@ -134,7 +142,28 @@ public class BuffShop : MonoBehaviour
             buffStats.SetActive(false);
         }
     }
+    public void RegenBuy(){
+        if(player.GetComponent<characterStats>().gold > healthRegenCost){
+             player.GetComponent<characterStats>().gold -= healthRegenCost;
+             player.GetComponent<characterStats>().regenAmount += healthRegenIncrease;
+             healthRegenBuff += healthRegenIncrease;
+             healthRegenCost = healthRegenCost * 2;
+             healthRegenLevel +=1;
+             SetUI();
+        }
+    }
+    public void WaitTimerBuy(){
+        if(player.GetComponent<characterStats>().gold > waveTimerCost){
+            GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().roundTransitionTime += waitTimerIncrease;
+             player.GetComponent<characterStats>().gold -= waveTimerCost;
+            waitTimerBuff += waitTimerIncrease;
+            waveTimerCost = waveTimerCost * 2;
+            waveTimerLevel += 1;
+              SetUI();
+        }
+      
 
+    }
     public void DamageBuy(){
         if(player.GetComponent<characterStats>().gold > dmgBuffCost){
             dmgBuff += dmgBuffIncrease;

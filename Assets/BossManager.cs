@@ -8,6 +8,7 @@ public class BossManager : MonoBehaviour
 
     public GameObject UI,waveManger;
     public GameObject boss,towerArray;
+    public GameObject barrier;
     bool isActive = false;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,8 @@ public class BossManager : MonoBehaviour
             boss.SetActive(true);
             towerArray.SetActive(true);
             isActive = true;
+            barrier.GetComponent<BossBlockade>().ResetBarrier();
+            UI.GetComponent<uiUpdater>().DisableWaveAccept();
         }
     }
     // Update is called once per frame

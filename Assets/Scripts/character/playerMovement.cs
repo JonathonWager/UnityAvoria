@@ -37,13 +37,6 @@ public class playerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Flip()
-    {
-        facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1; // Invert the X scale to flip the sprite
-        transform.localScale = theScale;
-    }
 
     public bool getDashStatus()
     {
@@ -64,14 +57,7 @@ public class playerMovement : MonoBehaviour
     {
         characterStats cStats = this.gameObject.GetComponent<characterStats>();
         speedBuff = cStats.movementBuff;
-        if (Input.GetKeyDown(KeyCode.A) && facingRight)
-        {
-            Flip();
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && !facingRight)
-        {
-            Flip();
-        }
+
 
         // Get input
         float horizontalInput = Input.GetAxis("Horizontal");

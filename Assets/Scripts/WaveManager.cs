@@ -21,6 +21,7 @@ public class WaveManager : MonoBehaviour
     public string[] availableEnemies;
     public int[] enemyRatios;
     public float roundTransitionTime = 5f;
+    public float baseRoundTransitionTime = 15f;
      public GameObject UI;
 
 
@@ -39,20 +40,25 @@ public class WaveManager : MonoBehaviour
      public int enemyHealthBuffTotal = 0;
      int enemyBuffCounter = -1;
      public int enemyBuffRoundInterval = 2;
+     bool isPaused = false;
     // Start is called before the first frame update
     public void PauseSpawning(){
         CancelInvoke("SpawnEnemys");
+        isPaused = true;
     }
     public void UnPauseSpawning(){
+                 isPaused = false;
          InvokeRepeating("SpawnEnemys", 0f, spawnInterval);
+
     }
     void Start()
     {
         UI = GameObject.FindGameObjectWithTag("UI");
         wave = 0;
         EnemyCount = 5;
+        roundTransitionTime = baseRoundTransitionTime;
         InvokeRepeating("checkEnemyCount", 0f, 1f);
-        
+
         StartCoroutine(CountdownCoroutine(roundTransitionTime));
     }
     void updateEnemyHealth(){
@@ -67,7 +73,6 @@ public class WaveManager : MonoBehaviour
         shopManager.GetComponent<ShopManager>().DeleteShops();
     }
     void UpdateWave(){
-        Debug.Log("SPawn Size = " + spawnSize);
         UI.GetComponent<uiUpdater>().DisableWaveAccept();
         wave += 1;
         enemyBuffCounter += 1;
@@ -101,7 +106,10 @@ public class WaveManager : MonoBehaviour
                 CancelInvoke("SpawnEnemys");
 
                 skipWave = false;
-                StartCoroutine(CountdownCoroutine(roundTransitionTime));
+                
+                    StartCoroutine(CountdownCoroutine(roundTransitionTime));
+                
+            
             }
         }
       
@@ -116,7 +124,9 @@ public class WaveManager : MonoBehaviour
                 countdownTimer = 0;
             }
             UI.GetComponent<uiUpdater>().nextWaveUI(countdownTimer, (wave + 1)); // Update your UI with the current countdown
+            if(!isPaused){
                     UI.GetComponent<uiUpdater>().EnableWaveAccept();
+            }
             yield return new WaitForSeconds(1f);
             countdownTimer--;
         }
@@ -138,7 +148,6 @@ public class WaveManager : MonoBehaviour
             }
             for(int j = 0; j < currentSpawnSize; j++){
                 int rand = Random.Range(0, sum);
-                Debug.Log("rand spawn " + rand);
                 int counter = sum - enemyRatios[0];
                 for(int i = 0; i < availableEnemies.Length; i++){
                     if(rand >= counter){
@@ -155,6 +164,9 @@ public class WaveManager : MonoBehaviour
             }
               
         }
+    }
+    public void SkipWave(){
+        skipWave =true;
     }
     // Update is called once per frame
     void Update()

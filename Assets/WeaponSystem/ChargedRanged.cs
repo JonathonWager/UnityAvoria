@@ -48,6 +48,7 @@ namespace WeaponsSystem{
             level = 1;
             useCount = 0;
             maxCharge = maxChargeBase;
+            levelInc = baseLevelInc;
         }
 
         public override void Attack(GameObject player){
@@ -76,7 +77,7 @@ namespace WeaponsSystem{
             useCount++;
             if(useCount >= levelInc){
                 level++;
-                   UpdateLevelUI();
+                UpdateLevelUI();
                 levelInc = levelInc * 2;
                 maxDamage += levelUpDmgBuff;
                 knockBack += levelKnockbackBuff;

@@ -10,17 +10,29 @@ public class ShopManager : MonoBehaviour
     private List<int> shopList = new List<int>();
     // Start is called before the first frame update
     int CalculateTeir(int shopNumber){
-        if(shopNumber> 7){
+        int wave = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().wave;
+        if(shopNumber > 7){
             return 3;
         }
         if(shopNumber> 3)
         {
+            if(wave > 20){
+                return 3;
+            }
             return 2;
         }
         if (shopNumber>= 0){
+            if(wave > 12){
+                return 2;
+            }
             return 1;
         }
-        return 0;
+        if(wave > 5){
+             return 1;
+        }else{
+             return 0;
+        }
+       
     }
     void UpdateShops(){
         for(int i = 0; i < shopCount; i++){           

@@ -80,8 +80,10 @@ public class enemyStats : MonoBehaviour
 
 public void DropCalculator(){
     int rand = Random.Range(0, 100);
-    if(rand <= dropOdds){
+
+    if(rand < dropOdds){
         int randTier = Random.Range(0, 100);
+
         int tierSelected = 0;
         if(randTier <= 60){
             tierSelected = 1;

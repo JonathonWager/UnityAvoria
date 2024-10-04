@@ -21,16 +21,16 @@ MonoBehaviour:
   hasCharge: 1
   price: 80
   useCount: 0
-  levelInc: 160
+  levelInc: 10
   weaponClass: 1
   maxDamageBase: 18
   maxSpeedBase: 9
   maxRangeBase: 7
   knockBackBase: 2
   baseLevelInc: 10
-  maxChargeBase: 2
+  maxChargeBase: 1.7
   chargeTime: 0
-  maxCharge: 1.8
+  maxCharge: 1.6
   maxDamage: 18
   maxSpeed: 9
   maxRange: 7

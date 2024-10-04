@@ -5156,7 +5156,7 @@ MonoBehaviour:
   minGold: 15
   maxGold: 30
   cStats: {fileID: 0}
-  dropOdds: 40
+  dropOdds: 20
 --- !u!114 &72545510336723699
 MonoBehaviour:
   m_ObjectHideFlags: 0

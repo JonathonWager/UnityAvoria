@@ -34,6 +34,7 @@ namespace AbilitySystem
             levelCount = baseLevelCount;
             playerBuffModifer = playerDamageBuffBase;
             enemyDamageTimeInterval = enemyDamageTimeIntervalBase;
+            playerDamageBuff = playerDamageBuffBase;
             damage = damageBase;
             duration = baseDuration;
         }

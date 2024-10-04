@@ -23,6 +23,7 @@ public class laser : MonoBehaviour
     public float angleInc = 0.5f;
     public float laserLength = 50f;
     private Vector3 storageRotation;
+    public int damage;
     List<Vector2> storageDirections;
     // Start is called before the first frame update
     void Start()
@@ -190,7 +191,7 @@ public class laser : MonoBehaviour
                     {
                         elapsed2 = 0f;
                         characterStats cStats = hit.collider.gameObject.GetComponent<characterStats>();
-                        cStats.takeDamage(20); // I assumed a method name change to follow conventions
+                        cStats.takeDamage(damage);
                     }
                 }
             }
