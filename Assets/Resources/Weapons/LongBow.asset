@@ -31,12 +31,12 @@ MonoBehaviour:
   playerDamageBuff: 0
   playerRangeBuff: 0
   fireRate: 1.4
-  projectilePrefabName: Arrow
+  projectilePrefabName: ArrowV3
   damage: 21
   speed: 14
   range: 10
   knockBack: 5
   safteyDestoryTime: 15
-  levelUpDmgBuff: 0.75
+  levelUpDmgBuff: 2
   levelUpRangeBuff: 0.18
   levelUpCooldownBuff: 0.08

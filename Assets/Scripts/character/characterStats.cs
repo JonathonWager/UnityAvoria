@@ -32,7 +32,7 @@ public class characterStats : MonoBehaviour
         animator.SetBool("isWalking", false);
         animator.SetBool("isAttacking", false);
         animator.SetBool("isDamaged", true);
-
+        animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, 0, 0f);
         // Apply damage after considering defense
         hp = hp - (int)(damage);
     }

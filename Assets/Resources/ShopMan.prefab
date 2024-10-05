@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopTier: 1
-  weaponAmount: 2
+  weaponAmount: 3
   UI: {fileID: 0}
   shopEntryPrefab: {fileID: 6945581286420178373, guid: 381e38e69ef211048b8b7755117e4b63, type: 3}
   shopPanelParent: {fileID: 0}

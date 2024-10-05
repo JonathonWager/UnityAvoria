@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8278421222370558272}
   - component: {fileID: 1964804645097514608}
   - component: {fileID: 5220820938214843764}
+  - component: {fileID: 1750713385510410524}
   m_Layer: 0
   m_Name: charger
   m_TagString: enemy
@@ -210,3 +211,35 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.3}
   m_Size: {x: 0.42, y: 0.47}
   m_Direction: 0
+--- !u!114 &1750713385510410524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297903852853768703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 000000001f1496ef1993da3a
+  m_ShapePath:
+  - {x: -0.11704707, y: -0.3575797, z: 0}
+  - {x: -0.12337679, y: -0.24058676, z: 0}
+  - {x: -0.0063298345, y: -0.15507984, z: 0}
+  - {x: 0.12654173, y: -0.23742151, z: 0}
+  - {x: 0.12021196, y: -0.36074448, z: 0}
+  - {x: 0.022154272, y: -0.4399209, z: 0}
+  m_ShapePathHash: -2145223699
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -584896
+  m_LocalBounds:
+    m_Center: {x: 0.0015824735, y: -0.29750037, z: 0}
+    m_Extent: {x: 0.12495926, y: 0.14242053, z: 0}

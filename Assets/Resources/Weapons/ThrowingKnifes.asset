@@ -37,6 +37,6 @@ MonoBehaviour:
   range: 3.5
   knockBack: 0
   safteyDestoryTime: 15
-  levelUpDmgBuff: 0.75
-  levelUpRangeBuff: 0.25
+  levelUpDmgBuff: 3
+  levelUpRangeBuff: 0.5
   levelUpCooldownBuff: 0

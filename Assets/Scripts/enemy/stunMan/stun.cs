@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class stun : MonoBehaviour
 {
-    public float deleteTime = 5f;
+    public float deleteTime = 20f;
     public float speed = 7f;
     public float speedNerf;
     private Vector3 direction;

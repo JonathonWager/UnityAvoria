@@ -58,7 +58,7 @@ public class BasicProjectile : MonoBehaviour
             if(hitCount >= collateralCount){
                 Destroy(gameObject);
             }
-            Instantiate(explo, transform.position, Quaternion.identity);
+            Instantiate(explo, other.transform.position, Quaternion.identity);
         }
         if (other.CompareTag("enemy"))
         {
@@ -78,7 +78,7 @@ public class BasicProjectile : MonoBehaviour
             if(hitCount >= collateralCount){
                 Destroy(gameObject);
             }
-            Instantiate(explo, transform.position, Quaternion.identity);
+            Instantiate(explo, other.transform.position, Quaternion.identity);
             
         }
 

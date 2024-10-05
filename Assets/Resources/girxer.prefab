@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4240801738388656141}
   - component: {fileID: 1053717895443370267}
   - component: {fileID: -1810589935219799123}
+  - component: {fileID: 2728656001319513125}
   m_Layer: 0
   m_Name: girxer
   m_TagString: enemy
@@ -120,7 +121,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2919460103788815041}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.32
+  m_Radius: 0.17
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -129,7 +130,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.48
+  m_Height: 0.42
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -229,3 +230,35 @@ MonoBehaviour:
   damageRange: 0.75
   damageCooldown: 3
   damageAmount: 10
+--- !u!114 &2728656001319513125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2919460103788815041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 000000001f1496ef1993da3a
+  m_ShapePath:
+  - {x: -0.18715382, y: 0.17785025, z: 0}
+  - {x: -0.10857868, y: 0.30522728, z: 0}
+  - {x: 0.07922208, y: 0.31011987, z: 0}
+  - {x: 0.15435857, y: 0.19312716, z: 0}
+  - {x: 0.061617613, y: 0.100198746, z: 0.00000008940697}
+  - {x: -0.10359025, y: 0.101053715, z: 0.00000008940697}
+  m_ShapePathHash: 614054353
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -582374
+  m_LocalBounds:
+    m_Center: {x: -0.016397625, y: 0.2051593, z: 0}
+    m_Extent: {x: 0.17075619, y: 0.10496056, z: 0}

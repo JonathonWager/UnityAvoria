@@ -13,7 +13,10 @@ public class NukeDropObject : MonoBehaviour
         if(other.gameObject.tag == "character"){
             explosionObject = Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
             explosionObject.GetComponent<NukeExplosion>().expansionTime = nukeExpanTime;
-            Destroy(this.gameObject);
+            Destroy(this.gameObject); 
         }
+    }
+      public void Start(){
+        Destroy(this.gameObject,13f);
     }
 }

@@ -75,6 +75,7 @@ public class WaveManager : MonoBehaviour
     void UpdateWave(){
         UI.GetComponent<uiUpdater>().DisableWaveAccept();
         wave += 1;
+        GameObject.FindGameObjectWithTag("BuffShop").GetComponent<BuffShopSpawn>().UpdateShop();
         enemyBuffCounter += 1;
         spawnSizeCounter += 1;
         waveShopCount += 1;

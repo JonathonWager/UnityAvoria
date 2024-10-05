@@ -7,6 +7,13 @@ public class SpeedPotion : MonoBehaviour
     public float speedBuff;
     public float duration;
     private GameObject player;
+    private bool beenPickedUp =false;
+
+    void DestroyPotion(){
+        if(!beenPickedUp){
+            Destroy(this.gameObject);
+        }
+    }
     void ResetBuff(){
         player.gameObject.GetComponent<characterStats>().movementBuff -= speedBuff;
         Destroy(this.gameObject);
@@ -14,6 +21,7 @@ public class SpeedPotion : MonoBehaviour
       public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "character"){
+            beenPickedUp = true;
             player = other.gameObject;
             other.gameObject.GetComponent<characterStats>().movementBuff += speedBuff;
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -31,5 +39,8 @@ public class SpeedPotion : MonoBehaviour
 // Invoke the ResetBuff function after the specified duration
             Invoke("ResetBuff", duration);
         }
+    }
+      public void Start(){
+       Invoke("DestroyPotion",15f);
     }
 }

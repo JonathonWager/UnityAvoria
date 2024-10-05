@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0226d0238f5e6e54fab7f5d1d0073fac, type: 3}
+  m_Name: FireStaff
+  m_EditorClassIdentifier: 
+  name: Fire Staff
+  description: 
+  icon: {fileID: -346217453, guid: 956fb1be30a4a444da6e1f479cc4d10f, type: 3}
+  level: 1
+  tier: 2
+  hasRightClick: 0
+  hasCharge: 0
+  price: 175
+  useCount: 7
+  levelInc: 10
+  weaponClass: 1
+  baseFireRate: 0.8
+  baseDamage: 20
+  baseSpeed: 4
+  baseRange: 7
+  baseLevelInc: 10
+  playerDamageBuff: 0
+  playerRangeBuff: 0
+  fireRate: 0.8
+  projectilePrefabName: FireBall
+  damage: 20
+  speed: 4
+  range: 7
+  knockBack: 2
+  safteyDestoryTime: 15
+  levelUpDmgBuff: 4
+  levelUpRangeBuff: 0.4
+  levelUpCooldownBuff: 0.07
+  levelUpSpeedBuff: 0.5

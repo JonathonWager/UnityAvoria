@@ -8,7 +8,7 @@ using WeaponsSystem;
 public class uiUpdater : MonoBehaviour
 {
     public GameObject player;
-    public Image panel;
+    public Image panel,hpPanel;
     public GameObject ResetWeapons,ResetAbilits;
     public Transform WaveStartPanel, bossPanel;
     public Image qAbilityPanel, eAbilityPanel;
@@ -28,6 +28,7 @@ public class uiUpdater : MonoBehaviour
             if (child.name == "HP")
             {
                 hpUI = child.GetComponentInChildren<Text>();
+                hpPanel = child.GetComponentInChildren<Image>();
             }
             if (child.name == "Weapons")
             {
@@ -174,6 +175,12 @@ public class uiUpdater : MonoBehaviour
     void updatehpUI()
     {
         characterStats cStats = player.GetComponent<characterStats>();
+        hpPanel.fillAmount = Mathf.Clamp01((float)((float)cStats.hp / (float)cStats.basehp));
+        if((float)((float)cStats.hp / (float)cStats.basehp) <= 0.2f){
+            hpUI.color = Color.red;
+        }else{
+            hpUI.color = Color.white;
+        }
         hpUI.text = cStats.getHp()+ " / " +  cStats.basehp;
     }
 

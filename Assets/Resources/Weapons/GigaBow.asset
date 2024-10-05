@@ -36,11 +36,11 @@ MonoBehaviour:
   maxRange: 14
   knockBack: 5
   collateralCount: 6
-  projectilePrefabName: Arrow
+  projectilePrefabName: ArrowV3
   safteyDestoryTime: 15
   playerDamageBuff: 0
   playerRangeBuff: 0
-  levelUpDmgBuff: 0.5
+  levelUpDmgBuff: 2
   levelUpRangeBuff: 0.25
   levelUpChargeBuff: 0.1
   levelUpSpeedBuff: 0.25

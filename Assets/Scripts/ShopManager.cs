@@ -41,7 +41,7 @@ public class ShopManager : MonoBehaviour
                 shopList.Add(rand);
                 Vector3 spawnPosition = vector3List[rand];
                 GameObject shop = Instantiate(shopMan, spawnPosition, Quaternion.identity);
-                shop.GetComponent<ShopV2>().setStart(CalculateTeir(rand),2);
+                shop.GetComponent<ShopV2>().setStart(CalculateTeir(rand),3);
             }else{
                 i--;
             }

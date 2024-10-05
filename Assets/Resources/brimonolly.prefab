@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6753519732503759988}
   - component: {fileID: 5820765377227258325}
   - component: {fileID: 3954398868439757469}
+  - component: {fileID: 7713789498971820461}
   m_Layer: 0
   m_Name: brimonolly
   m_TagString: enemy
@@ -232,3 +233,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7713789498971820461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251182788093081057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 000000001f1496ef1993da3a
+  m_ShapePath:
+  - {x: -0.1043874, y: -0.06721735, z: 0}
+  - {x: -0.12976092, y: 0.018989563, z: 0}
+  - {x: -0.10755229, y: 0.10041332, z: 0}
+  - {x: -0.01265955, y: 0.1487503, z: 0}
+  - {x: 0.088562846, y: 0.10041332, z: 0}
+  - {x: 0.11710131, y: 0.0253191, z: 0}
+  - {x: 0.088562846, y: -0.06405306, z: 0}
+  m_ShapePathHash: 740477635
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -583650
+  m_LocalBounds:
+    m_Center: {x: -0.0063298047, y: 0.040766478, z: 0}
+    m_Extent: {x: 0.12343112, y: 0.10798383, z: 0}

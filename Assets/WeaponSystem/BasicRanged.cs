@@ -20,7 +20,7 @@ namespace WeaponsSystem{
 
         public string projectilePrefabName;
         private GameObject projectile;
-        private bool canFire = true;
+        public bool canFire = true;
 
       [Header("Ranged Specific Properties(Actual)")]
         public float damage;
@@ -33,6 +33,9 @@ namespace WeaponsSystem{
         public float levelUpDmgBuff ;
          public float levelUpRangeBuff ;
         public float levelUpCooldownBuff ;
+        public float levelUpSpeedBuff ;
+              public float cooldownElapsedTime = 0f;
+private bool isCooldownActive = false;
 
         void getPlayerBuffs(GameObject player){
             characterStats cStats = player.GetComponent<characterStats>();
@@ -68,11 +71,23 @@ namespace WeaponsSystem{
                 player.GetComponent<MonoBehaviour>().StartCoroutine(Cooldown());
             }
         }
-        private IEnumerator Cooldown()
+     
+         private IEnumerator Cooldown()
         {
-            yield return new WaitForSeconds(fireRate);
-            FireReset();
+        isCooldownActive = true;
+        cooldownElapsedTime = 0f;
+
+        while (cooldownElapsedTime < fireRate)
+        {
+            cooldownElapsedTime += Time.deltaTime;
+            // Optionally, update a UI element here to show the progress
+            yield return null; // Waits until the next frame
         }
+
+             FireReset();  // Reset the attack after cooldown finishes
+        isCooldownActive = false;
+        }
+
         void FireReset()
         {
             canFire = true;
@@ -92,6 +107,7 @@ namespace WeaponsSystem{
                 damage = damage + levelUpDmgBuff;
                 range = range +  levelUpRangeBuff;
                 fireRate = fireRate - levelUpCooldownBuff;
+                speed += levelUpSpeedBuff;
             }
         }
     }

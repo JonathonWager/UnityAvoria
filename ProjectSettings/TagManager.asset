@@ -23,6 +23,7 @@ TagManager:
   - scenereset
   - PauseScreen
   - BossBarrier
+  - BuffShop
   layers:
   - Default
   - TransparentFX

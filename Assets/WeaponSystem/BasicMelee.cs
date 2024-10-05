@@ -27,10 +27,12 @@ namespace WeaponsSystem
         public float levelUpCooldownBuff ;
 
        
-        private bool canAttack = true;
+        public bool canAttack = true;
         private LineRenderer lineRenderer; // LineRenderer to show the attack area
         public int arcSegments = 50; // Number of segments for smoothness of the arc
         private Animator animator;
+        public float cooldownElapsedTime = 0f;
+private bool isCooldownActive = false;
         public override void ResetLevel(){
             damage = baseDamage;
             range = baseRange;
@@ -109,8 +111,18 @@ namespace WeaponsSystem
         }
         private IEnumerator Cooldown()
         {
-            yield return new WaitForSeconds(attackCooldown);
-            attackReset();
+        isCooldownActive = true;
+        cooldownElapsedTime = 0f;
+
+        while (cooldownElapsedTime < attackCooldown)
+        {
+            cooldownElapsedTime += Time.deltaTime;
+            // Optionally, update a UI element here to show the progress
+            yield return null; // Waits until the next frame
+        }
+
+        attackReset();  // Reset the attack after cooldown finishes
+        isCooldownActive = false;
         }
 
         void attackReset()

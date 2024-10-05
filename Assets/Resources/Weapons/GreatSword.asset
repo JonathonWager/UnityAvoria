@@ -34,7 +34,7 @@ MonoBehaviour:
   attackAngle: 90
   knockBack: 7
   attackCooldown: 1
-  levelUpDmgBuff: 0.1
+  levelUpDmgBuff: 2
   levelUpRangeBuff: 0.05
   levelUpCooldownBuff: 0.02
   arcSegments: 50

@@ -10,6 +10,7 @@ namespace DropBuffs{
             GameObject dropedPotion = Instantiate(drop, enemy.transform.position, Quaternion.identity);
             dropedPotion.GetComponent<HealthPotion>().heal = heal;
         }
+
     }
 }
 

@@ -12,4 +12,7 @@ public class HealthPotion : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    public void Start(){
+        Destroy(this.gameObject,15f);
+    }
 }
