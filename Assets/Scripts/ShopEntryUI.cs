@@ -3,21 +3,21 @@ using UnityEngine.UI;
 
 public class ShopEntryUI : MonoBehaviour
 {
-    public Text weaponNameText;
+    public Text weaponNameText,goldAmountText,damage,range,speed,knockback,atkArc,type;
     public Image weaponIcon;
-    public Text goldAmountText;
 
-    public void SetWeaponName(string name)
+
+    public void SetUI(string name,Sprite icon,int goldAmount, float Damage, float Range, float Speed, float Knockback,float AtkArc,string Type)
     {
         weaponNameText.text = name;
-    }
-    public void SetWeaponIcon(Sprite icon)
-    {
         weaponIcon.sprite = icon;
-    }
-
-    public void SetGoldAmount(int goldAmount)
-    {
         goldAmountText.text = goldAmount.ToString();
+        damage.text = Damage.ToString();
+        range.text = Range.ToString();
+        speed.text = Speed.ToString();
+        knockback.text = Knockback.ToString();
+        atkArc.text = AtkArc.ToString();
+        type.text = Type;
     }
+ 
 }

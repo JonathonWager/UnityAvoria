@@ -48,7 +48,11 @@ public class BossBlockade : MonoBehaviour
     }
     public void ResetBarrier(){
          this.gameObject.SetActive(true);
-        this.GetComponent<NavMeshModifier>().area = UnityEngine.AI.NavMesh.GetAreaFromName("NotWalkable");
+        this.GetComponent<NavMeshModifier>().area = UnityEngine.AI.NavMesh.GetAreaFromName("Not Walkable");
+        foreach (Transform child in transform)
+        {  
+            child.gameObject.GetComponent<NavMeshModifier>().area = UnityEngine.AI.NavMesh.GetAreaFromName("Not Walkable");
+        } 
          GameObject navMeshObject = GameObject.FindGameObjectWithTag("NavMesh");
         if (navMeshObject != null)
         {
@@ -70,6 +74,10 @@ public class BossBlockade : MonoBehaviour
                 if(player.GetComponent<characterStats>().gold >= blockadeCost){
                     player.GetComponent<characterStats>().gold -= blockadeCost;
                     this.GetComponent<NavMeshModifier>().area = UnityEngine.AI.NavMesh.GetAreaFromName("Walkable");
+                    foreach (Transform child in transform)
+                    {  
+                        child.gameObject.GetComponent<NavMeshModifier>().area = UnityEngine.AI.NavMesh.GetAreaFromName("Walkable");
+                    } 
                     GameObject navMeshObject = GameObject.FindGameObjectWithTag("NavMesh");
                     if (navMeshObject != null)
                     {

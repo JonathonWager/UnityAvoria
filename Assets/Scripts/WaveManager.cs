@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    TrapRoomManager trapRoomManager;
+    BeastManager beastManager;
     public int wave;
     public int EnemyCount;
 
@@ -38,22 +40,38 @@ public class WaveManager : MonoBehaviour
 
      public int enemyHealthBuffBase = 10;
      public int enemyHealthBuffTotal = 0;
-     int enemyBuffCounter = -1;
-     public int enemyBuffRoundInterval = 2;
+     public int enemyDamageBuffBase = 10;
+     public int enemyDamageBuffTotal = 0;
+     public float potionIncreaseMofider = 1.1f;
+     public float potionIncreaseAmount = 0.1f;
+
+     int enemyBuffCounter = 0;
+     public int enemyBuffRoundInterval = 3;
      bool isPaused = false;
+
+    int beastRoomCounter = 0;
+    public int beastRoomSpawnInterval = 10;
+    bool beastsSpawned = false;
+    float beastSpeedBuff = 0;
+    public float beastSpeedBuffIncrease = 0.5f;
     // Start is called before the first frame update
+    void updatePotionStats(){
+        potionIncreaseMofider += potionIncreaseAmount;
+    }
     public void PauseSpawning(){
         CancelInvoke("SpawnEnemys");
         isPaused = true;
     }
     public void UnPauseSpawning(){
-                 isPaused = false;
-         InvokeRepeating("SpawnEnemys", 0f, spawnInterval);
+        isPaused = false;
+        InvokeRepeating("SpawnEnemys", 0f, spawnInterval);
 
     }
     void Start()
     {
         UI = GameObject.FindGameObjectWithTag("UI");
+        trapRoomManager = GameObject.FindGameObjectWithTag("TrapManager").GetComponent<TrapRoomManager>();
+        beastManager = GameObject.FindGameObjectWithTag("BeastManager").GetComponent<BeastManager>();
         wave = 0;
         EnemyCount = 5;
         roundTransitionTime = baseRoundTransitionTime;
@@ -61,8 +79,11 @@ public class WaveManager : MonoBehaviour
 
         StartCoroutine(CountdownCoroutine(roundTransitionTime));
     }
-    void updateEnemyHealth(){
+    void updateEnemyStats(){
         enemyHealthBuffTotal += enemyHealthBuffBase;
+        enemyDamageBuffTotal += enemyDamageBuffBase;
+
+        GameObject.FindGameObjectWithTag("TrapManager").GetComponent<TrapRoomManager>().UpdateChildrenDmg(enemyDamageBuffBase);
     }
     void UpdateEnemyCount(){
         //EnemyCount += (int)(-0.2 + 4.7 * wave - 0.1363636 * Mathf.Pow(wave, 2));
@@ -79,9 +100,17 @@ public class WaveManager : MonoBehaviour
         enemyBuffCounter += 1;
         spawnSizeCounter += 1;
         waveShopCount += 1;
+        beastRoomCounter += 1;
+        if(beastRoomCounter == beastRoomSpawnInterval){
+            beastRoomCounter = 0;
+            beastManager.SpawnBeasts(wave,beastSpeedBuff,enemyHealthBuffTotal, enemyDamageBuffTotal);
+            beastsSpawned = true;
+        }
         if(enemyBuffCounter == enemyBuffRoundInterval){
             enemyBuffCounter = 0;
-            updateEnemyHealth() ;
+            updateEnemyStats() ;
+            updatePotionStats();
+            beastSpeedBuff += beastSpeedBuffIncrease;
         }
 
         if(waveShopCount == waveShopResetWave){
@@ -107,13 +136,27 @@ public class WaveManager : MonoBehaviour
                 CancelInvoke("SpawnEnemys");
 
                 skipWave = false;
-                
-                    StartCoroutine(CountdownCoroutine(roundTransitionTime));
+                if(beastsSpawned){
+                    beastsSpawned = false;
+                    beastManager.DeleteBeasts();
+                }
+                StartCoroutine(CountdownCoroutine(roundTransitionTime));
                 
             
             }
         }
       
+    }
+    void skipHeal(){
+        GameObject player = GameObject.FindGameObjectWithTag("character");
+        int healing = player.GetComponent<characterStats>().regenAmount * (int)(countdownTimer/player.GetComponent<characterStats>().regenTime);
+        if(player.GetComponent<characterStats>().hp < player.GetComponent<characterStats>().basehp){
+            if(healing + player.GetComponent<characterStats>().hp >= player.GetComponent<characterStats>().basehp){
+                player.GetComponent<characterStats>().hp = player.GetComponent<characterStats>().basehp;
+            }else{
+                player.GetComponent<characterStats>().hp += healing;
+            }
+        }
     }
     IEnumerator CountdownCoroutine(float roundTransitionTime){
         countdownTimer = (int)(roundTransitionTime);
@@ -122,6 +165,7 @@ public class WaveManager : MonoBehaviour
         while (countdownTimer > 0){
             if (skipWave)
             {
+                skipHeal();
                 countdownTimer = 0;
             }
             UI.GetComponent<uiUpdater>().nextWaveUI(countdownTimer, (wave + 1)); // Update your UI with the current countdown
@@ -133,9 +177,13 @@ public class WaveManager : MonoBehaviour
         }
 
         // After countdown finishes, proceed to the next wave
-        UpdateWave();
+        if(!isPaused){
+                UpdateWave();
+        }
+
     }
     void SpawnEnemys(){
+        UnityEngine.Profiling.Profiler.BeginSample("SpawnEnemys Logic");
         int currentSpawnSize = 0;
         if(spawnSize + spawnCount > EnemyCount){
             currentSpawnSize = (spawnSize + spawnCount) - EnemyCount;
@@ -152,7 +200,7 @@ public class WaveManager : MonoBehaviour
                 int counter = sum - enemyRatios[0];
                 for(int i = 0; i < availableEnemies.Length; i++){
                     if(rand >= counter){
-                        currentArea.GetComponent<WaveArea>().spawnEnemy(availableEnemies[i],enemyHealthBuffTotal);
+                        currentArea.GetComponent<WaveArea>().spawnEnemy(availableEnemies[i],enemyHealthBuffTotal, enemyDamageBuffTotal,this.gameObject);
                         spawnCount++;
                         break;
                     }else{
@@ -165,6 +213,7 @@ public class WaveManager : MonoBehaviour
             }
               
         }
+        UnityEngine.Profiling.Profiler.EndSample();
     }
     public void SkipWave(){
         skipWave =true;

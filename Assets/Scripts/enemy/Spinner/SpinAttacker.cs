@@ -34,6 +34,7 @@ public class SpinAttacker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        attackDamage += this.gameObject.GetComponent<enemyStats>().dmgBuff;
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("character");
         animator = GetComponent<Animator>();

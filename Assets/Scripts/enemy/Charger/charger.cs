@@ -31,7 +31,7 @@ public class charger : MonoBehaviour
         characterStats cStats = collision.GetComponent<characterStats>();
         if (cStats != null)
         {
-            cStats.takeDamage(damage);
+            cStats.takeDamage(damage + this.gameObject.GetComponent<enemyStats>().dmgBuff);
         }
     }
 }
@@ -70,16 +70,16 @@ public class charger : MonoBehaviour
                 if(attackTime <= 0){
                     if(!gotTarget){
                         if(transform.position.x > playerPos.transform.position.x && transform.position.y > playerPos.transform.position.y ){
-                            targetLocation = playerPos.transform.position + new Vector3(-5f,-5f,0);
+                            targetLocation = playerPos.transform.position + new Vector3(-4f,-4f,0);
                         }
                         if(transform.position.x < playerPos.transform.position.x && transform.position.y > playerPos.transform.position.y ){
-                            targetLocation = playerPos.transform.position + new Vector3(5f,-5f,0);
+                            targetLocation = playerPos.transform.position + new Vector3(4f,-4f,0);
                         }
                         if(transform.position.x > playerPos.transform.position.x && transform.position.y < playerPos.transform.position.y ){
-                            targetLocation = playerPos.transform.position + new Vector3(-5f,5f,0);
+                            targetLocation = playerPos.transform.position + new Vector3(-4f,4f,0);
                         }
                         if(transform.position.x < playerPos.transform.position.x && transform.position.y < playerPos.transform.position.y ){
-                            targetLocation = playerPos.transform.position + new Vector3(5f,5f,0);
+                            targetLocation = playerPos.transform.position + new Vector3(4f,4f,0);
                         }             
                         gotTarget = true;
                     }

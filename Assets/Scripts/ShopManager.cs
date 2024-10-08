@@ -34,17 +34,27 @@ public class ShopManager : MonoBehaviour
         }
        
     }
+    public List<int> GenerateNumberList(int x)
+    {
+        List<int> numberList = new List<int>();
+
+        for (int i = 0; i < x; i++)
+        {
+            numberList.Add(i);
+        }
+
+        return numberList;
+    }
     void UpdateShops(){
+        List<int> possibleLocations = GenerateNumberList(vector3List.Count);
         for(int i = 0; i < shopCount; i++){           
-            int rand = Random.Range(0, vector3List.Count);
-            if(!shopList.Contains(rand)){
-                shopList.Add(rand);
-                Vector3 spawnPosition = vector3List[rand];
-                GameObject shop = Instantiate(shopMan, spawnPosition, Quaternion.identity);
-                shop.GetComponent<ShopV2>().setStart(CalculateTeir(rand),3);
-            }else{
-                i--;
-            }
+            int rand = Random.Range(0, possibleLocations.Count);
+            Vector3 spawnPosition = vector3List[possibleLocations[rand]];
+           
+            GameObject shop = Instantiate(shopMan, spawnPosition, Quaternion.identity);
+            shop.GetComponent<ShopV2>().setStart(CalculateTeir(possibleLocations[rand]),3);
+             possibleLocations.Remove(rand);
+        
         }
     }
     public void DeleteShops(){

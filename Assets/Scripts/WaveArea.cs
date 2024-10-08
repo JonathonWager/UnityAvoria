@@ -8,7 +8,7 @@ public class WaveArea : MonoBehaviour
     public List<GameObject> closestAreas;
     public List<Vector3> vector3List; 
 
-    public void spawnEnemy(string enemyName, int healthBuff)
+    public void spawnEnemy(string enemyName, int healthBuff, int dmgBuff ,GameObject parent)
     {
         int randValue;
         if(closestAreas.Count >= 1){
@@ -26,6 +26,7 @@ public class WaveArea : MonoBehaviour
             {
                 GameObject enemy = Instantiate(Resources.Load(enemyName) as GameObject, spawnPosition, Quaternion.identity);
                 enemy.GetComponent<enemyStats>().hp += healthBuff; 
+                enemy.GetComponent<enemyStats>().dmgBuff += dmgBuff; 
             }
             else
             {
@@ -34,18 +35,34 @@ public class WaveArea : MonoBehaviour
         }
         else
         {
+            
             if(closestAreas.Count < 2){
                 randValue = 2;
             }
             if (randValue <= 2&& closestAreas.Count >= 1)
             {
-                WaveArea wArea = closestAreas[0].GetComponent<WaveArea>();      
-                wArea.spawnEnemy(enemyName, healthBuff);         
+                if(closestAreas[0] == parent && closestAreas[1] != null ){
+                    WaveArea wArea = closestAreas[1].GetComponent<WaveArea>();      
+                    wArea.spawnEnemy(enemyName, healthBuff,dmgBuff,this.gameObject);         
+                }else{
+                    WaveArea wArea = closestAreas[0].GetComponent<WaveArea>();      
+                    wArea.spawnEnemy(enemyName, healthBuff,dmgBuff,this.gameObject);    
+                }
+                
             }
             else if (randValue <= 4 && closestAreas.Count >= 2)
             {
-                WaveArea wArea = closestAreas[1].GetComponent<WaveArea>();      
-                wArea.spawnEnemy(enemyName,healthBuff);   
+                if(closestAreas[1] == parent && closestAreas[2] != null ){
+                    WaveArea wArea = closestAreas[1].GetComponent<WaveArea>();      
+                    wArea.spawnEnemy(enemyName, healthBuff,dmgBuff,this.gameObject);         
+                }else if(closestAreas[1] == parent){
+                    WaveArea wArea = closestAreas[0].GetComponent<WaveArea>();      
+                    wArea.spawnEnemy(enemyName, healthBuff,dmgBuff,this.gameObject);    
+                }else{
+                    WaveArea wArea = closestAreas[1].GetComponent<WaveArea>();      
+                    wArea.spawnEnemy(enemyName,healthBuff,dmgBuff,this.gameObject);   
+                }
+             
             }
             
         }

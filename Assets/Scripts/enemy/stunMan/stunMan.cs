@@ -51,7 +51,7 @@ public class stunMan : MonoBehaviour
                 animator.SetBool("isAttacking", true);
                 elapsed = 0f;
                 characterStats cStats = player.GetComponent<characterStats>();
-                cStats.takeDamage(damage);
+                cStats.takeDamage(damage + this.gameObject.GetComponent<enemyStats>().dmgBuff);
             }
         }
         if(navMeshAgent.enabled)

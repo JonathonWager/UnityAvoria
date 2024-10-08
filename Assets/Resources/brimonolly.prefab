@@ -140,7 +140,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2251182788093081057}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.08
+  m_Radius: 0.12
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -262,7 +262,7 @@ MonoBehaviour:
   - {x: 0.088562846, y: -0.06405306, z: 0}
   m_ShapePathHash: 740477635
   m_Mesh: {fileID: 0}
-  m_InstanceId: -583650
+  m_InstanceId: -9772
   m_LocalBounds:
     m_Center: {x: -0.0063298047, y: 0.040766478, z: 0}
     m_Extent: {x: 0.12343112, y: 0.10798383, z: 0}

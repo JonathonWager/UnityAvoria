@@ -55,7 +55,7 @@ public class girxerv2 : MonoBehaviour
         characterStats cStats = player.GetComponent<characterStats>();
         if (cStats != null)
         {
-            cStats.takeDamage(damageAmount);
+            cStats.takeDamage(damageAmount +this.gameObject.GetComponent<enemyStats>().dmgBuff);
         }
 
         yield return new WaitForSeconds(damageCooldown);

@@ -7,6 +7,8 @@ public class enemyStats : MonoBehaviour
 {
     public int hp;
     public int maxHPDontSet;
+
+    public int dmgBuff = 0;
     public int minGold = 0;
     public int maxGold = 2;
 
@@ -23,7 +25,7 @@ public class enemyStats : MonoBehaviour
         maxHPDontSet = hp;
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("character");
-        cStats = player.GetComponent<characterStats>();
+        
         agent = GetComponent<NavMeshAgent>();
     }
     void stopDamageAnimation(){
@@ -32,6 +34,7 @@ public class enemyStats : MonoBehaviour
     
     public void takeDamage(float damage, Vector2 knockbackDirection, float knockbackForce)
     {
+        cStats = player.GetComponent<characterStats>();
         cStats.totalDamage += (int)damage;
         animator.SetBool("isWalking", false);
          animator.SetBool("isAttacking", false);
@@ -80,9 +83,17 @@ public class enemyStats : MonoBehaviour
 
 public void DropCalculator(){
     int rand = Random.Range(0, 100);
-
+    int wave = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().wave;
+    if(wave > 10){
+        rand = Random.Range(0, 200);
+    }
+    if(wave > 20){
+        rand = Random.Range(0, 400);
+    }
     if(rand < dropOdds){
-        int randTier = Random.Range(0, 100);
+        int randTier  = Random.Range(0, 100);;
+      
+      
 
         int tierSelected = 0;
         if(randTier <= 60){

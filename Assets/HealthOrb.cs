@@ -17,6 +17,10 @@ public class HealthOrb : MonoBehaviour
     void Start()
     {
         target = GameObject.Find(targetObjectName);
+
+        if(target == null){
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame

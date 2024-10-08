@@ -35,16 +35,18 @@ public class BuffShop : MonoBehaviour
     public int dmgLevel = 1;
     public int healthRegenLevel = 1;
 
-    public bool shopActive = false;
+
     public GameObject buffStats;  // Drag and drop BuffStats in the editor or find it in code
 
     private GameObject statEntryTimer;
     private GameObject statEntrySpeed;
     private GameObject statEntryRegen;
     private GameObject statEntryHp;
-
+ private bool isPrompt = false;
+ private bool isActive = false;
     void Start()
     {
+         UI = GameObject.FindGameObjectWithTag("UI");
         // Find the children of buffStats by name
         statEntryTimer = buffStats.transform.Find("StatEntryTimer").gameObject;
         statEntrySpeed = buffStats.transform.Find("StatEntrySpeed").gameObject;
@@ -57,8 +59,8 @@ public class BuffShop : MonoBehaviour
         if (other.gameObject.tag == "character")
         {  
             player = other.gameObject; 
-             SetUI();
-            shopActive = true; 
+            showShopPrompt();
+
 
             //showBuffPrompt();
         }
@@ -90,13 +92,13 @@ public class BuffShop : MonoBehaviour
                 child.GetComponent<Text>().text = hpBuffIncrease.ToString();
             }
             if(child.name == "UpgradedAmount"){
-                child.GetComponent<Text>().text = (hpBuff + hpBuffIncrease).ToString();
+                child.GetComponent<Text>().text = (player.GetComponent<characterStats>().basehp  + hpBuffIncrease).ToString();
             }
             if(child.name == "CurrentLevel"){
                 child.GetComponent<Text>().text  = "Level " + hpLevel;
             }
             if(child.name == "CurrentAmount"){
-                child.GetComponent<Text>().text = hpBuff.ToString();
+                child.GetComponent<Text>().text = (player.GetComponent<characterStats>().basehp).ToString();
             }
         }
         foreach(Transform child in statEntrySpeed.transform){
@@ -140,10 +142,13 @@ public class BuffShop : MonoBehaviour
          if (other.gameObject.tag == "character")
         {  
             buffStats.SetActive(false);
+            ToggleChildByName(UI, "ShopBlur", false);
+            isActive = false;
+            isPrompt = false;
         }
     }
     public void RegenBuy(){
-        if(player.GetComponent<characterStats>().gold > healthRegenCost){
+        if(player.GetComponent<characterStats>().gold >= healthRegenCost){
              player.GetComponent<characterStats>().gold -= healthRegenCost;
              player.GetComponent<characterStats>().regenAmount += healthRegenIncrease;
              healthRegenBuff += healthRegenIncrease;
@@ -153,11 +158,11 @@ public class BuffShop : MonoBehaviour
         }
     }
     public void WaitTimerBuy(){
-        if(player.GetComponent<characterStats>().gold > waveTimerCost){
+        if(player.GetComponent<characterStats>().gold >= waveTimerCost){
             GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().roundTransitionTime += waitTimerIncrease;
              player.GetComponent<characterStats>().gold -= waveTimerCost;
             waitTimerBuff += waitTimerIncrease;
-            waveTimerCost = waveTimerCost * 2;
+            waveTimerCost = (int)(waveTimerCost * 1.5);
             waveTimerLevel += 1;
               SetUI();
         }
@@ -192,12 +197,18 @@ public class BuffShop : MonoBehaviour
         }
     }
     public void HpBuy(){
-        if(player.GetComponent<characterStats>().gold > hpBuffCost){
+        if(player.GetComponent<characterStats>().gold >= hpBuffCost){
             hpBuff += hpBuffIncrease;
             player.GetComponent<characterStats>().basehp += hpBuffIncrease;
+            if(player.GetComponent<characterStats>().hp + hpBuffIncrease > player.GetComponent<characterStats>().basehp ){
+                 player.GetComponent<characterStats>().hp =  player.GetComponent<characterStats>().basehp;
+            }else{
+                player.GetComponent<characterStats>().hp+= hpBuffIncrease;
+            }
+           
             player.GetComponent<characterStats>().gold -= hpBuffCost;
-            hpBuffIncrease = hpBuffIncrease * 2;
-            hpBuffCost = hpBuffCost * 2;
+            hpBuffIncrease = (int)(hpBuffIncrease * 1.75);
+            hpBuffCost = (int)(hpBuffCost * 1.75);
             hpLevel += 1;
 
             
@@ -206,11 +217,11 @@ public class BuffShop : MonoBehaviour
         }
     }
     public void SpeedBuy(){
-        if(player.GetComponent<characterStats>().gold > speedBuffCost){
+        if(player.GetComponent<characterStats>().gold >= speedBuffCost){
             speedBuff += speedBuffIncrease;
             player.GetComponent<characterStats>().movementBuff += speedBuffIncrease;
             player.GetComponent<characterStats>().gold -= speedBuffCost;
-            speedBuffCost = speedBuffCost * 2;
+            speedBuffCost = (int)(speedBuffCost * 1.75);
             speedLevel += 1;
 
 
@@ -219,9 +230,42 @@ public class BuffShop : MonoBehaviour
         }
     }
 
-
+     void showShopPrompt(){
+        ToggleChildByName(UI, "ShopPrompt", true);
+        isPrompt = true;
+    }
+        public void ToggleChildByName(GameObject parent, string childName, bool isActive)
+    {
+        Transform childTransform = parent.transform.Find(childName);
+        if (childTransform != null)
+        {
+            childTransform.gameObject.SetActive(isActive);
+        }
+        else
+        {
+            Debug.LogWarning($"Child with name '{childName}' not found.");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        if(isActive){
+            if (Input.GetKeyDown(KeyCode.F)){
+                buffStats.SetActive(false);
+                ToggleChildByName(UI, "ShopBlur", false);
+                isActive = false;
+                //isPrompt = true;
+                //showShopPrompt();
+            }
+        }
+         if(isPrompt){
+            if (Input.GetKeyDown(KeyCode.F)){
+                ToggleChildByName(UI, "ShopPrompt", false);
+                ToggleChildByName(UI, "ShopBlur", true);
+                SetUI();
+                isPrompt = false;
+                isActive = true;
+            }
+        }
     }
 }

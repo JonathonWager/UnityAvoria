@@ -8,7 +8,7 @@ public class HealthPotion : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "character"){
-            other.gameObject.GetComponentInChildren<characterStats>().hp += heal;
+            other.gameObject.GetComponentInChildren<characterStats>().hp += (int)(heal * GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().potionIncreaseMofider);
             Destroy(this.gameObject);
         }
     }

@@ -11,7 +11,7 @@ public class uiUpdater : MonoBehaviour
     public Image panel,hpPanel;
     public GameObject ResetWeapons,ResetAbilits;
     public Transform WaveStartPanel, bossPanel;
-    public Image qAbilityPanel, eAbilityPanel;
+  
     public Text hpUI,goldUI, waveUI, weaponLevelUp, abilityLevelUp;
 
     public TMP_Text   qUI, eUI, potionUI, shopUI;
@@ -164,10 +164,25 @@ public class uiUpdater : MonoBehaviour
       public void DisableWaveAccept(){
         WaveStartPanel.gameObject.SetActive(false);
     }
-    public void UpdateAbilityUI(bool isQOnCooldown, bool isEOnCooldown)
-    {
-        qAbilityPanel.color = isQOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
-        eAbilityPanel.color = isEOnCooldown ? new Color32(233, 67, 67, 100) : Color.white;
+    public void UpdateAbilityUI(string abilityKey, float cooldownTime , float elapsedTime){
+        if(abilityKey == "Q"){
+            abilityIcons[3].fillAmount  = Mathf.Clamp01(1 - (elapsedTime / cooldownTime));
+            if(cooldownTime - elapsedTime <= 0){
+                 abilityUi[4].text = "";
+            }else{
+                abilityUi[4].text = ((int)(cooldownTime - elapsedTime)).ToString();
+            }
+            
+        }
+        if(abilityKey == "E"){
+            abilityIcons[4].fillAmount  = Mathf.Clamp01(1 - (elapsedTime / cooldownTime));
+            if(cooldownTime - elapsedTime <= 0){
+                 abilityUi[5].text = "";
+            }else{
+                abilityUi[5].text = ((int)(cooldownTime - elapsedTime)).ToString();
+            }
+            
+        }
     }
     public void updateWave(int Wave){
         waveUI.text = Wave.ToString();
@@ -232,7 +247,7 @@ public class uiUpdater : MonoBehaviour
             
             abilityIcons[1].sprite = abilityManager.currentQ != null ? abilityManager.currentQ.icon : null;
                         
-            abilityIcons[3].sprite = abilityManager.currentQ != null ? abilityManager.currentE.icon : null;
+            abilityIcons[2].sprite = abilityManager.currentQ != null ? abilityManager.currentE.icon : null;
             //UpdateAbilityUI(abilityManager.IsQOnCooldown, abilityManager.IsEOnCooldown);
         }
     }

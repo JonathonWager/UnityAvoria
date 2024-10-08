@@ -12,9 +12,11 @@ namespace AbilitySystem
         // Change fields to properties
         public bool IsQOnCooldown { get; private set; } = false;
         public bool IsEOnCooldown { get; private set; } = false;
+        GameObject UI;
 
         void Start()
         {
+            UI = GameObject.FindGameObjectWithTag("UI");
             if (player == null)
             {
                 player = transform.root.gameObject;
@@ -44,13 +46,25 @@ namespace AbilitySystem
                 StartCoroutine(StartCooldown("E", currentE.cooldown));
             }
 
-            UpdateUI();
+
         }
 
-        private IEnumerator StartCooldown(string abilityKey, float cooldownTime)
+       private IEnumerator StartCooldown(string abilityKey, float cooldownTime)
         {
-            yield return new WaitForSeconds(cooldownTime);
+            float elapsedTime = 0f;  // Variable to track elapsed time
 
+            while (elapsedTime < cooldownTime)
+            {
+               
+                // Increment the elapsed time
+                elapsedTime += Time.deltaTime;
+                 UI.GetComponent<uiUpdater>().UpdateAbilityUI(abilityKey,cooldownTime, elapsedTime);
+                
+                // Wait for the next frame before continuing
+                yield return null;
+            }
+
+            // Cooldown complete, reset the cooldown state for the specific ability
             if (abilityKey == "Q")
             {
                 IsQOnCooldown = false;
@@ -61,13 +75,6 @@ namespace AbilitySystem
             }
         }
 
-        private void UpdateUI()
-        {
-            uiUpdater ui = player.GetComponentInChildren<uiUpdater>();
-            if (ui != null)
-            {
-                ui.UpdateAbilityUI(IsQOnCooldown, IsEOnCooldown);
-            }
-        }
+        
     }
 }

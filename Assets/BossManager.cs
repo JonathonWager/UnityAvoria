@@ -10,6 +10,7 @@ public class BossManager : MonoBehaviour
     public GameObject boss,towerArray;
     public GameObject barrier;
     bool isActive = false;
+    int interactionCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +20,20 @@ public class BossManager : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "character"){
-            waveManger.GetComponent<WaveManager>().PauseSpawning();
-            boss.SetActive(true);
-            towerArray.SetActive(true);
-            isActive = true;
-            barrier.GetComponent<BossBlockade>().ResetBarrier();
-            UI.GetComponent<uiUpdater>().DisableWaveAccept();
+            interactionCount++;
+            if(interactionCount == 1){
+                isActive = true;
+                waveManger.GetComponent<WaveManager>().PauseSpawning();
+                 barrier.GetComponent<BossBlockade>().ResetBarrier();
+                UI.GetComponent<uiUpdater>().DisableWaveAccept();
+            }else if(interactionCount == 2){
+                boss.SetActive(true);
+                towerArray.SetActive(true);
+            }
+           
+            
+            
+           
         }
     }
     // Update is called once per frame

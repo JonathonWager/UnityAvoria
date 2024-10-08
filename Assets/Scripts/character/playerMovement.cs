@@ -74,7 +74,7 @@ public class playerMovement : MonoBehaviour
             canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!isDashing && elapsed >= dashResetDuration)
             {
