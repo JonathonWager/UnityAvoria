@@ -58,21 +58,11 @@ namespace WeaponsSystem
                         }
                     }
 
-                    if (Input.GetMouseButtonDown(1)) // Right mouse button
+                    if (Input.GetMouseButtonDown(0)) // Right mouse button
                     {
                         holdStartTime = Time.time;  // Record the time when the button was pressed
                         isHolding = true;
                     }
-                    if (Input.GetMouseButtonUp(1))
-                    {
-                        holdDuration = 0f;
-                        isHolding = false;
-                        if (currentWeapon is ChargedRanged chargedRangedWeapon)
-                        {
-                            chargedRangedWeapon.chargeTime = holdDuration;
-                        }
-                    }
-
                     if (Input.GetMouseButtonUp(0))
                     {
                         if (isHolding)
@@ -80,6 +70,12 @@ namespace WeaponsSystem
                             isHolding = false;  // Reset the holding flag
                             holdDuration = 0f;
                             currentWeapon.Attack(player);
+                        }
+                        holdDuration = 0f;
+                        isHolding = false;
+                        if (currentWeapon is ChargedRanged chargedRangedWeapon)
+                        {
+                            chargedRangedWeapon.chargeTime = holdDuration;
                         }
                     }
                 }

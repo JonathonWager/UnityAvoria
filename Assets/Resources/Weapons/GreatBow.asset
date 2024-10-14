@@ -19,7 +19,7 @@ MonoBehaviour:
   tier: 1
   hasRightClick: 0
   hasCharge: 0
-  price: 70
+  price: 50
   useCount: 0
   levelInc: 10
   weaponClass: 1
@@ -32,6 +32,7 @@ MonoBehaviour:
   playerRangeBuff: 0
   fireRate: 1.6
   projectilePrefabName: ArrowV2
+  canFire: 1
   damage: 15
   speed: 12
   range: 8
@@ -40,3 +41,5 @@ MonoBehaviour:
   levelUpDmgBuff: 2
   levelUpRangeBuff: 0.15
   levelUpCooldownBuff: 0.06
+  levelUpSpeedBuff: 0
+  cooldownElapsedTime: 0

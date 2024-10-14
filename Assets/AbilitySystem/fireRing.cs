@@ -45,8 +45,9 @@ public class fireRing : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("enemy"))
+        if (other.CompareTag("enemy")|| other.CompareTag("PlayerOnlyEnemy"))
         {
+            Debug.Log("FOUND ENEMY");
             currentEnemys.Add(other.gameObject);
             if (!isDmging)
             {

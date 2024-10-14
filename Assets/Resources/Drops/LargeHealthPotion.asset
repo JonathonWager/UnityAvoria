@@ -18,4 +18,4 @@ MonoBehaviour:
   drop: {fileID: 5187858637700158893, guid: 1031e113375a46b40af7b10368574f4c, type: 3}
   tier: 3
   dropTime: 10
-  heal: 75
+  heal: 50

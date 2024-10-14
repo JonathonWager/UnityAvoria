@@ -17,7 +17,7 @@ namespace AbilitySystem
         public abstract void Deactivate(GameObject player);
 
         public abstract void ResetLevel();
-          GameObject UI;
+        GameObject UI;
         protected void EndAbility()
         {
             // Trigger the end event
@@ -28,5 +28,7 @@ namespace AbilitySystem
             UI = GameObject.FindGameObjectWithTag("UI");
             UI.GetComponent<uiUpdater>().AbilityLevelUp(abilityName,level);
         }
+     
+        
     }
 }

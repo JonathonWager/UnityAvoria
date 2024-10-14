@@ -50,6 +50,7 @@ public class SpinAttacker : MonoBehaviour
     // Coroutine to handle attack and spinning behavior
     IEnumerator SpinAttack()
     {
+        this.GetComponent<enemyStats>().canFlip = false;
         animator.SetBool("isWalking", false);
          if (!animator.GetBool("isHurt"))
         { 
@@ -80,6 +81,7 @@ public class SpinAttacker : MonoBehaviour
     // Stop the spinning and reset attack
     void StopSpinning()
     {
+        this.GetComponent<enemyStats>().canFlip = true;
                 animator.SetBool("isAttacking", false);
         isSpinning = false;
         foreach (Transform child in transform){
@@ -120,6 +122,7 @@ public class SpinAttacker : MonoBehaviour
         {
 
             if (isSpinning == false && !isWaiting){
+
                 StartCoroutine(SpinAttack());
             }
                 

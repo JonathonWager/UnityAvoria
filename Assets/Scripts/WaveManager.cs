@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
     public List<GameObject> spawnBoxes;
     
     public GameObject currentArea;
-    private bool roundTransition = false;
+    public bool roundTransition = true;
     public string[] availableEnemies;
     public int[] enemyRatios;
     public float roundTransitionTime = 5f;
@@ -50,10 +50,14 @@ public class WaveManager : MonoBehaviour
      bool isPaused = false;
 
     int beastRoomCounter = 0;
-    public int beastRoomSpawnInterval = 10;
+    bool beastStarted = false;
+    public int beastRoomStartRound = 10;
+    public int beastRoomSpawnInterval = 5;
     bool beastsSpawned = false;
     float beastSpeedBuff = 0;
     public float beastSpeedBuffIncrease = 0.5f;
+    public float skipTimeScale = 15f;
+
     // Start is called before the first frame update
     void updatePotionStats(){
         potionIncreaseMofider += potionIncreaseAmount;
@@ -101,7 +105,13 @@ public class WaveManager : MonoBehaviour
         spawnSizeCounter += 1;
         waveShopCount += 1;
         beastRoomCounter += 1;
-        if(beastRoomCounter == beastRoomSpawnInterval){
+        if(!beastStarted){
+            if(beastRoomCounter == beastRoomStartRound){
+                beastStarted = true;
+                beastRoomCounter = beastRoomSpawnInterval;
+            }
+        }
+        if(beastRoomCounter == beastRoomSpawnInterval && beastStarted){
             beastRoomCounter = 0;
             beastManager.SpawnBeasts(wave,beastSpeedBuff,enemyHealthBuffTotal, enemyDamageBuffTotal);
             beastsSpawned = true;
@@ -162,11 +172,16 @@ public class WaveManager : MonoBehaviour
         countdownTimer = (int)(roundTransitionTime);
 
         // Update the countdown each second
+        playerMovement mStats = GameObject.FindGameObjectWithTag("character").GetComponent<playerMovement>();
         while (countdownTimer > 0){
             if (skipWave)
             {
-                skipHeal();
-                countdownTimer = 0;
+                Time.timeScale = skipTimeScale;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                mStats.stopMovement();
+                skipWave = false;
+                //skipHeal();
+                //countdownTimer = 0;
             }
             UI.GetComponent<uiUpdater>().nextWaveUI(countdownTimer, (wave + 1)); // Update your UI with the current countdown
             if(!isPaused){
@@ -175,7 +190,11 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
             countdownTimer--;
         }
+        Time.timeScale = 1.0f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
+                mStats.enabled = true;
+                mStats.startAnimator();
         // After countdown finishes, proceed to the next wave
         if(!isPaused){
                 UpdateWave();

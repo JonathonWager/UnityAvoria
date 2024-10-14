@@ -53,6 +53,14 @@ public class playerMovement : MonoBehaviour
         moveSpeed = speed;
     }
 
+    public void stopMovement(){
+        rb.velocity = Vector2.zero;
+        animator.speed = 0f;
+        this.enabled = false;
+    }
+    public void startAnimator(){
+        animator.speed = 1f;
+    }
     void Update()
     {
         characterStats cStats = this.gameObject.GetComponent<characterStats>();

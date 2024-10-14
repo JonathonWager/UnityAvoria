@@ -17,9 +17,22 @@ public class enemyStats : MonoBehaviour
     private NavMeshAgent agent;
     private bool dead = false;
     public characterStats cStats;
-
+    public DropBase[] allDrops;
     public int dropOdds;
-
+    public GameObject gold;
+    bool vineSlow = false;
+     private bool isFacingRight = true; 
+     public bool canFlip = true;
+    
+    void Flip()
+    {
+        if(canFlip && hp > 0){
+            //Flip the GameObject by inverting its local scale
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
+    }
     void Start()
     {
         maxHPDontSet = hp;
@@ -31,7 +44,12 @@ public class enemyStats : MonoBehaviour
     void stopDamageAnimation(){
         animator.SetBool("isHurt", false);
     }
-    
+    public void setVineSlowing(float slowingAmount){
+        if(!vineSlow){
+            agent.speed = agent.speed / slowingAmount;
+            vineSlow=true;
+        }
+    }
     public void takeDamage(float damage, Vector2 knockbackDirection, float knockbackForce)
     {
         cStats = player.GetComponent<characterStats>();
@@ -105,7 +123,6 @@ public void DropCalculator(){
         }else if( randTier <= 100){
             tierSelected = 4;
         }
-        DropBase[] allDrops = Resources.LoadAll<DropBase>("Drops");
         List<DropBase> currentTierDrops = new List<DropBase>();
         foreach(DropBase d in allDrops){
             if(d.tier == tierSelected){
@@ -145,6 +162,23 @@ private IEnumerator ApplyKnockback(UnityEngine.AI.NavMeshAgent agent, Vector3 ve
 
     void Update()
     {
+        if(canFlip){
+        transform.rotation = Quaternion.identity;
+            // Determine if the enemy needs to flip to face the player
+            if (player != null)
+            {
+                if (transform.position.x < player.transform.position.x && !isFacingRight)
+                {
+                    isFacingRight = true;
+                    Flip();
+                }
+                else if (transform.position.x > player.transform.position.x && isFacingRight)
+                {
+                    isFacingRight = false;
+                    Flip();
+                }
+            }
+        }
         if (hp <= 0 && !dead)
         {
             dead = true;
@@ -162,8 +196,10 @@ private IEnumerator ApplyKnockback(UnityEngine.AI.NavMeshAgent agent, Vector3 ve
         int goldAmount = Random.Range(minGold, maxGold);
         if (goldAmount > 0)
         {
-            GameObject goldPrefab = Resources.Load<GameObject>("Gold");
-            GameObject goldObject = Instantiate(goldPrefab, transform.position, Quaternion.identity);
+            if(gold == null){
+                gold = Resources.Load<GameObject>("Gold");
+            }
+            GameObject goldObject = Instantiate(gold, transform.position, Quaternion.identity);
             Gold goldScript = goldObject.GetComponent<Gold>();
             goldScript.Initialize(goldAmount);
         }

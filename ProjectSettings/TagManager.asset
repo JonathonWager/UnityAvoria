@@ -26,6 +26,8 @@ TagManager:
   - BuffShop
   - TrapManager
   - BeastManager
+  - MiniBossSpawner
+  - PlayerOnlyEnemy
   layers:
   - Default
   - TransparentFX

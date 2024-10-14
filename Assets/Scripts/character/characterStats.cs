@@ -81,7 +81,13 @@ public class characterStats : MonoBehaviour
     }
     void ScoreCalculator(){
         totalWave = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().wave;
-        totalScore = (int)(((totalDamage/totalGoldCollected)+ totalKills)* totalWave );
+        if(totalGoldCollected == 0 ){
+            totalScore = 0;
+        }else{  
+            totalScore = (int)(((totalDamage/totalGoldCollected)+ totalKills)* totalWave );
+        }
+     
+
     }
     // Update is called once per frame
      private void FlipCharacter()
@@ -104,6 +110,7 @@ public class characterStats : MonoBehaviour
     }
     void Update()
     {
+        ScoreCalculator();
         // Check if the player's health is zero or below
         FlipCharacter();
         if (hp <= 0)

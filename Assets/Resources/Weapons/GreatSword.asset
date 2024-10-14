@@ -19,7 +19,7 @@ MonoBehaviour:
   tier: 1
   hasRightClick: 0
   hasCharge: 0
-  price: 75
+  price: 50
   useCount: 0
   levelInc: 10
   weaponClass: 0
@@ -37,4 +37,6 @@ MonoBehaviour:
   levelUpDmgBuff: 2
   levelUpRangeBuff: 0.05
   levelUpCooldownBuff: 0.02
+  canAttack: 1
   arcSegments: 50
+  cooldownElapsedTime: 0

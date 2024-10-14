@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class girxerv2 : MonoBehaviour
 {
-    public float attackRange = 15f;
     public float damageRange = 2f;
     public float damageCooldown = 3f;
     public int damageAmount = 10;
@@ -35,7 +34,11 @@ public class girxerv2 : MonoBehaviour
             {
                 // Stop roaming if attacking
                 animator.SetBool("isWalking", false);
-                StartCoroutine(AttackPlayer());
+                animator.SetBool("isAttacking", true);
+                isAttacking = true;
+                navMeshAgent.isStopped = true;
+
+                Invoke("ResetAttack", damageCooldown);
             }else
             {
                 animator.SetBool("isWalking", true);
@@ -45,23 +48,21 @@ public class girxerv2 : MonoBehaviour
        
 
     }
-
-    IEnumerator AttackPlayer()
-    {
-        isAttacking = true;
-        navMeshAgent.isStopped = true;
-
-        animator.SetBool("isAttacking", true);
-        characterStats cStats = player.GetComponent<characterStats>();
-        if (cStats != null)
-        {
-            cStats.takeDamage(damageAmount +this.gameObject.GetComponent<enemyStats>().dmgBuff);
-        }
-
-        yield return new WaitForSeconds(damageCooldown);
-
+    void ResetAttack(){
         animator.SetBool("isAttacking", false);
         isAttacking = false;
         navMeshAgent.isStopped = false;
     }
+    public void DoDamage(){
+        characterStats cStats = player.GetComponent<characterStats>();
+        if (cStats != null)
+        {
+            float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+            if (distanceToPlayer <= damageRange)
+            {
+                cStats.takeDamage(damageAmount +this.gameObject.GetComponent<enemyStats>().dmgBuff);
+            }
+        }   
+    }
+  
 }

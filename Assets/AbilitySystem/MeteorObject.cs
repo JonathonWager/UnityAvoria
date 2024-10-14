@@ -26,7 +26,7 @@ public class MeteorObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "enemy")
+        if (other.gameObject.tag == "enemy" || other.CompareTag("PlayerOnlyEnemy"))
         {
             enemyStats eEnemy = other.gameObject.GetComponent<enemyStats>();
             if (eEnemy != null)

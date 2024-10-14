@@ -71,7 +71,7 @@ private bool isCooldownActive = false;
                 Collider2D[] hitColliders = Physics2D.OverlapCircleAll(player.transform.position, (range + playerRangeBuff));
                 foreach (Collider2D collider in hitColliders)
                 {
-                    if(collider.CompareTag("boss") || collider.CompareTag("enemy")){
+                    if(collider.CompareTag("boss") || collider.CompareTag("enemy") || collider.CompareTag("PlayerOnlyEnemy")){
                          CheckLevel();
                         // Determine the direction from the player to the target
                         Vector3 directionToTarget = (collider.transform.position - player.transform.position).normalized;
@@ -83,7 +83,7 @@ private bool isCooldownActive = false;
                         if (angleToTarget <= attackAngle / 2f)
                         {
                             Vector2 knockbackDirection = directionToTarget;
-                            if (collider.CompareTag("enemy")) // Check if the collider has the correct tag
+                            if (collider.CompareTag("enemy")|| collider.CompareTag("PlayerOnlyEnemy")) // Check if the collider has the correct tag
                             {
                                 collider.GetComponent<enemyStats>().takeDamage((int)(damage + playerDamageBuff), knockbackDirection, knockBack);
                             }else{

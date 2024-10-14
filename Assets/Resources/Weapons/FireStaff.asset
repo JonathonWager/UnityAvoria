@@ -19,8 +19,8 @@ MonoBehaviour:
   tier: 2
   hasRightClick: 0
   hasCharge: 0
-  price: 175
-  useCount: 7
+  price: 425
+  useCount: 0
   levelInc: 10
   weaponClass: 1
   baseFireRate: 0.8
@@ -32,6 +32,7 @@ MonoBehaviour:
   playerRangeBuff: 0
   fireRate: 0.8
   projectilePrefabName: FireBall
+  canFire: 1
   damage: 20
   speed: 4
   range: 7
@@ -41,3 +42,4 @@ MonoBehaviour:
   levelUpRangeBuff: 0.4
   levelUpCooldownBuff: 0.07
   levelUpSpeedBuff: 0.5
+  cooldownElapsedTime: 0

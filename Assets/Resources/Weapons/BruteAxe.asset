@@ -19,22 +19,24 @@ MonoBehaviour:
   tier: 2
   hasRightClick: 0
   hasCharge: 0
-  price: 170
+  price: 450
   useCount: 0
   levelInc: 10
   weaponClass: 0
   baseDamage: 30
-  baseRange: 2.2
+  baseRange: 2
   baseAttackCooldown: 1.7
   baseLevelInc: 10
   playerDamageBuff: 0
   playerRangeBuff: 0
   damage: 30
-  range: 2.2
+  range: 2
   attackAngle: 120
   knockBack: 13
   attackCooldown: 1.7
   levelUpDmgBuff: 4
   levelUpRangeBuff: 0.1
   levelUpCooldownBuff: 0.1
+  canAttack: 1
   arcSegments: 50
+  cooldownElapsedTime: 0

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using DropBuffs;
 public class WaveArea : MonoBehaviour
 {
     public List<GameObject> closestAreas;
     public List<Vector3> vector3List; 
-
+    private Dictionary<string, GameObject> enemyPrefabs = new Dictionary<string, GameObject>();
+    DropBase[] allDrops; 
+     GameObject goldPrefab;
     public void spawnEnemy(string enemyName, int healthBuff, int dmgBuff ,GameObject parent)
     {
         int randValue;
@@ -22,11 +24,14 @@ public class WaveArea : MonoBehaviour
         {
             int positionIndex = Random.Range(0, vector3List.Count);
             Vector3 spawnPosition = vector3List[positionIndex];
-            if (Resources.Load(enemyName) as GameObject != null)
+             if (enemyPrefabs.TryGetValue(enemyName, out GameObject enemyPrefab))
             {
-                GameObject enemy = Instantiate(Resources.Load(enemyName) as GameObject, spawnPosition, Quaternion.identity);
-                enemy.GetComponent<enemyStats>().hp += healthBuff; 
-                enemy.GetComponent<enemyStats>().dmgBuff += dmgBuff; 
+                GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+                enemyStats eStats = enemy.GetComponent<enemyStats>();
+                eStats.hp += healthBuff; 
+                eStats.dmgBuff += dmgBuff; 
+                eStats.allDrops = allDrops;
+                eStats.gold = goldPrefab;
             }
             else
             {
@@ -78,6 +83,14 @@ public class WaveArea : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        allDrops= Resources.LoadAll<DropBase>("Drops");
+        GameObject[] loadedEnemies = Resources.LoadAll<GameObject>("Enemies");
+        goldPrefab = Resources.Load<GameObject>("Gold");
+        foreach (GameObject enemy in loadedEnemies)
+        {
+            enemyPrefabs.Add(enemy.name, enemy);
+        }
+
         GameObject[] targets = GameObject.FindGameObjectsWithTag("SpawnArea");
             float closestDistance = Mathf.Infinity;
             foreach (GameObject target in targets)

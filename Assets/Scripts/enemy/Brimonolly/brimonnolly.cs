@@ -24,12 +24,17 @@ public class brimonnolly : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("character");
         navMeshAgent = GetComponent<NavMeshAgent>();
 
+        range = Random.Range((range - 0.5f) , (range + 0.5f));
         // Set the speed of the NavMeshAgent to match the original speed
-        navMeshAgent.speed = speed;
+        navMeshAgent.speed = Random.Range((speed - 0.5f) , (speed + 0.5f));
+
+        attackTime = Random.Range(attackTime - 0.5f, attackTime + 0.5f);
 
         // Ensure NavMeshAgent only updates x and y axis in 2D
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
+
+
     }
 
     void stopAttack()
@@ -48,19 +53,28 @@ public class brimonnolly : MonoBehaviour
             animator.SetBool("isWalking", true);
             Vector3 directionAwayFromPlayer = (transform.position - player.transform.position).normalized;
             Vector3 newDestination = transform.position + directionAwayFromPlayer * (minDistance - distanceToPlayer);
-            navMeshAgent.SetDestination(newDestination);
+            if (navMeshAgent != null && navMeshAgent.enabled)
+            {
+                navMeshAgent.SetDestination(newDestination);
+            }
         }
         else if (distanceToPlayer > range)
         {
             animator.SetBool("isWalking", true);
             // Move closer to the player if outside of attack range
-            navMeshAgent.SetDestination(player.transform.position);
+            if (navMeshAgent != null && navMeshAgent.enabled)
+            {
+             navMeshAgent.SetDestination(player.transform.position);
+            }
         }
         else
         {
             // Stop moving when the enemy is within the desired distance range
             animator.SetBool("isWalking", false);
+            if (navMeshAgent != null && navMeshAgent.enabled)
+            {
             navMeshAgent.ResetPath();
+            }
         }
 
         // Handle attacking the player when within range
@@ -79,32 +93,10 @@ public class brimonnolly : MonoBehaviour
 
         elapsed += Time.deltaTime;
 
-        // Handle flipping the sprite based on movement direction
-        HandleFlip();
 
-        // Keep the Z position fixed to prevent rendering issues
-        Vector3 fixedPosition = transform.position;
-        fixedPosition.z = -1f;
-        transform.position = fixedPosition;
+
+
     }
 
-    private void HandleFlip()
-    {
-        if (navMeshAgent.velocity.x > 0 && !isFacingRight)
-        {
-            Flip();
-        }
-        else if (navMeshAgent.velocity.x < 0 && isFacingRight)
-        {
-            Flip();
-        }
-    }
 
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-    }
 }

@@ -105,11 +105,18 @@ public class stunMan : MonoBehaviour
             {
                 Vector3 directionAwayFromPlayer = (transform.position - player.transform.position).normalized;
                 Vector3 newDestination = transform.position + directionAwayFromPlayer * (stunRange / runAwayDistanceDivisor);
-                navMeshAgent.SetDestination(newDestination);
+                if (navMeshAgent != null && navMeshAgent.enabled)
+                {
+                    navMeshAgent.SetDestination(newDestination);
+
+                }
             }
             else
             {
-                navMeshAgent.ResetPath(); // Stop moving if within the stun range
+                if (navMeshAgent != null && navMeshAgent.enabled)
+                {
+                    navMeshAgent.ResetPath(); // Stop moving if within the stun range
+                }
             }
         }
     }

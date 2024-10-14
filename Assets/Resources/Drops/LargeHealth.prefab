@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7454712191554545219}
   - component: {fileID: 6799861776275752445}
   - component: {fileID: 5844142810259372843}
+  - component: {fileID: 1015802669574033463}
   m_Layer: 0
   m_Name: LargeHealth
-  m_TagString: Untagged
+  m_TagString: Drop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,6 +136,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.1
+--- !u!114 &1015802669574033463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5187858637700158893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188de83997d2abe44916d0b01ae24f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 0
+  maxSpeed: 7
 --- !u!1 &7256707784320331875
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
   tier: 1
   hasRightClick: 0
   hasCharge: 0
-  price: 100
+  price: 55
   useCount: 76
   levelInc: 80
   weaponClass: 1
@@ -32,6 +32,7 @@ MonoBehaviour:
   playerRangeBuff: 0
   fireRate: 0.5
   projectilePrefabName: ThrowingKnife
+  canFire: 1
   damage: 6.5
   speed: 15
   range: 3.5
@@ -40,3 +41,5 @@ MonoBehaviour:
   levelUpDmgBuff: 3
   levelUpRangeBuff: 0.5
   levelUpCooldownBuff: 0
+  levelUpSpeedBuff: 0
+  cooldownElapsedTime: 0

@@ -60,7 +60,7 @@ public class BasicProjectile : MonoBehaviour
             }
             Instantiate(explo, other.transform.position, Quaternion.identity);
         }
-        if (other.CompareTag("enemy"))
+        if (other.CompareTag("enemy") || other.CompareTag("PlayerOnlyEnemy"))
         {
             enemyStats eEnemy = other.GetComponent<enemyStats>();
             if (eEnemy != null)

@@ -19,7 +19,7 @@ MonoBehaviour:
   tier: 3
   hasRightClick: 0
   hasCharge: 1
-  price: 400
+  price: 750
   useCount: 0
   levelInc: 10
   weaponClass: 1
