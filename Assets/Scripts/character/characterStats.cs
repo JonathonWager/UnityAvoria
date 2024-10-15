@@ -26,15 +26,29 @@ public class characterStats : MonoBehaviour
 
     public int totalScore = 0;
     public int totalWave = 0;
+    public bool isInvincable = false;
   private SpriteRenderer spriteRenderer;
     public void takeDamage(decimal damage)
     {
-        animator.SetBool("isWalking", false);
-        animator.SetBool("isAttacking", false);
-        animator.SetBool("isDamaged", true);
-        animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, 0, 0f);
-        // Apply damage after considering defense
-        hp = hp - (int)(damage);
+        if(!isInvincable){
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isDamaged", true);
+            animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, 0, 0f);
+            // Apply damage after considering defense
+            hp = hp - (int)(damage);
+        }
+    }
+    public void Teleport(){
+        isInvincable = true;
+        spriteRenderer.enabled = false;
+      
+    }
+     public void StopTeleport(){
+        isInvincable = false;
+        spriteRenderer.enabled = true;
+       
+
     }
     void stopDamage(){
         animator.SetBool("isDamaged", false);

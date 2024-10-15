@@ -11,45 +11,43 @@ public class TeleportTarget : MonoBehaviour
 
     public List<string> ignoredTags = new List<string> { "Enemy", "Shop" };
     GameObject player;
+    LineRenderer lr;
+    public float range;
+    Vector2 direction;
+     float distance;
     // Start is called before the first frame update
     void Start()
     {
         childLight = GetComponentInChildren<Light2D>();
         player = GameObject.FindGameObjectWithTag("character");
+        lr = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void LateUpdate()
-    {
-        
+    {  
         Vector3 cursorWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         cursorWorldPosition.z = 0;
-        transform.position = cursorWorldPosition;
 
-                
-
-        int walkableAreaMask = 1 << UnityEngine.AI.NavMesh.GetAreaFromName("Walkable"); // Default walkable area mask
-        if (UnityEngine.AI.NavMesh.SamplePosition(this.transform.position, out UnityEngine.AI.NavMeshHit hit, maxDistance, walkableAreaMask))
-        {
-            CheckRaycast();
-            if(isValid){
-                childLight.color = Color.cyan;
-            }else{
-                childLight.color = Color.red;
-            }
-        
-        }else{
-        isValid = false;
-        childLight.color = Color.red;
-    }
-    }
-    void CheckRaycast()
-    {
-        // Calculate the direction from the player to the cursor (target)
-        Vector2 direction = (transform.position - player.transform.position).normalized;
+           // Calculate the direction from the player to the cursor (target)
+        direction = (cursorWorldPosition - player.transform.position).normalized;
 
         // Calculate the distance to the target (cursor)
-        float distance = Vector2.Distance(player.transform.position, transform.position);
+        distance = Vector2.Distance(player.transform.position, cursorWorldPosition);
+
+
+        
+        CheckRaycastDrawLine();
+        if(isValid){
+            childLight.color = Color.cyan;
+        }else{
+            childLight.color = Color.red;
+        }
+    }
+
+    void CheckRaycastDrawLine()
+    {
+     
 
         // Perform the raycast from the player's position to the target's position and get all hits
         RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, direction, distance);
@@ -78,6 +76,21 @@ public class TeleportTarget : MonoBehaviour
 
         // Draw the ray for debugging
         Debug.DrawRay(player.transform.position, direction * distance, Color.red);
+
+        //Line Renderer
+         Vector2 endPosition;
+        if(distance > range){
+            endPosition = (Vector2)player.transform.position + (direction * range);
+        }else{
+            endPosition = (Vector2)player.transform.position + (direction * distance);
+        }
+      
+        transform.position = endPosition;
+        // Set the LineRenderer positions
+        lr.positionCount = 2; // We need two points for a line
+        lr.SetPosition(0, player.transform.position); // Start point
+        lr.SetPosition(1, endPosition);   // End point
+
     }
 
 

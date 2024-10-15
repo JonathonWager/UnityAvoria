@@ -15,7 +15,17 @@ MonoBehaviour:
   abilityName: Warp Teleport
   description: 
   icon: {fileID: -1126150063, guid: 985d42a2b6a3bf14f9c443829443c88a, type: 3}
-  cooldown: 0
-  level: 0
-  baseCooldown: 5
+  cooldown: 7
+  level: 1
+  baseRange: 4
+  baseSpeed: 7
+  baseCooldown: 7
+  rangeIncrease: 1
+  speedIncrease: 0.5
+  cooldownDecrease: 0.25
+  levelCount: 5
+  useCount: 2
+  baseLevelCount: 5
+  targetResetTimer: 5
   targetCursor: {fileID: 5887834606505407996, guid: a1cf3e1347d8b704c9bffa79bc50adb6, type: 3}
+  cameraTransform: {fileID: 0}

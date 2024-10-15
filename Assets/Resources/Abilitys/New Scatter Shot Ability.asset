@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f7ebb21e05f32b4289c12bdbeb67b61, type: 3}
+  m_Name: New Scatter Shot Ability
+  m_EditorClassIdentifier: 
+  abilityName: Scatter Shot
+  description: 
+  icon: {fileID: 1244550182, guid: 956fb1be30a4a444da6e1f479cc4d10f, type: 3}
+  cooldown: 13
+  level: 1
+  baseShotCount: 1
+  baseShotSpeed: 7
+  baseCooldownTimer: 13
+  baseDamage: 10
+  baseCollateralCount: 2
+  shotCountIncrease: 1
+  shotSpeedIncrease: 1
+  cooldownDecrease: 1
+  collateralIncrease: 1
+  damageIncrease: 5
+  useCount: 3
+  baseLevelCount: 5
+  levelCount: 5
+  scatterShot: {fileID: 3994225960371748358, guid: 9b7ffc64eb9a4944c8994967d64daab5, type: 3}
