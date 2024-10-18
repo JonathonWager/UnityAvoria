@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a964148a5a924248a159f6b9c1bd08f, type: 3}
+  m_Name: TeslaGun
+  m_EditorClassIdentifier: 
+  name: Tesla Gun
+  description: 
+  icon: {fileID: 1598126559, guid: 956fb1be30a4a444da6e1f479cc4d10f, type: 3}
+  level: 1
+  tier: 2
+  hasRightClick: 0
+  hasCharge: 0
+  price: 800
+  useCount: 5
+  levelInc: 10
+  weaponClass: 1
+  baseFireRate: 1.8
+  baseDamage: 15
+  baseSpeed: 6
+  baseLevelInc: 10
+  baseMinJumps: 0
+  baseMaxJumps: 3
+  baseJumpOddsDivisor: 0.3
+  baseJumpOdds: 0.8
+  playerDamageBuff: 0
+  playerRangeBuff: 0
+  fireRate: 1.8
+  projectilePrefabName: TeslaBullet
+  canFire: 1
+  cooldownElapsedTime: 1.8041046
+  safteyDestoryTime: 0
+  damage: 15
+  speed: 6
+  knockBack: 2
+  levelUpDmgBuff: 4
+  levelUpCooldownBuff: 0.1
+  levelUpSpeedBuff: 0.25
+  levelUpJumpOddsDivisor: 0.1
+  jumpOddsIncrease: 0.1

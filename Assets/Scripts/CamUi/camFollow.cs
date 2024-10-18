@@ -5,7 +5,7 @@ using UnityEngine;
 public class camFollow : MonoBehaviour
 {
     public GameObject player;
-    public bool pauseMovement = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +16,9 @@ public class camFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!pauseMovement){
-            Debug.Log("shoulf be moving");
-            transform.position = new Vector3(Mathf.Round(player.transform.position.x * 1000) / 1000f,Mathf.Round(player.transform.position.y * 1000) / 1000f ,0f) + new Vector3(0,0.001f,-10f);
-        }
+
+        transform.position = new Vector3(Mathf.Round(player.transform.position.x * 1000) / 1000f,Mathf.Round(player.transform.position.y * 1000) / 1000f ,0f) + new Vector3(0,0.001f,-10f);
+        
     }
 
     

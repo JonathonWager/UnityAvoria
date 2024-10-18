@@ -15,7 +15,7 @@ public class brimonnolly : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
-    private bool isFacingRight = true; // Track which direction the enemy is facing
+  
 
     void Start()
     {
@@ -24,11 +24,12 @@ public class brimonnolly : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("character");
         navMeshAgent = GetComponent<NavMeshAgent>();
 
-        range = Random.Range((range - 0.5f) , (range + 0.5f));
+        range = Random.Range(range - 1f , range + 1f);
         // Set the speed of the NavMeshAgent to match the original speed
-        navMeshAgent.speed = Random.Range((speed - 0.5f) , (speed + 0.5f));
+        navMeshAgent.speed = Random.Range(speed - 1f , speed + 1f);
 
-        attackTime = Random.Range(attackTime - 0.5f, attackTime + 0.5f);
+        attackTime = Random.Range(attackTime - 1f, attackTime + 1f);
+        minDistance = Random.Range(minDistance - 1f, minDistance + 1f);
 
         // Ensure NavMeshAgent only updates x and y axis in 2D
         navMeshAgent.updateRotation = false;

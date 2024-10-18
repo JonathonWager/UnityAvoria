@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8f15a046cb41140907bc3229625e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 40
+  hp: 100
   maxHPDontSet: 0
   dmgBuff: 0
   minGold: 20
@@ -216,6 +216,7 @@ MonoBehaviour:
   allDrops: []
   dropOdds: 0
   gold: {fileID: 0}
+  canFlip: 1
 --- !u!61 &5407503102269980797
 BoxCollider2D:
   m_ObjectHideFlags: 0

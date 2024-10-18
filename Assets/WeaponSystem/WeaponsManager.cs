@@ -119,6 +119,10 @@ namespace WeaponsSystem
                 percentCooldown = basicRangedWeapon.cooldownElapsedTime / basicRangedWeapon.fireRate;
                 canAttack = basicRangedWeapon.canFire;
             }
+            if(currentWeapon is TeslaRange basicTeslaRange){
+                percentCooldown = basicTeslaRange.cooldownElapsedTime / basicTeslaRange.fireRate;
+                canAttack = basicTeslaRange.canFire;
+            }
             if(!canAttack){          
                 if (percentCooldown >= 1)
                 {

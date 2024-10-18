@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1053717895443370267}
   - component: {fileID: -1810589935219799123}
   - component: {fileID: 2728656001319513125}
+  - component: {fileID: 1211277314138904189}
   m_Layer: 0
   m_Name: Legendary Girxer
   m_TagString: PlayerOnlyEnemy
@@ -156,6 +157,7 @@ MonoBehaviour:
   allDrops: []
   dropOdds: 0
   gold: {fileID: 0}
+  canFlip: 1
 --- !u!70 &4240801738388656141
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -265,6 +267,18 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: -0.016397625, y: 0.2051593, z: 0}
     m_Extent: {x: 0.17075619, y: 0.10496056, z: 0}
+--- !u!114 &1211277314138904189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2919460103788815041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6292d6a4833d1e469828b255c437943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6199303270640211154
 GameObject:
   m_ObjectHideFlags: 0

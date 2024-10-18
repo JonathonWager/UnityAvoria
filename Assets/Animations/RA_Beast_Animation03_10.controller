@@ -174,7 +174,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TowerHurt
-  m_Speed: 4
+  m_Speed: 20
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8207583513484628346}

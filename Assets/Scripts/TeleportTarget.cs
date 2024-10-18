@@ -9,7 +9,7 @@ public class TeleportTarget : MonoBehaviour
 
     Light2D childLight;
 
-    public List<string> ignoredTags = new List<string> { "Enemy", "Shop" };
+    public List<string> tags = new List<string> { "wall" };
     GameObject player;
     LineRenderer lr;
     public float range;
@@ -59,19 +59,13 @@ public class TeleportTarget : MonoBehaviour
         foreach (RaycastHit2D hit in hits)
         {
             // If the hit collider has an ignored tag, skip it
-            if (IsIgnoredTag(hit.collider.tag))
-            {
-                Debug.Log("Hit an ignored object: " + hit.collider.name);
-                continue;
-            }
-
-            // If the hit collider is a valid obstacle (non-ignored), mark path as blocked
-            if (hit.collider != null)
+            if (IsTag(hit.collider.tag))
             {
                 Debug.Log("Hit something: " + hit.collider.name);
                 isValid = false;
                 break;
-            }
+           }
+
         }
 
         // Draw the ray for debugging
@@ -94,9 +88,9 @@ public class TeleportTarget : MonoBehaviour
     }
 
 
-        private bool IsIgnoredTag(string tag)
+        private bool IsTag(string tag)
     {
-        return ignoredTags.Contains(tag);
+        return tags.Contains(tag);
     }
   
 

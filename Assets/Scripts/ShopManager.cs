@@ -7,7 +7,7 @@ public class ShopManager : MonoBehaviour
     public int shopCount = 3;
     public List<Vector3> vector3List; 
     public GameObject shopMan;
-    private List<int> shopList = new List<int>();
+    List<GameObject> activeShops = new List<GameObject>();
     // Start is called before the first frame update
     int CalculateTeir(int shopNumber){
         int wave = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>().wave;
@@ -53,26 +53,19 @@ public class ShopManager : MonoBehaviour
            
             GameObject shop = Instantiate(shopMan, spawnPosition, Quaternion.identity);
             shop.GetComponent<ShopV2>().setStart(CalculateTeir(possibleLocations[rand]),3);
-             possibleLocations.Remove(rand);
+            activeShops.Add(shop);
+            possibleLocations.RemoveAt(rand);
         
         }
     }
     public void DeleteShops(){
-        GameObject[] shops = GameObject.FindGameObjectsWithTag("shop");
-        for(int i = 0; i < shops.Length; i++){
-            Destroy(shops[i]);
+        for(int i = 0; i < activeShops.Count; i++){
+            Destroy(activeShops[i]);
         }
-        shopList = new List<int>();
         UpdateShops();
     }
     void Start()
     {
         UpdateShops();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

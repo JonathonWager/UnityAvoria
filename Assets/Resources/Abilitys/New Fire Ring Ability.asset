@@ -15,7 +15,7 @@ MonoBehaviour:
   abilityName: Fire Ring
   description: 
   icon: {fileID: 21300000, guid: 7e9018ee89fbca444869e46801bc4e0f, type: 2}
-  cooldown: 8
+  cooldown: 10
   level: 1
   playerDamageBuffBase: 2
   enemyDamageTimeIntervalBase: 2

@@ -87,6 +87,7 @@ namespace AbilitySystem
                 shotSpeed += shotSpeedIncrease;
                 cooldown -= cooldownDecrease;
                 damage += damageIncrease;
+                collateralCount += collateralIncrease;
             }
         }
     }

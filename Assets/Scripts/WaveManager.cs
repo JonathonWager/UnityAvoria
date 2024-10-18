@@ -1,5 +1,6 @@
-using System.Collections;
+          using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -223,7 +224,7 @@ public class WaveManager : MonoBehaviour
                         spawnCount++;
                         break;
                     }else{
-                        if( enemyRatios[i + 1] != null){
+                        if(i + 1 < enemyRatios.Length){
                             counter -= enemyRatios[i + 1];
                         }
                         

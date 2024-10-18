@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1964804645097514608}
   - component: {fileID: 5220820938214843764}
   - component: {fileID: 1750713385510410524}
+  - component: {fileID: -2320780318061868715}
   m_Layer: 0
   m_Name: Legendary Charger
   m_TagString: PlayerOnlyEnemy
@@ -126,7 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitTime: 1.5
   attackTime: 3
-  playerPos: {fileID: 0}
   shootingSpeed: 20
   damage: 30
   gotTarget: 0
@@ -180,6 +180,7 @@ MonoBehaviour:
   allDrops: []
   dropOdds: 0
   gold: {fileID: 0}
+  canFlip: 1
 --- !u!70 &5220820938214843764
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -247,6 +248,20 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0.0015824735, y: -0.29750037, z: 0}
     m_Extent: {x: 0.12495926, y: 0.14242053, z: 0}
+--- !u!114 &-2320780318061868715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297903852853768703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6292d6a4833d1e469828b255c437943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHpPlayerHpMultiplier: 4
+  enemyDamageWaveMultiplier: 2
 --- !u!1 &7338597470381462249
 GameObject:
   m_ObjectHideFlags: 0

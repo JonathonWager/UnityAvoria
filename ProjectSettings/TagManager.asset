@@ -28,6 +28,8 @@ TagManager:
   - BeastManager
   - MiniBossSpawner
   - PlayerOnlyEnemy
+  - BuildSelection
+  - AbilityManager
   layers:
   - Default
   - TransparentFX

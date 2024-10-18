@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5820765377227258325}
   - component: {fileID: 3954398868439757469}
   - component: {fileID: 7713789498971820461}
+  - component: {fileID: -2840836965847472704}
   m_Layer: 0
   m_Name: Legendary Brimonolly
   m_TagString: PlayerOnlyEnemy
@@ -175,6 +176,7 @@ MonoBehaviour:
   allDrops: []
   dropOdds: 15
   gold: {fileID: 0}
+  canFlip: 1
 --- !u!70 &5820765377227258325
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -270,6 +272,20 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: -0.0063298047, y: 0.040766478, z: 0}
     m_Extent: {x: 0.12343112, y: 0.10798383, z: 0}
+--- !u!114 &-2840836965847472704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251182788093081057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6292d6a4833d1e469828b255c437943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHpPlayerHpMultiplier: 4
+  enemyDamageWaveMultiplier: 2
 --- !u!1 &5274848015176773944
 GameObject:
   m_ObjectHideFlags: 0

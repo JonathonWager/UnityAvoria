@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a964148a5a924248a159f6b9c1bd08f, type: 3}
+  m_Name: Advanced Tesla Gun
+  m_EditorClassIdentifier: 
+  name: Avd Tesla Gun
+  description: 
+  icon: {fileID: -314654609, guid: 956fb1be30a4a444da6e1f479cc4d10f, type: 3}
+  level: 1
+  tier: 3
+  hasRightClick: 0
+  hasCharge: 0
+  price: 1500
+  useCount: 0
+  levelInc: 10
+  weaponClass: 1
+  baseFireRate: 1.5
+  baseDamage: 27
+  baseSpeed: 8
+  baseLevelInc: 10
+  baseMinJumps: 1
+  baseMaxJumps: 4
+  baseJumpOddsDivisor: 0.5
+  baseJumpOdds: 1
+  playerDamageBuff: 0
+  playerRangeBuff: 0
+  fireRate: 1.5
+  projectilePrefabName: TeslaBullet
+  canFire: 1
+  cooldownElapsedTime: 0
+  safteyDestoryTime: 0
+  damage: 27
+  speed: 8
+  knockBack: 4
+  levelUpDmgBuff: 6
+  levelUpCooldownBuff: 0.15
+  levelUpSpeedBuff: 0.25
+  levelUpJumpOddsDivisor: 0.15
+  jumpOddsIncrease: 0.15
